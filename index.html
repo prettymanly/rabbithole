@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<title>C-Levels by rabbithole — pilot cohort, Term 3 2026</title>
-<meta name="description" content="A 1–2 day AI literacy programme for Singapore students aged 12–15. Built by ex-GovTech, Grab, MOE EdTech, and SIT practitioners. Looking for two Singapore schools to run pilot cohorts in Term 3 2026." />
+<title>C-Levels by rabbithole</title>
+<meta name="description" content="Two pilot programmes for Singapore students aged 12–15. C-Levels train the thinking AI can't do for them. Two pilot schools. This year. No programme fee." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -22,7 +23,6 @@
           'green-neon': '#8BC200',
           'yellow': '#FFE815',
           'pink': '#FF30B3',
-          'magenta': '#FF75F6',
           'gray-med': '#ABABAB',
           'gray-light': '#E0E0E0',
           'off-white': '#FAFAFA',
@@ -38,38 +38,15 @@
           'big':  ['clamp(32px, 5vw, 64px)',  { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
           'lead': ['clamp(20px, 2.4vw, 30px)', { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '600' }],
         },
-        spacing: {
-          'major': '60px',
-        },
       }
     }
   };
 </script>
 
-<style>
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  .vertical-text { writing-mode: vertical-rl; }
-  .text-stroke { -webkit-text-stroke: 1.5px currentColor; color: transparent; }
-  .pulse-down { animation: pulse-down 2s ease-in-out infinite; }
-  @keyframes pulse-down {
-    0%, 100% { transform: translateY(0); opacity: 1; }
-    50% { transform: translateY(8px); opacity: 0.35; }
-  }
-  .blink-dot { animation: blink 1.6s ease-in-out infinite; }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-  ::selection { background: #FF6200; color: #fff; }
-  .material-symbols-outlined { font-family: 'Material Symbols Outlined'; font-variation-settings: 'wght' 400; }
-  .frag-rotate-1 { transform: rotate(-4deg); }
-  .frag-rotate-2 { transform: rotate(3deg); }
-  .frag-rotate-3 { transform: rotate(-2deg); }
-  .frag-rotate-4 { transform: rotate(5deg); }
-  .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-</style>
-
-<!-- POSTHOG ANALYTICS — replace POSTHOG_API_KEY_HERE before deploy -->
+<!-- POSTHOG -->
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-  posthog.init('POSTHOG_API_KEY_HERE', { api_host: 'https://app.posthog.com', capture_pageview: true, register: { page_version: 'v2' } });
+  posthog.init('POSTHOG_API_KEY_HERE', { api_host: 'https://app.posthog.com', capture_pageview: true, register: { page: 'hub' } });
 </script>
 </head>
 
@@ -78,577 +55,213 @@
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
   <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
-    <a href="#top" class="flex items-center gap-3">
+    <a href="/" class="flex items-center">
       <div class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">
         C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span>
       </div>
-      <span class="hidden sm:inline-block bg-orange text-white text-[9px] font-inter font-semibold tracking-[0.18em] uppercase px-2 py-1 rounded-sm">v0.1 · pilot</span>
     </a>
     <nav class="hidden md:flex items-center gap-6">
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#how">How it works</a>
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#schools">For schools</a>
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#faq">FAQ</a>
-      <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#enquire">Talk to us</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/why">Why</a>
+      <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#talk">Talk to us</a>
     </nav>
-    <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#enquire">Talk</a>
+    <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#talk">Talk</a>
   </div>
 </header>
 
 <!-- Vertical edge text -->
 <div class="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:block pointer-events-none">
-  <span class="vertical-text text-[10px] font-extrabold uppercase tracking-[0.5em] text-gray-med/50">Pilot cohort · Term 3 2026 · 2 schools wanted</span>
+  <span class="vertical-text text-[10px] font-extrabold uppercase tracking-[0.5em] text-gray-med/40">two programmes · two pilot schools · this year</span>
 </div>
 
-<main class="max-w-[1440px] mx-auto overflow-hidden" id="top">
+<main class="max-w-[1440px] mx-auto overflow-hidden">
 
-<!-- ============ 1. HERO ============ -->
-<section class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-24 pb-32 bg-white">
+<!-- ============ §1 HERO ============ -->
+<section class="relative min-h-[88vh] flex flex-col justify-center px-6 md:px-12 pt-28 pb-20 bg-white">
   <div class="relative z-10 max-w-5xl">
-    <!-- Pilot pill -->
-    <div class="inline-flex items-center gap-2.5 bg-black text-white px-4 py-2 rounded-full mb-10">
-      <span class="w-2 h-2 bg-orange rounded-full blink-dot"></span>
-      <span class="font-inter text-[10px] font-bold tracking-[0.18em] uppercase">Pilot cohort · Term 3 2026 · 2 schools wanted</span>
-    </div>
-
     <h1 class="font-outfit text-mega leading-[0.9] tracking-tighter mb-12">
-      When AI is instant,<br/>
-      <span class="text-stroke">thinking is not.</span>
+      O-Levels test knowledge.<br/>
+      A-Levels test analysis.<br/>
+      <span class="text-stroke">C-Levels</span> train the thinking<br/>
+      AI can't do for them.
     </h1>
 
-    <!-- Floating fragments -->
-    <div class="absolute top-0 right-0 w-1/3 hidden lg:block opacity-50 pointer-events-none">
-      <div class="border border-black p-3 text-[10px] font-bold uppercase tracking-widest absolute top-12 right-16 frag-rotate-1 bg-white">? what AI cannot do</div>
-      <div class="bg-blue text-white px-2.5 py-1 text-[9px] font-bold tracking-[0.2em] uppercase absolute top-44 right-2 frag-rotate-2">#PILOT_2026</div>
-      <div class="font-outfit text-3xl font-light italic text-orange absolute top-72 right-32 frag-rotate-3">A pursuit ↓</div>
-      <div class="border-2 border-black w-24 h-32 absolute top-4 right-44 frag-rotate-4 bg-yellow"></div>
-    </div>
-
-    <div class="flex items-start gap-5 max-w-2xl mb-8">
-      <div class="w-12 h-[2px] bg-black mt-3 shrink-0"></div>
-      <p class="font-display text-base md:text-lg leading-relaxed">
-        A <strong>1 or 2-day AI literacy programme</strong> for Singapore students aged 12 to 15. Built and run by <strong class="text-blue">ex-GovTech, Grab, MOE EdTech, and SIT</strong> practitioners.
-      </p>
-    </div>
-
-    <p class="font-outfit italic text-lg md:text-xl text-black/75 leading-snug max-w-2xl mb-10 pl-5 border-l-2 border-orange">
-      After a C-Level, a student should be able to explain what they know without hiding behind the screen. Two pilot schools this year should help us find out whether we have built something that does that.
+    <p class="font-display text-lg md:text-xl text-black/75 max-w-2xl mb-10">
+      Two programmes for Singapore students aged 12–15.<br/>
+      Two pilot schools. This year.
     </p>
 
-    <div class="flex flex-col sm:flex-row gap-4 mb-12">
-      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="#enquire">Book a 20-minute call</a>
-      <a id="cta-hero-format" class="border-2 border-black text-black font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-black hover:text-white transition text-center" href="#schools">See the pilot offer</a>
+    <div class="flex flex-col sm:flex-row gap-4 mb-10">
+      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-hero-wa" class="border-2 border-black text-black font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-black hover:text-white transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20site%20and%20would%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener">WhatsApp</a>
     </div>
 
-    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 font-inter text-[10px] tracking-[0.22em] uppercase text-gray-500">
+    <a href="#programmes" class="inline-block font-inter text-[11px] uppercase tracking-[0.2em] text-black/60 hover:text-black mb-10">Or read about both programmes ↓</a>
+
+    <p class="flex flex-wrap items-center gap-x-4 gap-y-1 font-inter text-[10px] tracking-[0.22em] uppercase text-gray-500">
       <span class="font-semibold text-black">Built with practice from</span>
       <span>·</span>
       <span>GovTech</span><span>·</span>
       <span>Grab</span><span>·</span>
       <span>MOE EdTech</span><span>·</span>
       <span>Singapore Institute of Technology</span>
-    </div>
-  </div>
-
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-black/50">
-    <span class="font-inter text-[10px] uppercase tracking-[0.3em] mb-1">Scroll · the honest version is below</span>
-    <span class="material-symbols-outlined pulse-down text-orange text-3xl">expand_more</span>
-  </div>
-</section>
-
-<!-- ============ 2. HONESTY BLOCK ============ -->
-<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light">
-  <div class="max-w-3xl">
-    <div class="inline-block bg-yellow text-black px-3 py-1 mb-6">
-      <span class="font-inter text-[10px] font-bold tracking-[0.2em] uppercase">Upfront</span>
-    </div>
-    <h2 class="font-outfit text-big mb-10">
-      No alumni yet.<br/>
-      No photos yet.<br/>
-      <span class="text-orange">This is our first run.</span>
-    </h2>
-    <p class="font-outfit italic text-xl md:text-2xl leading-snug mb-6">
-      We have not run a paid C-Level cohort. The version of this page that has student artefacts on it, parent quotes, school logos, and a count of how many students have come through, that page does not exist yet. We could write it as if it did. We would rather not.
-    </p>
-    <p class="font-display text-base md:text-lg leading-relaxed text-black/82 mb-5">
-      We are going into Term 3 2026 looking for two Singapore schools willing to run the first pilot cohorts with us, at no programme fee. In return, we co-document the result, photograph every C-Level Board, and write up what worked and what did not. Both schools keep the deliverables and the right to use them publicly.
-    </p>
-    <p class="font-display text-base md:text-lg leading-relaxed text-black/82">
-      This page is the hypothesis. The next version of this page should be the data.
     </p>
   </div>
 </section>
 
-<!-- ============ 2.5 MANIFESTO ============ -->
-<section class="px-6 md:px-12 py-major bg-white">
-  <div class="max-w-3xl">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-6">What we are betting on</p>
-    <h2 class="font-outfit text-big leading-[1.04] tracking-tight mb-12">
-      Execution is now frictionless.<br/>
-      <span class="text-stroke">Judgement is what's scarce.</span>
+<!-- ============ §2 THE TWO C-LEVELS ============ -->
+<section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light" id="programmes">
+  <div class="max-w-6xl mx-auto">
+    <span class="section-label">TWO C-LEVELS · PICK YOUR FIT</span>
+    <h2 class="font-outfit text-big mb-14 leading-tight">
+      One starts from an obsession.<br/>
+      One starts from a problem.<br/>
+      <span class="text-orange">Both end with a student who can teach it back.</span>
     </h2>
 
-    <div class="space-y-6 font-display text-base md:text-lg leading-relaxed text-black/82 max-w-2xl">
-      <p>A year ago, shipping a working web app might have taken a team several months. Today, a single person with Claude or Cursor can draft one in a weekend. The same collapse is happening across design, video, music, research, and writing. The trajectory is still accelerating.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Curiosity card -->
+      <a href="/curiosity" class="group block border-2 border-black bg-white p-8 hover:bg-black hover:text-white transition-all duration-300">
+        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-black/60 group-hover:text-white/60 mb-2">C-Level:</p>
+        <h3 class="font-outfit text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight">Curiosity</h3>
+        <p class="font-display text-lg font-semibold mb-6 leading-snug">Turn one obsession into a learning pursuit they own.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80 mb-6">For students who keep coming back to one thing — a game, a song, a question — but haven't been taught to follow it properly.</p>
+        <ul class="space-y-1.5 font-display text-sm mb-6">
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Pick the obsession</li>
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Investigate with AI + sources</li>
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Build a C-Level Board, teach it</li>
+        </ul>
+        <div class="flex items-center justify-between">
+          <span class="method-badge">Method: 4Cs</span>
+          <span class="font-inter text-xs font-bold uppercase tracking-[0.15em] group-hover:underline">Read more →</span>
+        </div>
+      </a>
 
-      <p>So the old question holds. Not what can we build, but what should we build.</p>
-
-      <p>As execution becomes frictionless, the scarce skill is increasingly judgement. The capacity to notice what matters before building anything. The rigour to ask what something costs, and who bears that cost. Underneath both, the instinct that insists a particular thing needs to exist.</p>
-
-      <p>These are often called soft skills, though they may be the hardest ones to develop in a moment when the tools keep getting easier. They are also, we think, the skills a school curriculum now needs to centre.</p>
-    </div>
-
-    <blockquote class="my-12 pl-6 border-l-4 border-orange max-w-3xl">
-      <p class="font-outfit italic text-2xl md:text-3xl leading-snug font-semibold text-black">"Not what can we build. <span class="text-orange">What should we build.</span>"</p>
-    </blockquote>
-
-    <div class="space-y-6 font-display text-base md:text-lg leading-relaxed text-black/82 max-w-2xl">
-      <p>Your students are entering an AI-exposed economy carrying a script that worked for their parents. Do well on the tests. Take the reliable path. The system will hold you. That story is beginning to loosen, and the reliable paths are being reshaped faster than any curriculum can track.</p>
-
-      <p>The need to know what you are for will not change. To notice what only you, from where you stand, can see.</p>
-
-      <p class="font-outfit italic text-lg md:text-xl text-black font-medium">C-Levels is the small, deliberate version of that, for schools.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 3. THE BET ============ -->
-<section class="px-6 md:px-12 py-major bg-off-white border-t border-gray-light">
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14">
-    <div>
-      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">The bet</p>
-      <h2 class="font-outfit text-huge leading-[0.95] tracking-tighter">Five things the pilot<br/>should <span class="text-stroke">prove, or quietly retire.</span></h2>
-    </div>
-    <p class="font-outfit text-sm uppercase font-bold tracking-[0.18em] text-gray-med max-w-xs md:text-right">If the pilot doesn't deliver on these, the format isn't ready for paying schools.</p>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-    <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
-      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-orange">01</span>
-      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">Curiosity is teachable.</h3>
-      <p class="font-display text-sm leading-relaxed opacity-80">Every student, including the disengaged ones, leaves with a question they want to keep working on.</p>
-    </div>
-    <div class="border-2 border-black p-7 bg-blue text-white">
-      <span class="block font-outfit text-5xl font-extrabold mb-6 text-white/40">02</span>
-      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">AI use becomes legible.</h3>
-      <p class="font-display text-sm leading-relaxed opacity-90">A teacher walking past a student's screen can tell what is the student's thinking and what is the model's.</p>
-    </div>
-    <div class="border-2 border-black p-7 hover:bg-orange hover:text-white transition-colors duration-300 group">
-      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-white">03</span>
-      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">The artefact earns wall space.</h3>
-      <p class="font-display text-sm leading-relaxed opacity-80">The C-Level Board belongs on a wall, not in a folder.</p>
-    </div>
-    <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
-      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-yellow">04</span>
-      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">Two days is enough.</h3>
-      <p class="font-display text-sm leading-relaxed opacity-80">The format fits inside a real Singapore school timetable without breaking it.</p>
-    </div>
-    <div class="border-2 border-black p-7 hover:bg-pink hover:text-white transition-colors duration-300 group">
-      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-white">05</span>
-      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">The teacher learns too.</h3>
-      <p class="font-display text-sm leading-relaxed opacity-80">The facilitator debrief is genuinely useful for classroom integration.</p>
+      <!-- Design card -->
+      <a href="/design" class="group block border-2 border-black bg-white p-8 hover:bg-black hover:text-white transition-all duration-300">
+        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-black/60 group-hover:text-white/60 mb-2">C-Level:</p>
+        <h3 class="font-outfit text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight">Design</h3>
+        <p class="font-display text-lg font-semibold mb-6 leading-snug">Turn one problem they keep noticing into a working prototype.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80 mb-6">For students who fixate on what's broken or could be better, and want to build, not just complain.</p>
+        <ul class="space-y-1.5 font-display text-sm mb-6">
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Discover the problem</li>
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Define and prototype with AI</li>
+          <li class="flex items-start"><span class="text-orange font-bold mr-2">↓</span>Deliver a working solution</li>
+        </ul>
+        <div class="flex items-center justify-between">
+          <span class="method-badge">Method: 4Ds</span>
+          <span class="font-inter text-xs font-bold uppercase tracking-[0.15em] group-hover:underline">Read more →</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ 4. THE NAME ============ -->
-<section class="bg-black text-white px-6 md:px-12 py-major">
+<!-- ============ §3 RUN BY ============ -->
+<section class="px-6 md:px-12 py-20 bg-white">
+  <div class="max-w-3xl">
+    <span class="section-label">RUN BY</span>
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-4">
+      <strong class="text-black">rabbithole</strong> — a learning studio working on student curiosity and self-directed inquiry. Both C-Level programmes are co-facilitated by <strong class="text-black">Ziff Lau</strong> and <strong class="text-black">Jia Liang</strong>.
+    </p>
+    <p class="font-inter text-[11px] tracking-[0.22em] uppercase text-gray-500 italic">
+      Practice from GovTech · Grab · MOE EdTech · Singapore Institute of Technology · Hyper Island
+    </p>
+  </div>
+</section>
+
+<!-- ============ §4 THE PILOT ============ -->
+<section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light">
+  <div class="max-w-3xl">
+    <span class="section-label">THE PILOT</span>
+    <p class="font-outfit text-2xl md:text-3xl font-extrabold mb-6 leading-snug">Two Singapore schools, this year. No programme fee.</p>
+    <p class="font-display text-lg leading-relaxed text-black/82 mb-6">
+      We haven't run a paid cohort yet. The two pilot schools keep the artefacts and the right to use them publicly. We co-document the run and write up what worked. Each school picks a programme — Curiosity or Design.
+    </p>
+    <p class="font-display italic text-base text-black/65 leading-relaxed">
+      Also adaptable for private schools, NLB, and similar institutions that want a smaller version. Talk to us about format.
+    </p>
+  </div>
+</section>
+
+<!-- ============ §5 WHY-TEASE ============ -->
+<section class="px-6 md:px-12 py-20 bg-white">
+  <div class="max-w-3xl">
+    <span class="section-label">WHY WE'RE BUILDING THIS</span>
+    <p class="font-outfit text-3xl md:text-5xl font-extrabold leading-[1.05] mb-8">
+      Not what can we build.<br/>
+      What should we build.
+    </p>
+    <a href="/why" class="font-inter text-sm font-bold uppercase tracking-[0.18em] text-blue hover:underline">Read the longer thinking →</a>
+  </div>
+</section>
+
+<!-- ============ §6 FINAL CTA (dark inverse) ============ -->
+<section class="bg-black text-white px-6 md:px-12 py-24" id="talk">
   <div class="max-w-4xl mx-auto">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-6">The name</p>
-    <h3 class="font-outfit text-big mb-8">
-      C-Level <span class="text-gray-med font-light text-3xl md:text-5xl">/ˈsiːˌlɛvəl/</span> <span class="text-gray-med text-2xl font-light italic">noun</span>
-    </h3>
-    <p class="font-outfit text-2xl md:text-4xl font-bold leading-snug mb-10">
-      O-Levels and A-Levels are qualifications.<br/>
-      <span class="text-orange">C-Levels</span> is the qualification AI will not do for your students.
+    <span class="section-label section-label--orange">TALK TO US</span>
+    <p class="font-outfit italic text-2xl md:text-3xl font-light text-white/90 mb-12 max-w-2xl leading-snug">
+      Twenty minutes is usually enough to know if there's a fit.
     </p>
-    <div class="border-t border-white/15 pt-8">
-      <p class="font-outfit italic text-xl md:text-2xl text-yellow leading-snug">"The C is for curiosity. We made one for the qualification AI cannot earn for them."</p>
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <a id="cta-final" class="bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-final-wa" class="border-2 border-white text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-white hover:text-black transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20site%20and%20would%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener">WhatsApp</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ 5. THE 4Cs ============ -->
-<section class="px-6 md:px-12 py-major bg-white" id="how">
-  <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-    <div>
-      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">How it works</p>
-      <h2 class="font-outfit text-huge leading-[0.85] tracking-tighter">The 4Cs.</h2>
-    </div>
-    <div class="text-left md:text-right max-w-xs pb-2">
-      <p class="font-inter text-[11px] uppercase font-bold tracking-[0.2em] text-gray-med">Curiosity becomes learning when it has a path. The whole loop runs in 1 to 2 days.</p>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    <!-- 01 Curiosity -->
-    <div class="group border-2 border-black p-7 hover:bg-black hover:text-white transition-all duration-500">
-      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-orange">01</span>
-      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Curiosity</h4>
-      <p class="font-outfit italic text-sm mb-5 group-hover:text-orange">What keeps pulling you back?</p>
-      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Find the real question inside the obsession. Not "what do you like" but "what do you not yet understand about the thing you cannot stop watching?"</p>
-      <div class="flex flex-wrap gap-1.5 mt-6">
-        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Football</span>
-        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">K-pop</span>
-        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Manga</span>
-        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Gaming</span>
-      </div>
-    </div>
-
-    <!-- 02 Clarity -->
-    <div class="border-2 border-black p-7 bg-blue text-white">
-      <span class="block font-outfit text-6xl font-extrabold mb-10 text-white/40">02</span>
-      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Clarity</h4>
-      <p class="font-outfit italic text-sm mb-5 text-yellow">What are you really trying to understand?</p>
-      <p class="font-display text-sm leading-relaxed opacity-90 mb-6">Sharpen the question before chasing answers.</p>
-      <div class="space-y-2">
-        <div class="bg-white/10 p-3 border border-white/20">
-          <div class="opacity-50 line-through text-[10px] font-semibold uppercase tracking-wider">Football</div>
-          <div class="text-xs">— too broad to investigate</div>
-        </div>
-        <div class="flex justify-center py-1 text-white/60">
-          <span class="material-symbols-outlined text-base">south</span>
-        </div>
-        <div class="bg-white p-3 text-black">
-          <div class="text-[10px] font-semibold uppercase tracking-wider text-blue">Sharper</div>
-          <div class="text-xs font-medium leading-snug">Why do some goalkeepers dive before the penalty is kicked?</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 03 Creation -->
-    <div class="group border-2 border-black p-7 hover:bg-orange hover:text-white transition-all duration-500">
-      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-white">03</span>
-      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Creation</h4>
-      <p class="font-outfit italic text-sm mb-5 group-hover:text-white">What can you build from what you found?</p>
-      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Students draw on AI, primary sources, articles, and worked examples to investigate, then turn what they find into something concrete. The format follows the pursuit.</p>
-      <ul class="space-y-1 font-outfit text-sm font-semibold">
-        <li>↓ A theory</li>
-        <li>↓ A map</li>
-        <li>↓ A comic</li>
-        <li>↓ A prototype</li>
-        <li>↓ A playlist with an argument</li>
-      </ul>
-    </div>
-
-    <!-- 04 Communication -->
-    <div class="group border-2 border-black p-7 hover:bg-black hover:text-white transition-all duration-500">
-      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-pink">04</span>
-      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Communication</h4>
-      <p class="font-outfit italic text-sm mb-5 group-hover:text-pink">Can someone else understand it?</p>
-      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Students explain their work to someone who knows little about the topic. Vague thinking gets exposed. So does the moment a student realises they actually understand what they made.</p>
-      <p class="font-outfit italic text-xs leading-relaxed border-l-2 border-current pl-3 mt-6">"This was my question. This is what I found. This is what changed my mind. This is what I made. This is what I still want to know."</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 6. RESPONSIBLE AI ============ -->
-<section class="bg-black text-white px-6 md:px-12 py-major">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-    <div>
-      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-4">Responsible AI</p>
-      <h2 class="font-outfit text-big mb-6">AI is part of the pursuit.<br/><span class="text-stroke">It does not get to do the pursuing.</span></h2>
-      <p class="font-display text-base leading-relaxed text-white/70 max-w-md">Answers from a model are treated as material to inspect, not conclusions to repeat. AI use is not hidden in C-Levels. What we make visible is the thinking around it.</p>
-    </div>
-    <div class="space-y-1 font-display">
-      <div class="flex gap-4 border-b border-white/15 py-4">
-        <span class="text-orange font-extrabold text-lg">A.</span>
-        <p class="text-base md:text-lg leading-snug">Students ask stronger follow-up questions instead of accepting the first response.</p>
-      </div>
-      <div class="flex gap-4 border-b border-white/15 py-4">
-        <span class="text-orange font-extrabold text-lg">B.</span>
-        <p class="text-base md:text-lg leading-snug">Compare what the model says against primary sources, and write down where they disagree.</p>
-      </div>
-      <div class="flex gap-4 border-b border-white/15 py-4">
-        <span class="text-orange font-extrabold text-lg">C.</span>
-        <p class="text-base md:text-lg leading-snug">Spot the assumptions a model is making, and check what is missing from its answer.</p>
-      </div>
-      <div class="flex gap-4 border-b border-white/15 py-4">
-        <span class="text-orange font-extrabold text-lg">D.</span>
-        <p class="text-base md:text-lg leading-snug">Separate evidence from confidence. A confident answer is not a correct one.</p>
-      </div>
-      <div class="flex gap-4 py-4">
-        <span class="text-orange font-extrabold text-lg">E.</span>
-        <p class="text-base md:text-lg leading-snug">Explain the final work in the student's own words, without the screen open.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 7. THE C-LEVEL BOARD ============ -->
-<section class="px-6 md:px-12 py-major bg-white">
-  <div class="relative max-w-6xl mx-auto">
-    <div class="absolute -top-4 -left-2 md:-top-6 md:-left-6 z-20 bg-blue text-white px-6 py-3 font-outfit font-extrabold uppercase text-base md:text-xl shadow-lg">
-      The C-Level Board
-    </div>
-    <div class="aspect-video w-full relative overflow-hidden border-2 border-black bg-gradient-to-br from-gray-900 to-black">
-      <!-- Honest empty state -->
-      <div class="absolute inset-0 opacity-[0.06]" style="background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 28px 28px;"></div>
-      <div class="absolute inset-0 flex items-center justify-center p-8">
-        <div class="bg-white text-black p-8 md:p-10 max-w-lg text-center border-2 border-black">
-          <span class="material-symbols-outlined text-orange text-5xl mb-3">photo_library</span>
-          <span class="block font-inter text-[10px] uppercase font-bold tracking-[0.3em] mb-3 text-blue">Photo coming after pilot run</span>
-          <p class="font-outfit italic text-lg md:text-xl leading-snug mb-3">A large-format visual record of one student's pursuit.</p>
-          <p class="font-display text-sm text-black/60">Question. Sources. What AI helped with and where it fell short. What they found. What they built. What changed their mind. What they still want to know.</p>
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 font-inter text-[11px] uppercase tracking-[0.18em] font-semibold text-black/70">
-      <span>Filled in by hand</span>
-      <span class="text-orange">·</span>
-      <span>Unique to every student</span>
-      <span class="text-orange">·</span>
-      <span>Designed for display</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 8. FOR PILOT SCHOOLS ============ -->
-<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light" id="schools">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-14">
-      <div>
-        <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">For two pilot schools</p>
-        <h2 class="font-outfit text-big mb-4">Three ways to start.<br/><span class="text-orange">Two of them are free.</span></h2>
-        <p class="font-display text-base text-black/70 max-w-sm">We're hoping to find two Singapore schools to run the first cohorts with us in Term 3 2026. Either side can step back before the run if it doesn't feel right.</p>
-      </div>
-
-      <div class="md:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <!-- Big offer: Free pilot cohort -->
-        <div class="lg:col-span-2 border-2 border-black bg-white p-8 relative">
-          <div class="absolute -top-3 left-6 bg-orange text-white px-3 py-1 font-inter text-[10px] font-bold uppercase tracking-[0.2em]">Pilot · 2 places</div>
-          <p class="font-outfit text-3xl font-extrabold text-orange mb-1">Free pilot cohort</p>
-          <h3 class="font-outfit text-2xl font-bold mb-5">Full 1 or 2-day C-Level · Term 3 2026</h3>
-          <ul class="space-y-2 font-display text-sm text-black/80 mb-6">
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>One Singapore school, one cohort of 12–15 students, ages 12–15</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Runs as enrichment, CCA, post-exam, or holiday intensive</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Facilitated by Ziff and Jia Liang in person</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Every student leaves with a completed C-Level Board</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>School receives full programme documentation, classroom integration notes, and the right to use student artefacts publicly</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>We co-write the case study</li>
-          </ul>
-          <a id="cta-pilot" href="#enquire" class="inline-block bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.2em] px-7 py-4 rounded-full hover:bg-blue-deep transition">Apply for the pilot →</a>
-        </div>
-
-        <!-- Smaller wedge 1 -->
-        <div class="border-2 border-black p-7 bg-white">
-          <p class="font-outfit text-xl font-extrabold text-blue mb-1">Free</p>
-          <h3 class="font-outfit text-lg font-bold mb-4 leading-tight">30-min principals' walkthrough</h3>
-          <ul class="space-y-1.5 font-display text-sm text-black/75 mb-5">
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>The shorter version of this page, with slides</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You ask the questions a brochure cannot answer</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>No follow-up sequence</li>
-          </ul>
-          <a id="cta-walkthrough" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20walkthrough%20call" class="inline-block border-2 border-black text-black font-inter font-bold uppercase text-[11px] tracking-[0.18em] px-5 py-3 rounded-full hover:bg-black hover:text-white transition">Email to book</a>
-        </div>
-
-        <!-- Smaller wedge 2 -->
-        <div class="border-2 border-black p-7 bg-white">
-          <p class="font-outfit text-xl font-extrabold text-blue mb-1">Free</p>
-          <h3 class="font-outfit text-lg font-bold mb-4 leading-tight">60-min teacher PD demo</h3>
-          <ul class="space-y-1.5 font-display text-sm text-black/75 mb-5">
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Run with one class of 8–15 students at your school</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You see the format work or fail in real conditions</li>
-            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You decide what to do next</li>
-          </ul>
-          <a id="cta-demo" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20PD%20demo" class="inline-block border-2 border-black text-black font-inter font-bold uppercase text-[11px] tracking-[0.18em] px-5 py-3 rounded-full hover:bg-black hover:text-white transition">Email to book</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 9. WHY IT MATTERS ============ -->
-<section class="bg-blue text-white px-6 md:px-12 py-32 text-center overflow-hidden relative">
-  <div class="absolute inset-0 opacity-[0.07] pointer-events-none flex items-center justify-center">
-    <div class="text-[180px] md:text-[320px] font-outfit font-extrabold whitespace-nowrap tracking-tighter leading-none">CURIOSITY CURIOSITY</div>
-  </div>
-  <div class="relative z-10 max-w-5xl mx-auto">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-yellow mb-6">The bigger point</p>
-    <h2 class="font-outfit text-mega leading-[0.9] tracking-tighter">
-      AI changes the answer.<br/>
-      <span class="text-stroke">School still shapes the asker.</span>
-    </h2>
-  </div>
-</section>
-
-<!-- ============ 10. WHO WE ARE ============ -->
-<section class="px-6 md:px-12 py-major bg-white">
-  <div class="max-w-6xl mx-auto">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">Who we are</p>
-    <h2 class="font-outfit text-big mb-12">Two practitioners who have been working<br/>on this from <span class="text-stroke">inside the system.</span></h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
-      <!-- Ziff -->
-      <div class="border-2 border-black p-8 bg-white">
-        <div class="aspect-[4/3] bg-gradient-to-br from-blue to-black mb-6 flex items-center justify-center relative overflow-hidden">
-          <span class="font-outfit text-[120px] font-extrabold text-white/15 leading-none">Z</span>
-          <span class="absolute bottom-3 left-4 font-inter text-[9px] font-bold tracking-[0.18em] uppercase text-white/60">Photo coming · v0.1</span>
-        </div>
-        <h3 class="font-outfit text-3xl font-extrabold mb-1">Ziff Lau</h3>
-        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-blue font-bold mb-5">Strategy · Facilitation · Curriculum</p>
-        <p class="font-display text-sm leading-relaxed text-black/80">Service designer at GovTech on the Classroom of the Future initiative with MOE EdTech. Adjunct teaching design innovation at Singapore Institute of Technology. Master's at Hyper Island, with a 2019 thesis on AI-supported learning before ChatGPT existed. Founder of Tumbo, a directory helping Singapore parents find enrichment that fits a child's curiosity.</p>
-      </div>
-
-      <!-- Jia Liang -->
-      <div class="border-2 border-black p-8 bg-white">
-        <div class="aspect-[4/3] bg-gradient-to-br from-orange to-black mb-6 flex items-center justify-center relative overflow-hidden">
-          <span class="font-outfit text-[120px] font-extrabold text-white/15 leading-none">J</span>
-          <span class="absolute bottom-3 left-4 font-inter text-[9px] font-bold tracking-[0.18em] uppercase text-white/60">Photo coming · v0.1</span>
-        </div>
-        <h3 class="font-outfit text-3xl font-extrabold mb-1">Jia Liang</h3>
-        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-blue font-bold mb-5">Experience · Research · Classroom design</p>
-        <p class="font-display text-sm leading-relaxed text-black/80">UX researcher and service designer at Grab, where he co-developed internal research and design training curriculum. Has taught design thinking in multiple Singapore primary schools, volunteers weekly with children with special needs, and works inside MOE settings on curiosity-driven learning.</p>
-      </div>
-    </div>
-
-    <div class="border-t border-black pt-8 flex flex-wrap items-center gap-x-8 gap-y-3 font-inter text-[10px] tracking-[0.22em] uppercase font-bold text-black/45">
-      <span>Built with practice from</span>
-      <span class="text-orange">·</span>
-      <span>GovTech</span>
-      <span class="text-orange">·</span>
-      <span>Grab</span>
-      <span class="text-orange">·</span>
-      <span>MOE EdTech</span>
-      <span class="text-orange">·</span>
-      <span>Singapore Institute of Technology</span>
-      <span class="text-orange">·</span>
-      <span>Hyper Island</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 11. FAQ ============ -->
-<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light" id="faq">
-  <div class="max-w-3xl mx-auto">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">Questions</p>
-    <h2 class="font-outfit text-big mb-12">Worth asking before<br/>the meeting.</h2>
-
-    <div class="border-t-2 border-black">
-      <details class="border-b border-black/15 py-6 group" open>
-        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
-          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">You have not run this yet. Why should we be your first?</h3>
-          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
-        </summary>
-        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Because the pilot is free, fully documented, and the school keeps everything that comes out of it. The honest exchange is: you give us the chance to test the design with real students, we give you a finished programme and a case study you can use. If something does not work, you keep what we learned and we walk away with the lesson. Either side can pull out before the run.</p>
-      </details>
-
-      <details class="border-b border-black/15 py-6 group">
-        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
-          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">What does this cost after the pilot?</h3>
-          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
-        </summary>
-        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">The pricing for paid cohorts will be set after the pilot, based on what we learn. We will not commit a school to a number while we are still proving the format. The two pilot schools will see the proposed pricing first.</p>
-      </details>
-
-      <details class="border-b border-black/15 py-6 group">
-        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
-          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">Do students need any prior AI exposure?</h3>
-          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
-        </summary>
-        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">No. The programme is designed for students who have used ChatGPT casually and for students who have never opened it. The work is on the asking and the explaining, not the prompting.</p>
-      </details>
-
-      <details class="border-b border-black/15 py-6 group">
-        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
-          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">Which AI tools do you use?</h3>
-          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
-        </summary>
-        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Claude, NotebookLM, and search. Tools the school is comfortable with take precedence. We adapt to whatever device and platform rules are already in place.</p>
-      </details>
-
-      <details class="border-b-2 border-black py-6 group">
-        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
-          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">How is this different from an AI workshop?</h3>
-          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
-        </summary>
-        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Most AI workshops are about the tool. C-Levels is about the inquiry behind the tool. The student leaves with a completed pursuit and a record of how they got there. The deliverable is not a prompt library. It is a thinking artefact.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 12. FINAL CTA ============ -->
-<section class="bg-black text-white px-6 md:px-12 py-32 text-center" id="enquire">
-  <div class="max-w-5xl mx-auto">
-    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-6">Talk to us</p>
-    <h2 class="font-outfit text-huge leading-[0.9] tracking-tighter mb-10">
-      If your school is open<br/>
-      to running the first one,<br/>
-      <span class="text-stroke">we would like to meet.</span>
-    </h2>
-    <p class="font-display text-base md:text-lg leading-relaxed text-white/75 max-w-2xl mx-auto mb-12">
-      The pilot cohorts run in Term 3 2026. We're hoping to confirm both schools by the end of Term 1. A 20-minute call is usually enough to know whether it's worth a longer one.
-    </p>
-    <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-      <a id="cta-final-wa" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20pilot%20page%20and%20I%27d%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener" class="px-10 py-5 bg-white text-black font-outfit font-extrabold uppercase text-base md:text-lg tracking-[0.15em] rounded-full hover:bg-yellow transition transform hover:scale-105">WhatsApp</a>
-      <a id="cta-final-email" href="mailto:hello@clevels.sg?subject=C-Levels%20pilot%20%E2%80%94%20[School%20name]" class="px-10 py-5 border-2 border-white text-white font-outfit font-extrabold uppercase text-base md:text-lg tracking-[0.15em] rounded-full hover:bg-white hover:text-black transition">Email hello@clevels.sg</a>
-    </div>
+    <p class="font-inter text-sm text-white/55 italic">Or email <a class="text-white/80 hover:text-white underline" href="mailto:hello@clevels.sg">hello@clevels.sg</a></p>
   </div>
 </section>
 
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="bg-black text-white border-t border-white/10 pt-20 pb-10">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 md:px-12 max-w-[1440px] mx-auto">
+<footer class="bg-black text-white border-t border-white/10 pt-16 pb-10">
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
     <div>
-      <span class="text-3xl font-extrabold text-orange uppercase tracking-tighter block mb-4">C-Levels ↓</span>
-      <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/60 mb-6">by rabbithole · v0.1 pilot</p>
-      <p class="font-display text-sm leading-relaxed text-white/55 max-w-xs">For students who want to know what sits behind the first answer.</p>
+      <div class="font-outfit text-2xl font-extrabold uppercase tracking-tighter mb-1">C-Levels <span class="text-orange">↓</span></div>
+      <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/50">by rabbithole · Singapore · 2026</p>
     </div>
-    <div class="flex flex-col gap-3">
-      <h5 class="text-orange uppercase text-[10px] font-bold tracking-[0.3em] mb-4">Quick links</h5>
-      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#how">How it works</a>
-      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#schools">For schools</a>
-      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#faq">FAQ</a>
-      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#enquire">Talk to us</a>
+    <div class="flex flex-col gap-2 md:items-center font-inter text-[11px] uppercase tracking-[0.2em]">
+      <a class="text-white/70 hover:text-yellow transition" href="/curiosity">Curiosity</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/design">Design</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/why">Why</a>
+      <a class="text-white/70 hover:text-yellow transition" href="#talk">Talk to us</a>
     </div>
-    <div class="flex flex-col gap-3">
-      <h5 class="text-orange uppercase text-[10px] font-bold tracking-[0.3em] mb-4">Contact</h5>
-      <a class="text-white/60 hover:text-white transition-colors font-display text-sm" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
-      <a class="text-white/60 hover:text-white transition-colors font-display text-sm" href="https://wa.me/6593227317" target="_blank" rel="noopener">+65 9322 7317</a>
-      <p class="text-white/40 font-inter text-[10px] uppercase tracking-[0.2em] mt-4">rabbithole · Singapore</p>
+    <div class="md:text-right">
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="https://wa.me/6593227317" target="_blank" rel="noopener">+65 9322 7317</a>
     </div>
   </div>
-  <div class="px-6 md:px-12 max-w-[1440px] mx-auto mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/40 uppercase tracking-[0.18em] font-inter">
-    <div>© 2026 C-Levels by rabbithole · Pilot release</div>
-    <div class="flex gap-8">
-      <span>Term 3 2026 cohort · 2 schools</span>
-    </div>
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/10">
+    <p class="font-display italic text-base text-white/60 mb-4 max-w-xl">
+      "For students who want to know what sits behind the first answer."
+    </p>
+    <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/40">© 2026 rabbithole · v0.1 pilot</p>
   </div>
 </footer>
 
 <script>
   (function () {
     'use strict';
-
     function track(event, props) {
-      if (window.posthog) posthog.capture(event, Object.assign({ page_version: 'v2' }, props || {}));
+      if (window.posthog) posthog.capture(event, Object.assign({ page: 'hub' }, props || {}));
     }
-
-    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var href = a.getAttribute('href') || '';
         if (href.length < 2) return;
         var id = href.slice(1);
-        if (id === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
         var target = document.getElementById(id);
         if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
-
-    // CTA tracking
     var ctas = {
-      'nav-cta':           { event: 'cta_clicked', props: { cta: 'nav_talk_to_us' } },
-      'nav-cta-mobile':    { event: 'cta_clicked', props: { cta: 'nav_talk_to_us_mobile' } },
-      'cta-hero':          { event: 'cta_clicked', props: { cta: 'hero_book_call' } },
-      'cta-hero-format':   { event: 'cta_clicked', props: { cta: 'hero_see_offer' } },
-      'cta-pilot':         { event: 'cta_clicked', props: { cta: 'apply_pilot' } },
-      'cta-walkthrough':   { event: 'cta_clicked', props: { cta: 'walkthrough_call' } },
-      'cta-demo':          { event: 'cta_clicked', props: { cta: 'pd_demo' } },
-      'cta-final-wa':      { event: 'whatsapp_clicked', props: { source: 'final_cta' } },
-      'cta-final-email':   { event: 'email_clicked',    props: { source: 'final_cta' } }
+      'cta-hero':       { event: 'cta_clicked', props: { cta: 'hero_book_call' } },
+      'cta-hero-wa':    { event: 'whatsapp_clicked', props: { source: 'hero' } },
+      'cta-final':      { event: 'cta_clicked', props: { cta: 'final_book_call' } },
+      'cta-final-wa':   { event: 'whatsapp_clicked', props: { source: 'final_cta' } },
+      'nav-cta':        { event: 'cta_clicked', props: { cta: 'nav_talk_to_us' } },
+      'nav-cta-mobile': { event: 'cta_clicked', props: { cta: 'nav_talk_to_us_mobile' } }
     };
     Object.keys(ctas).forEach(function (id) {
       var el = document.getElementById(id);

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>Why we're building C-Levels — by rabbithole</title>
+<meta name="description" content="The longer thinking. As execution becomes frictionless, judgement is what's scarce. C-Levels is the small, deliberate version of that, for schools." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { 'blue': '#0000EE', 'blue-deep': '#0B1DFF', 'orange': '#FF6200', 'green-neon': '#8BC200', 'yellow': '#FFE815', 'pink': '#FF30B3', 'gray-med': '#ABABAB', 'gray-light': '#E0E0E0', 'off-white': '#FAFAFA' },
+      fontFamily: { display: ['"Plus Jakarta Sans"', 'sans-serif'], outfit: ['Outfit', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+      fontSize: {
+        'huge': ['clamp(40px, 7vw, 100px)', { lineHeight: '0.92', letterSpacing: '-0.03em', fontWeight: '800' }],
+        'big':  ['clamp(32px, 5vw, 64px)',  { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
+      },
+    } }
+  };
+</script>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('POSTHOG_API_KEY_HERE', { api_host: 'https://app.posthog.com', capture_pageview: true, register: { page: 'why' } });
+</script>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
+  <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
+    <a href="/" class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span></a>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-blue border-b-2 border-blue pb-1" href="/why">Why</a>
+      <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#talk">Talk to us</a>
+    </nav>
+    <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#talk">Talk</a>
+  </div>
+</header>
+
+<main class="max-w-[1440px] mx-auto overflow-hidden">
+
+<!-- §1 HERO -->
+<article class="px-6 md:px-12 pt-32 pb-16 bg-white">
+  <div class="max-w-3xl">
+    <p class="font-inter text-[11px] tracking-[0.22em] uppercase text-orange font-bold mb-8">WHY WE'RE BUILDING C-LEVELS</p>
+    <h1 class="font-outfit text-huge leading-[0.95] tracking-tighter mb-12">Not what can we build.<br/>What should we build.</h1>
+    <p class="font-display text-xl md:text-2xl text-black/75 leading-snug max-w-2xl">This is the question we've been writing about for the last year. C-Levels is what came out of it.</p>
+  </div>
+</article>
+
+<!-- §2-§5 ESSAY BODY -->
+<article class="px-6 md:px-12 py-12 bg-white">
+  <div class="max-w-3xl space-y-16">
+
+    <section>
+      <h2 class="font-outfit text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">Execution is now frictionless.</h2>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">A year ago, shipping a working web app might have taken a team several months. Today, a single person with Claude or Cursor can draft one in a weekend. A simple prompt can generate a good-enough landing page in minutes. The same collapse is happening across design, video, music, research, and writing. The trajectory is still accelerating.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82">So the old question holds. Not what can we build, but what should we build.</p>
+    </section>
+
+    <section>
+      <h2 class="font-outfit text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">Judgement is what's scarce.</h2>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">As execution becomes frictionless, the scarce skill is increasingly judgement. The capacity to notice what matters before building anything. The rigour to ask what something costs, and who bears that cost. Underneath both, the instinct that insists a particular thing needs to exist.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82">These are often called soft skills, though they may be the hardest ones to develop in a moment when the tools keep getting easier. They are also, we think, the skills a school curriculum now needs to centre.</p>
+    </section>
+
+    <section>
+      <h2 class="font-outfit text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">The script that worked for their parents.</h2>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">Your students are entering an AI-exposed economy carrying a script that worked for their parents. Do well on the tests. Take the reliable path. The system will hold you. That story is beginning to loosen, and the reliable paths are being reshaped faster than any curriculum can track.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82">The relationship between tests and the work AI will leave for humans is becoming less clear. The need to know what you are for will not change. To notice what only you, from where you stand, can see.</p>
+    </section>
+
+    <section>
+      <h2 class="font-outfit text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">Where C-Levels fits.</h2>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">C-Levels is the small, deliberate version of that.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">Two programmes, both designed around what AI cannot do for a student: the asking, the judging, the building from evidence, the explaining.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-3"><a href="/curiosity" class="text-blue hover:underline font-semibold not-italic">C-Level: Curiosity</a> helps a student turn one obsession into a learning pursuit they own.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5"><a href="/design" class="text-blue hover:underline font-semibold not-italic">C-Level: Design</a> helps a student turn one problem they keep noticing into a working prototype.</p>
+      <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-5">Both end with a student who can teach what they made to someone who wasn't in the room.</p>
+      <p class="font-outfit italic text-xl md:text-2xl text-orange leading-snug font-medium">That is the part of an AI-exposed school that we think is still teachable, and worth teaching well.</p>
+    </section>
+
+  </div>
+</article>
+
+<!-- §6 QUIET CTA -->
+<section class="bg-off-white border-y border-gray-light px-6 md:px-12 py-16" id="talk">
+  <div class="max-w-3xl">
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-8">If your school is open to running one of the first two pilots, twenty minutes on a call is usually enough to know if there's a fit.</p>
+    <a id="cta-final" class="inline-block bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-4 rounded-full hover:bg-blue-deep transition" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+    <p class="font-display italic text-base text-black/65 mt-6">Or email <a class="text-blue hover:underline" href="mailto:hello@clevels.sg">hello@clevels.sg</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="bg-black text-white border-t border-white/10 pt-16 pb-10">
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div>
+      <div class="font-outfit text-2xl font-extrabold uppercase tracking-tighter mb-1">C-Levels <span class="text-orange">↓</span></div>
+      <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/50">by rabbithole · Singapore · 2026</p>
+    </div>
+    <div class="flex flex-col gap-2 md:items-center font-inter text-[11px] uppercase tracking-[0.2em]">
+      <a class="text-white/70 hover:text-yellow transition" href="/curiosity">Curiosity</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/design">Design</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/why">Why</a>
+      <a class="text-white/70 hover:text-yellow transition" href="#talk">Talk to us</a>
+    </div>
+    <div class="md:text-right">
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="https://wa.me/6593227317" target="_blank" rel="noopener">+65 9322 7317</a>
+    </div>
+  </div>
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/10">
+    <p class="font-display italic text-base text-white/60 mb-4 max-w-xl">"For students who want to know what sits behind the first answer."</p>
+    <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/40">© 2026 rabbithole · v0.1 pilot</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    function track(event, props) { if (window.posthog) posthog.capture(event, Object.assign({ page: 'why' }, props || {})); }
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href') || ''; if (href.length < 2) return;
+        var target = document.getElementById(href.slice(1));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    var f = document.getElementById('cta-final');
+    if (f) f.addEventListener('click', function () { track('cta_clicked', { cta: 'why_book_call' }); });
+  })();
+</script>
+</body>
+</html>

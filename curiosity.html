@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>C-Level: Curiosity — by rabbithole</title>
+<meta name="description" content="A 1–2 day inquiry programme for Singapore students aged 12–15. Turn one obsession into a learning pursuit they own." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { 'blue': '#0000EE', 'blue-deep': '#0B1DFF', 'orange': '#FF6200', 'green-neon': '#8BC200', 'yellow': '#FFE815', 'pink': '#FF30B3', 'gray-med': '#ABABAB', 'gray-light': '#E0E0E0', 'off-white': '#FAFAFA' },
+      fontFamily: { display: ['"Plus Jakarta Sans"', 'sans-serif'], outfit: ['Outfit', 'sans-serif'], inter: ['Inter', 'sans-serif'] },
+      fontSize: {
+        'mega': ['clamp(56px, 11vw, 166px)', { lineHeight: '0.9', letterSpacing: '-0.04em', fontWeight: '800' }],
+        'huge': ['clamp(40px, 7vw, 100px)', { lineHeight: '0.92', letterSpacing: '-0.03em', fontWeight: '800' }],
+        'big':  ['clamp(32px, 5vw, 64px)',  { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
+      },
+    } }
+  };
+</script>
+
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('POSTHOG_API_KEY_HERE', { api_host: 'https://app.posthog.com', capture_pageview: true, register: { page: 'curiosity' } });
+</script>
+</head>
+
+<body class="bg-white text-black antialiased">
+
+<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
+  <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
+    <a href="/" class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span></a>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-blue border-b-2 border-blue pb-1" href="/curiosity">Curiosity</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/why">Why</a>
+      <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#talk">Talk to us</a>
+    </nav>
+    <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#talk">Talk</a>
+  </div>
+</header>
+
+<main class="max-w-[1440px] mx-auto overflow-hidden">
+
+<!-- ============ §1 HERO ============ -->
+<section class="px-6 md:px-12 pt-32 pb-20 bg-white">
+  <div class="max-w-4xl">
+    <p class="font-inter text-[11px] tracking-[0.22em] uppercase text-orange font-bold mb-6">C-Level: Curiosity</p>
+    <h1 class="font-outfit text-huge leading-[0.95] tracking-tighter mb-10">Turn one obsession into a learning pursuit they own.</h1>
+    <p class="font-display text-lg md:text-xl text-black/75 mb-10 max-w-2xl">A 1–2 day programme for Singapore students aged 12–15.</p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-hero-wa" class="border-2 border-black text-black font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-black hover:text-white transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%3A%20Curiosity%20page%20and%20would%20like%20to%20talk%20about%20it%20for%20our%20cohort." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §2 THE OBSESSION ============ -->
+<section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light">
+  <div class="max-w-3xl">
+    <span class="section-label">FOR STUDENTS WHO…</span>
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-5">Some students keep coming back to one thing — a football tactic, a song lyric, a manga world, a question living rent-free in their head.</p>
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-5">Most curricula treat that as distraction. We treat it as the starting line.</p>
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85"><em class="text-orange not-italic font-semibold">Curiosity</em> is the C-Level programme that takes one obsession and walks the student through the work of following it properly: sharpen the question, investigate with AI and primary sources, build something from what holds up, and explain it to someone who wasn't in the room.</p>
+  </div>
+</section>
+
+<!-- ============ §3 THE 4Cs ============ -->
+<section class="px-6 md:px-12 py-20 bg-white">
+  <div class="max-w-6xl">
+    <span class="section-label section-label--orange">THE 4Cs · METHODOLOGY</span>
+    <h2 class="font-outfit text-big mb-12 leading-tight">Curiosity becomes learning when it has a path.</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+        <span class="font-outfit text-5xl font-extrabold mb-6 block group-hover:text-orange">01</span>
+        <h3 class="font-outfit text-2xl font-bold mb-3 uppercase">Curiosity</h3>
+        <p class="font-display italic text-sm mb-5 group-hover:text-orange">Find the real question inside the obsession.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80">"Football" becomes "Why do some goalkeepers dive before the kick?"</p>
+      </div>
+      <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+        <span class="font-outfit text-5xl font-extrabold mb-6 block group-hover:text-orange">02</span>
+        <h3 class="font-outfit text-2xl font-bold mb-3 uppercase">Clarity</h3>
+        <p class="font-display italic text-sm mb-5 group-hover:text-orange">Sharpen the question before chasing answers.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80">A topic is not yet an inquiry. The student practises moving from broad to specific.</p>
+      </div>
+      <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+        <span class="font-outfit text-5xl font-extrabold mb-6 block group-hover:text-orange">03</span>
+        <h3 class="font-outfit text-2xl font-bold mb-3 uppercase">Creation</h3>
+        <p class="font-display italic text-sm mb-5 group-hover:text-orange">Build something concrete from what holds up.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80">Theory · map · comic · guide · prototype · video · playlist with an argument.</p>
+      </div>
+      <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+        <span class="font-outfit text-5xl font-extrabold mb-6 block group-hover:text-orange">04</span>
+        <h3 class="font-outfit text-2xl font-bold mb-3 uppercase">Communication</h3>
+        <p class="font-display italic text-sm mb-5 group-hover:text-orange">Teach it to someone who wasn't in the room.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80">Vague thinking gets exposed in that conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §4 THE C-LEVEL BOARD ============ -->
+<section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light">
+  <div class="max-w-4xl">
+    <span class="section-label">WHAT THEY WALK OUT WITH</span>
+    <h2 class="font-outfit text-big mb-8 leading-tight">The C-Level Board.</h2>
+    <p class="font-display text-lg leading-relaxed text-black/82 mb-8 max-w-2xl">Each student finishes their C-Level with a large-format visual record of their pursuit. Hand-drawn, designed for display, unique to every student.</p>
+    <p class="font-inter text-[11px] tracking-[0.22em] uppercase text-black/60 font-semibold mb-3">The Board captures</p>
+    <ul class="font-display space-y-2 mb-12">
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>The question they pursued</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>The sources they used</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>How AI helped, and where it fell short</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>What surprised them</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>What they built</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>What they still want to know</li>
+    </ul>
+    <div class="aspect-[16/10] w-full max-w-3xl bg-black border-2 border-black flex items-center justify-center text-center p-8">
+      <p class="font-outfit italic text-white/60 text-base md:text-lg max-w-md">Photo of an actual C-Level Board — coming after the first pilot run.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §5 FORMAT ============ -->
+<section class="px-6 md:px-12 py-20 bg-white">
+  <div class="max-w-3xl">
+    <span class="section-label">FORMAT</span>
+    <ul class="font-display text-lg space-y-3">
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>1 or 2-day programme</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Ages 12 to 15</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Maximum 15 students per cohort</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Runs as enrichment, CCA, post-exam activity, learning festival, or holiday intensive</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>No prior AI exposure required from students</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Adaptable to your school's device and platform rules</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Facilitated by Ziff Lau and Jia Liang, in person</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ §6 FACILITATORS ============ -->
+<section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light">
+  <div class="max-w-4xl">
+    <span class="section-label">FACILITATORS</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div>
+        <h3 class="font-outfit text-2xl font-extrabold mb-3">Ziff Lau</h3>
+        <p class="font-display text-base leading-relaxed text-black/82">Service designer at GovTech on the Classroom of the Future initiative with MOE EdTech. Adjunct teaching design innovation at Singapore Institute of Technology. Master's at Hyper Island, with a 2019 thesis on AI-supported learning. Founder of Tumbo, helping Singapore parents find enrichment that fits a child's curiosity.</p>
+      </div>
+      <div>
+        <h3 class="font-outfit text-2xl font-extrabold mb-3">Jia Liang</h3>
+        <p class="font-display text-base leading-relaxed text-black/82">UX researcher and service designer at Grab, where he co-developed internal research and design training curriculum. Has taught design thinking in multiple Singapore primary schools, volunteers weekly with children with special needs, and works inside MOE settings on curiosity-driven learning.</p>
+      </div>
+    </div>
+    <p class="font-inter text-[10px] tracking-[0.22em] uppercase text-gray-500 italic mt-10">Practice from GovTech · Grab · MOE EdTech · Singapore Institute of Technology · Hyper Island</p>
+  </div>
+</section>
+
+<!-- ============ §7 PILOT OFFER ============ -->
+<section class="px-6 md:px-12 py-20 bg-white">
+  <div class="max-w-3xl">
+    <span class="section-label">THE PILOT</span>
+    <p class="font-outfit text-2xl md:text-3xl font-extrabold mb-6 leading-snug">Two Singapore schools, this year. No programme fee.</p>
+    <p class="font-display text-lg leading-relaxed text-black/82 mb-10">We haven't run a paid Curiosity cohort yet. The two pilot schools become first-mover partners. They keep the artefacts, the documentation, and the right to use student work publicly. We co-write the case study.</p>
+    <p class="font-inter text-[11px] tracking-[0.22em] uppercase text-black/60 font-semibold mb-3">What your school gets</p>
+    <ul class="font-display space-y-2">
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Completed C-Level Boards from every student</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>A documented programme flow</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Student artefacts suitable for display or sharing</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>A facilitator debrief</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Classroom integration notes</li>
+      <li class="flex items-start"><span class="text-orange font-bold mr-3">↓</span>Optional follow-up session two weeks later</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ §8 FINAL CTA ============ -->
+<section class="bg-black text-white px-6 md:px-12 py-24" id="talk">
+  <div class="max-w-4xl mx-auto">
+    <span class="section-label section-label--orange">TALK TO US</span>
+    <p class="font-outfit italic text-2xl md:text-3xl font-light text-white/90 mb-12 max-w-2xl leading-snug">Twenty minutes is usually enough to know if Curiosity fits your students.</p>
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <a id="cta-final" class="bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-final-wa" class="border-2 border-white text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-white hover:text-black transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%3A%20Curiosity%20page%20and%20would%20like%20to%20talk%20about%20it%20for%20our%20cohort." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p class="font-inter text-sm text-white/55 italic">Or email <a class="text-white/80 hover:text-white underline" href="mailto:hello@clevels.sg">hello@clevels.sg</a></p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER (identical to hub) -->
+<footer class="bg-black text-white border-t border-white/10 pt-16 pb-10">
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div>
+      <div class="font-outfit text-2xl font-extrabold uppercase tracking-tighter mb-1">C-Levels <span class="text-orange">↓</span></div>
+      <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/50">by rabbithole · Singapore · 2026</p>
+    </div>
+    <div class="flex flex-col gap-2 md:items-center font-inter text-[11px] uppercase tracking-[0.2em]">
+      <a class="text-white/70 hover:text-yellow transition" href="/curiosity">Curiosity</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/design">Design</a>
+      <a class="text-white/70 hover:text-yellow transition" href="/why">Why</a>
+      <a class="text-white/70 hover:text-yellow transition" href="#talk">Talk to us</a>
+    </div>
+    <div class="md:text-right">
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+      <a class="block font-display text-sm text-white/70 hover:text-white transition" href="https://wa.me/6593227317" target="_blank" rel="noopener">+65 9322 7317</a>
+    </div>
+  </div>
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto mt-12 pt-8 border-t border-white/10">
+    <p class="font-display italic text-base text-white/60 mb-4 max-w-xl">"For students who want to know what sits behind the first answer."</p>
+    <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/40">© 2026 rabbithole · v0.1 pilot</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    function track(event, props) { if (window.posthog) posthog.capture(event, Object.assign({ page: 'curiosity' }, props || {})); }
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href') || ''; if (href.length < 2) return;
+        var target = document.getElementById(href.slice(1));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    var ctas = {
+      'cta-hero':       { event: 'cta_clicked', props: { cta: 'hero_book_call' } },
+      'cta-hero-wa':    { event: 'whatsapp_clicked', props: { source: 'hero' } },
+      'cta-final':      { event: 'cta_clicked', props: { cta: 'final_book_call' } },
+      'cta-final-wa':   { event: 'whatsapp_clicked', props: { source: 'final_cta' } },
+      'nav-cta':        { event: 'cta_clicked', props: { cta: 'nav_talk_to_us' } },
+      'nav-cta-mobile': { event: 'cta_clicked', props: { cta: 'nav_talk_to_us_mobile' } }
+    };
+    Object.keys(ctas).forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      el.addEventListener('click', function () { track(ctas[id].event, ctas[id].props); });
+    });
+  })();
+</script>
+</body>
+</html>

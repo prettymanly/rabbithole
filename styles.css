@@ -1,0 +1,85 @@
+/* === Shared styles for clevels.sg === */
+/* Tokens, utilities, and animations referenced across all pages. */
+/* Tailwind config + page-specific styles live in each page's <head>. */
+
+/* Body */
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* Custom utilities not in Tailwind */
+.text-stroke {
+  -webkit-text-stroke: 1.5px currentColor;
+  color: transparent;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+}
+
+.glass-nav {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Selection */
+::selection {
+  background: #FF6200;
+  color: #fff;
+}
+
+/* Animations */
+.blink-dot {
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.pulse-down {
+  animation: pulse-down 2s ease-in-out infinite;
+}
+@keyframes pulse-down {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.35; }
+}
+
+/* Method badge — orange uppercase chip used on cards */
+.method-badge {
+  display: inline-block;
+  background: #FF6200;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* Down-arrow bullet — used in lists across all pages */
+.bullet-down::before {
+  content: "↓";
+  color: #FF6200;
+  display: inline-block;
+  margin-right: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Section label — small caps eyebrow used on every section */
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0000EE;
+  margin-bottom: 16px;
+  display: block;
+}
+.section-label--orange { color: #FF6200; }
+.section-label--yellow { color: #FFE815; }
+
+/* Smooth scroll anchor offset */
+html { scroll-padding-top: 80px; }
