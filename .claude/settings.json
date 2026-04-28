@@ -17,7 +17,7 @@
     ],
     "deny": [
       "Touch any .env file",
-      "Read or write to /archive",
+      "Write or modify anything in /archive (read-only superseded versions)",
       "Run rm -rf anything",
       "Add tracking scripts not explicitly approved"
     ]

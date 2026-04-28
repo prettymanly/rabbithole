@@ -22,6 +22,3 @@ node_modules/
 
 # Claude local overrides (project-level config IS committed; local-only is not)
 .claude/settings.local.json
-
-# Archive (per CLAUDE.md — never touched)
-/archive/

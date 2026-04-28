@@ -22,4 +22,8 @@ Brand: rabbithole (always lowercase). Accent: ↓ symbol in amber.
 Palette: #F5F0E8 / #1C3A2F / #E07A2F / #1A1A1A
 
 ## Never touch
-.env files. Any API keys. The /archive folder.
+.env files. Any API keys.
+
+## /archive folder
+Read-only reference. Holds superseded versions of the site (e.g. archive/v1-editorial.html).
+Do not modify files inside it. Do not link to it from index.html — it should not be discoverable.

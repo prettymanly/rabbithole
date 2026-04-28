@@ -1,1488 +1,661 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>C-Levels by rabbithole — curiosity, given the structure of school</title>
-  <meta name="description" content="C-Levels is a 1–2 day inquiry programme for Singapore students aged 12–15. Each student follows one question they care about, investigates it with AI and primary sources, builds something from evidence, and explains what they now understand." />
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>C-Levels by rabbithole — pilot cohort, Term 3 2026</title>
+<meta name="description" content="A 1–2 day AI literacy programme for Singapore students aged 12–15. Built by ex-GovTech, Grab, MOE EdTech, and SIT practitioners. Looking for two Singapore schools to run pilot cohorts in Term 3 2026." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800&family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
 
-  <style>
-    /* === TOKENS === */
-    :root {
-      --cream: #F5F0E8;
-      --green: #1C3A2F;
-      --amber: #E07A2F;
-      --ink: #1A1A1A;
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body: 'Inter', system-ui, sans-serif;
-      --nav-h: 56px;
-      --rule: rgba(28,58,47,0.08);
-    }
-
-    /* === RESET === */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    body {
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--ink);
-      background: var(--cream);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-    img { max-width: 100%; display: block; }
-    button { font: inherit; }
-    a { color: inherit; }
-
-    /* === SECTION BASE === */
-    .section { padding: clamp(80px, 10vw, 140px) 5vw; }
-    .section--dark { background: var(--green); color: var(--cream); }
-    .section--center { text-align: center; }
-
-    /* === GRAPH PAPER TEXTURE === */
-    .graph {
-      background-color: var(--cream);
-      background-image:
-        linear-gradient(rgba(28,58,47,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(28,58,47,0.045) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-
-    /* === TYPOGRAPHY === */
-    .t-display {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(56px, 9vw, 108px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      margin: 0;
-    }
-    .t-h2 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(36px, 5.5vw, 64px);
-      line-height: 1.08;
-      letter-spacing: -0.015em;
-      margin: 0;
-    }
-    .t-h3 {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 400;
-      font-size: clamp(24px, 3.5vw, 40px);
-      line-height: 1.2;
-      margin: 0;
-    }
-    .t-label {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--amber);
-      margin: 0 0 24px;
-    }
-    .t-body { font-family: var(--font-body); font-size: 17px; line-height: 1.75; }
-
-    /* === NAV === */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5vw;
-      background: transparent;
-      backdrop-filter: none;
-      border-bottom: 1px solid transparent;
-      transition: background 300ms ease, backdrop-filter 300ms ease, border-color 300ms ease;
-      z-index: 100;
-      gap: 16px;
-    }
-    .nav--scrolled {
-      background: rgba(245,240,232,0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav__brand {
-      font-family: var(--font-display);
-      font-size: 14px;
-      color: var(--green);
-      text-decoration: none;
-      letter-spacing: -0.005em;
-      line-height: 1.1;
-      display: flex;
-      flex-direction: column;
-    }
-    .nav__brand small {
-      font-family: var(--font-body);
-      font-size: 9px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.6;
-      margin-top: 2px;
-      font-style: normal;
-    }
-    .nav__links { display: none; gap: 28px; align-items: center; }
-    .nav__link {
-      font-family: var(--font-body);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--green);
-      text-decoration: none;
-      padding: 4px 0;
-    }
-    .nav__link:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .nav__cta {
-      background: var(--green);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 9px 14px;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      white-space: nowrap;
-    }
-    .nav__cta--mobile { display: inline-block; }
-    .nav__cta--desktop { display: none; }
-
-    /* === STACK === */
-    .stack { display: none; }
-
-    /* === HERO === */
-    .hero {
-      position: relative;
-      min-height: 100dvh;
-      padding: calc(var(--nav-h) + 24px) 5vw 96px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-    }
-    .hero__inner { width: 100%; display: flex; flex-direction: column; }
-    .hero__left { position: relative; width: 100%; max-width: 760px; z-index: 2; }
-    .hero__headline { margin: 12px 0 28px; color: var(--ink); }
-    .hero__statement { color: var(--ink); margin: 0 0 28px; max-width: 620px; }
-    .hero__body { color: var(--ink); opacity: 0.8; max-width: 560px; margin: 0 0 16px; }
-    .hero__body--note { font-style: italic; opacity: 0.65; }
-    .hero__ctas {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      align-items: stretch;
-      margin-top: 36px;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      padding: 14px 28px;
-      border-radius: 0;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-      transition: transform 200ms ease;
-    }
-    .btn-primary:hover { transform: translateY(-2px); }
-    .btn-primary--inverse { background: var(--cream); color: var(--green); }
-    .link-secondary {
-      background: none;
-      border: none;
-      color: var(--green);
-      font-family: var(--font-body);
-      font-size: 13px;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      cursor: pointer;
-      padding: 0;
-      text-align: center;
-    }
-    .link-secondary--cream { color: var(--cream); }
-
-    .hero__scroll {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-display);
-      font-size: 36px;
-      color: var(--amber);
-      animation: pulse 3s ease-in-out infinite;
-      line-height: 1;
-      user-select: none;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 600ms ease, transform 600ms ease;
-    }
-    .reveal.is-in { opacity: 1; transform: translateY(0); }
-
-    .hero__fragments { display: none; }
-
-    /* === DARK SECTION TEXT === */
-    .section--dark .t-h2,
-    .section--dark .t-display { color: var(--cream); }
-    .section--dark .body--cream { color: var(--cream); opacity: 0.78; }
-
-    /* === GENERIC BODY BLOCK === */
-    .prose { max-width: 640px; margin-top: 28px; }
-    .prose p {
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--ink);
-      opacity: 0.78;
-      margin: 0 0 20px;
-    }
-    .prose p.lead { opacity: 0.9; font-size: 18px; }
-    .prose--cream p { color: var(--cream); opacity: 0.78; }
-    .prose--center { margin-left: auto; margin-right: auto; text-align: center; }
-
-    /* === PULL QUOTE === */
-    .pullquote {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(22px, 3vw, 32px);
-      line-height: 1.35;
-      color: var(--amber);
-      max-width: 720px;
-      margin: 56px 0 0;
-      padding-left: 20px;
-      border-left: 2px solid var(--amber);
-    }
-
-    /* === QUESTION LIST === */
-    .question-list {
-      max-width: 560px;
-      margin: 16px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-    .question-list li {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(18px, 2.4vw, 22px);
-      line-height: 1.45;
-      color: var(--ink);
-      opacity: 0.85;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(28,58,47,0.08);
-    }
-    .question-list li:first-child { border-top: 1px solid rgba(28,58,47,0.08); }
-
-    /* === DEFINE === */
-    .define { margin-top: 40px; max-width: 720px; }
-    .define__not {
-      font-family: var(--font-body);
-      font-size: 16px;
-      color: var(--ink);
-      opacity: 0.7;
-      line-height: 1.85;
-      margin: 0 0 16px;
-    }
-    .define__obsessions {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(20px, 2.6vw, 26px);
-      line-height: 1.5;
-      color: var(--ink);
-      margin: 32px 0 0;
-      max-width: 640px;
-    }
-
-    /* === FOUR Cs === */
-    .cs__steps {
-      display: flex;
-      flex-direction: column;
-      gap: 56px;
-      margin-top: 64px;
-      max-width: 820px;
-    }
-    .cstep {
-      position: relative;
-      padding: 28px 0 0;
-      border-top: 1px solid rgba(28,58,47,0.12);
-    }
-    .cstep__no {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin: 0 0 8px;
-    }
-    .cstep__name {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.1;
-      color: var(--ink);
-      margin: 0 0 14px;
-      letter-spacing: -0.01em;
-    }
-    .cstep__q {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(20px, 2.4vw, 26px);
-      line-height: 1.4;
-      color: var(--green);
-      margin: 0 0 20px;
-      max-width: 640px;
-    }
-    .cstep__body {
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--ink);
-      opacity: 0.78;
-      max-width: 600px;
-      margin: 0 0 20px;
-    }
-    .cstep__sub {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--green);
-      opacity: 0.6;
-      margin: 24px 0 12px;
-    }
-    .examples { list-style: none; padding: 0; margin: 0; max-width: 580px; }
-    .examples li {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(17px, 2vw, 20px);
-      line-height: 1.5;
-      color: var(--ink);
-      padding: 10px 0 10px 24px;
-      position: relative;
-    }
-    .examples li::before {
-      content: "↓";
-      position: absolute;
-      left: 0;
-      top: 10px;
-      color: var(--amber);
-      font-family: var(--font-display);
-    }
-    .transform { display: grid; gap: 16px; margin: 0; max-width: 640px; }
-    .transform__row {
-      padding: 16px 18px;
-      border: 1px solid rgba(28,58,47,0.14);
-      background: rgba(255,255,255,0.4);
-    }
-    .transform__from {
-      font-family: var(--font-body);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--green);
-      opacity: 0.6;
-      margin: 0 0 6px;
-    }
-    .transform__to {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(17px, 2.1vw, 21px);
-      line-height: 1.45;
-      color: var(--ink);
-      margin: 0;
-    }
-    .says {
-      list-style: none;
-      padding: 24px 0 0 24px;
-      margin: 16px 0 0;
-      border-left: 2px solid var(--amber);
-      max-width: 600px;
-    }
-    .says li {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(18px, 2.2vw, 22px);
-      line-height: 1.5;
-      color: var(--ink);
-      padding: 8px 0;
-    }
-
-    /* === RESPONSIBLE AI === */
-    .ai__list { list-style: none; padding: 0; margin: 24px 0 0; max-width: 580px; }
-    .ai__list li {
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 2;
-      color: var(--cream);
-      opacity: 0.78;
-      padding-left: 28px;
-      position: relative;
-    }
-    .ai__list li::before {
-      content: "↓";
-      position: absolute;
-      left: 0;
-      color: var(--amber);
-      font-family: var(--font-display);
-    }
-    .ai__close {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(20px, 2.5vw, 26px);
-      line-height: 1.4;
-      color: var(--amber);
-      margin: 40px 0 0;
-      max-width: 560px;
-    }
-
-    /* === C-LEVEL BOARD === */
-    .board__captures {
-      list-style: none;
-      padding: 0;
-      margin: 24px auto 0;
-      max-width: 540px;
-      text-align: left;
-    }
-    .board__captures li {
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.9;
-      color: var(--cream);
-      opacity: 0.7;
-      padding-left: 28px;
-      position: relative;
-    }
-    .board__captures li::before {
-      content: "↓";
-      position: absolute;
-      left: 0;
-      color: var(--amber);
-      font-family: var(--font-display);
-    }
-    .board__statement { color: var(--cream); margin: 40px auto; max-width: 520px; line-height: 1.5; }
-    .board__artifact {
-      width: 100%;
-      max-width: 640px;
-      aspect-ratio: 16/10;
-      margin: 48px auto;
-      border: 1.5px solid rgba(245,240,232,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      padding: 24px;
-      text-align: center;
-    }
-    .board__artifact-title {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 20px;
-      color: var(--cream);
-      opacity: 0.35;
-      margin: 0;
-    }
-    .board__artifact-note {
-      font-family: var(--font-body);
-      font-size: 11px;
-      color: var(--cream);
-      opacity: 0.25;
-      margin: 0;
-    }
-    .board__meta {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      font-family: var(--font-body);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--cream);
-      opacity: 0.55;
-    }
-    .board__meta .sep { color: var(--amber); opacity: 1; }
-
-    /* === SCHOOLS === */
-    .schools__sub { color: var(--ink); opacity: 0.6; margin-top: 12px; }
-    .schools__intro { max-width: 640px; margin-top: 32px; }
-    .schools__intro p {
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--ink);
-      opacity: 0.78;
-      margin: 0;
-    }
-    .schools__formats {
-      margin-top: 32px;
-      max-width: 460px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 24px;
-      list-style: none;
-      padding: 0;
-    }
-    .schools__formats li {
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--ink);
-      opacity: 0.8;
-      padding: 6px 0;
-      border-bottom: 1px dashed rgba(28,58,47,0.18);
-    }
-    .schools__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 48px;
-      margin-top: 56px;
-    }
-    .schools__subheading {
-      font-family: var(--font-body);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--green);
-      margin: 0 0 18px;
-      font-weight: 500;
-    }
-    .schools__list { list-style: none; margin: 0; padding: 0; }
-    .schools__list li {
-      font-family: var(--font-body);
-      font-size: 16px;
-      color: var(--ink);
-      line-height: 1.9;
-      padding: 6px 0 6px 28px;
-      position: relative;
-    }
-    .schools__list li::before {
-      content: "↓";
-      position: absolute;
-      left: 0;
-      top: 6px;
-      color: var(--amber);
-      font-family: var(--font-display);
-    }
-    .schools__proof {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(20px, 2.4vw, 26px);
-      line-height: 1.4;
-      color: var(--green);
-      margin: 56px 0 24px;
-      max-width: 640px;
-    }
-    .schools__cta {
-      margin-top: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 16px;
-    }
-    .schools__email {
-      font-family: var(--font-body);
-      font-size: 12px;
-      color: var(--ink);
-      opacity: 0.5;
-      margin: 0;
-      text-align: center;
-    }
-
-    /* === WHY === */
-    .why__close {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: clamp(22px, 2.8vw, 30px);
-      line-height: 1.45;
-      color: var(--amber);
-      max-width: 640px;
-      margin-top: 40px;
-    }
-
-    /* === PEOPLE === */
-    .people__headline { color: var(--ink); }
-    .people__intro { max-width: 640px; margin-top: 28px; }
-    .people__intro p {
-      font-family: var(--font-body);
-      font-size: 17px;
-      color: var(--ink);
-      opacity: 0.78;
-      line-height: 1.75;
-      margin: 0;
-    }
-    .people__block { max-width: 680px; margin-top: 56px; }
-    .people__rule {
-      border: none;
-      border-top: 1px solid rgba(28,58,47,0.12);
-      margin: 48px 0;
-      max-width: 680px;
-    }
-    .people__name {
-      font-family: var(--font-display);
-      font-size: 30px;
-      color: var(--ink);
-      margin: 0 0 16px;
-      line-height: 1.15;
-    }
-    .people__bio {
-      font-family: var(--font-body);
-      font-size: 16px;
-      color: var(--ink);
-      opacity: 0.78;
-      line-height: 1.8;
-      margin: 0 0 14px;
-    }
-    .people__logos {
-      display: flex;
-      gap: clamp(20px, 3vw, 48px);
-      flex-wrap: wrap;
-      font-family: var(--font-body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--green);
-      opacity: 0.4;
-      margin-top: 64px;
-    }
-
-    /* === PARENTS === */
-    .parents__headline { color: var(--ink); }
-    .parents__paras {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 580px;
-      margin-top: 32px;
-    }
-    .parents__paras p {
-      font-family: var(--font-body);
-      font-size: 17px;
-      color: var(--ink);
-      opacity: 0.78;
-      line-height: 1.75;
-      margin: 0;
-    }
-    .callout {
-      max-width: 440px;
-      border: 1.5px solid rgba(28,58,47,0.2);
-      padding: 28px 32px;
-      background: none;
-      margin-top: 48px;
-    }
-    .callout__title {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 22px;
-      color: var(--ink);
-      margin: 0;
-      line-height: 1.2;
-    }
-    .callout__sub {
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--ink);
-      opacity: 0.55;
-      margin: 8px 0 0;
-    }
-    .form { margin-top: 48px; max-width: 480px; }
-    .field { margin-bottom: 32px; }
-    .field__label {
-      display: block;
-      font-family: var(--font-body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--green);
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .field__input,
-    .field__textarea {
-      width: 100%;
-      border: none;
-      border-bottom: 1.5px solid rgba(28,58,47,0.25);
-      background: transparent;
-      padding: 10px 0;
-      font-size: 16px;
-      color: var(--ink);
-      outline: none;
-      border-radius: 0;
-      font-family: var(--font-body);
-      transition: border-color 250ms ease;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    .field__textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
-    .field__input:focus,
-    .field__textarea:focus { border-bottom-color: var(--green); }
-    .field__input.is-error,
-    .field__textarea.is-error { border-bottom-color: #B23A2F; }
-    .btn-submit {
-      background: var(--green);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      padding: 14px 32px;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-    .btn-submit.is-shake { animation: shake 0.4s ease; }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
-
-    /* === FINAL CTA === */
-    .finalcta__body { max-width: 620px; margin-top: 28px; }
-    .finalcta__body p {
-      font-family: var(--font-body);
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--cream);
-      opacity: 0.78;
-      margin: 0 0 16px;
-    }
-    .finalcta__row {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 16px;
-      margin-top: 36px;
-    }
-
-    /* === FOOTER === */
-    .footer {
-      background: var(--green);
-      padding: 48px 5vw;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-      align-items: start;
-      text-align: center;
-    }
-    .footer__brand {
-      font-family: var(--font-display);
-      font-size: 18px;
-      color: var(--amber);
-      margin: 0;
-      line-height: 1.2;
-    }
-    .footer__brand small {
-      font-family: var(--font-body);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      display: block;
-      color: var(--cream);
-      opacity: 0.55;
-      margin-top: 6px;
-      font-style: normal;
-    }
-    .footer__meta {
-      font-family: var(--font-body);
-      font-size: 11px;
-      color: var(--cream);
-      opacity: 0.45;
-      margin: 8px 0 0;
-    }
-    .footer__email {
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--cream);
-      text-decoration: none;
-    }
-    .footer__tagline {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 14px;
-      color: var(--cream);
-      opacity: 0.7;
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    /* === DESKTOP === */
-    @media (min-width: 768px) {
-      .nav__links { display: flex; }
-      .nav__cta--mobile { display: none; }
-      .nav__cta--desktop { display: inline-block; }
-      .nav__brand { font-size: 15px; }
-
-      .stack {
-        display: block;
-        position: fixed;
-        right: 2.5vw;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10;
-        pointer-events: none;
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'blue': '#0000EE',
+          'blue-deep': '#0B1DFF',
+          'orange': '#FF6200',
+          'green-neon': '#8BC200',
+          'yellow': '#FFE815',
+          'pink': '#FF30B3',
+          'magenta': '#FF75F6',
+          'gray-med': '#ABABAB',
+          'gray-light': '#E0E0E0',
+          'off-white': '#FAFAFA',
+        },
+        fontFamily: {
+          display: ['"Plus Jakarta Sans"', 'sans-serif'],
+          outfit: ['Outfit', 'sans-serif'],
+          inter: ['Inter', 'sans-serif'],
+        },
+        fontSize: {
+          'mega': ['clamp(56px, 11vw, 166px)', { lineHeight: '0.9', letterSpacing: '-0.04em', fontWeight: '800' }],
+          'huge': ['clamp(40px, 7vw, 100px)', { lineHeight: '0.92', letterSpacing: '-0.03em', fontWeight: '800' }],
+          'big':  ['clamp(32px, 5vw, 64px)',  { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '800' }],
+          'lead': ['clamp(20px, 2.4vw, 30px)', { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '600' }],
+        },
+        spacing: {
+          'major': '60px',
+        },
       }
-      .stack span {
-        display: block;
-        font-family: var(--font-display);
-        font-style: italic;
-        font-size: 16px;
-        color: var(--green);
-        opacity: 0.1;
-        line-height: 1.2;
-      }
-
-      .hero__inner { flex-direction: row; align-items: center; }
-      .hero__left { width: 60%; max-width: 760px; }
-      .hero__fragments {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 40%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      .hero__fragments > * { position: absolute; }
-      .frag-1 {
-        font-family: var(--font-body);
-        font-size: 12px;
-        color: var(--green);
-        opacity: 0.7;
-        transform: rotate(-4deg);
-        top: 18%;
-        left: 8%;
-        max-width: 200px;
-        line-height: 1.6;
-      }
-      .frag-2 {
-        font-family: var(--font-display);
-        font-style: italic;
-        font-size: 30px;
-        color: var(--amber);
-        transform: rotate(3deg);
-        top: 42%;
-        left: 32%;
-        line-height: 1;
-      }
-      .frag-3 {
-        font-family: var(--font-body);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--green);
-        opacity: 0.4;
-        transform: rotate(-2deg);
-        bottom: 26%;
-        left: 6%;
-      }
-      .frag-4 {
-        width: 110px;
-        height: 150px;
-        border: 1.5px solid rgba(28,58,47,0.25);
-        background: none;
-        transform: rotate(5deg);
-        top: 12%;
-        right: 12%;
-      }
-      .frag-5 {
-        font-family: var(--font-display);
-        font-size: clamp(120px, 20vw, 200px);
-        color: var(--green);
-        opacity: 0.04;
-        bottom: -2%;
-        right: 5%;
-        user-select: none;
-        line-height: 1;
-      }
-
-      .hero__ctas { flex-direction: row; align-items: center; gap: 24px; }
-      .hero__ctas .btn-primary { display: inline-block; }
-      .hero__ctas .link-secondary { width: auto; }
-
-      .schools__cta { flex-direction: row; align-items: center; gap: 24px; }
-      .schools__cta .btn-primary { display: inline-block; width: auto; }
-      .schools__email { text-align: left; }
-
-      .schools__grid { grid-template-columns: 1fr 1fr; gap: 80px; }
-
-      .finalcta__row { flex-direction: row; align-items: center; }
-
-      .footer { grid-template-columns: 1fr 1fr 1fr; text-align: left; gap: 32px; }
-      .footer__center { text-align: center; }
-      .footer__right { text-align: right; }
     }
+  };
+</script>
 
-    @media (min-width: 1024px) {
-      .nav__brand { font-size: 16px; }
-      .nav__cta { font-size: 11px; padding: 10px 16px; }
-    }
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .vertical-text { writing-mode: vertical-rl; }
+  .text-stroke { -webkit-text-stroke: 1.5px currentColor; color: transparent; }
+  .pulse-down { animation: pulse-down 2s ease-in-out infinite; }
+  @keyframes pulse-down {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.35; }
+  }
+  .blink-dot { animation: blink 1.6s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  ::selection { background: #FF6200; color: #fff; }
+  .material-symbols-outlined { font-family: 'Material Symbols Outlined'; font-variation-settings: 'wght' 400; }
+  .frag-rotate-1 { transform: rotate(-4deg); }
+  .frag-rotate-2 { transform: rotate(3deg); }
+  .frag-rotate-3 { transform: rotate(-2deg); }
+  .frag-rotate-4 { transform: rotate(5deg); }
+  .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+</style>
 
-    .visually-hidden {
-      position: absolute;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* === VERSION SWITCHER === */
-    .vswitch {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      z-index: 200;
-      background: var(--ink);
-      color: var(--cream);
-      font-family: var(--font-body);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 8px 12px;
-      text-decoration: none;
-      border-radius: 999px;
-      opacity: 0.75;
-      transition: opacity 200ms ease;
-    }
-    .vswitch:hover { opacity: 1; }
-  </style>
-
-  <!--
-    POSTHOG ANALYTICS
-    Replace POSTHOG_API_KEY_HERE with your key from:
-    posthog.com > Project Settings > Project API Key
-    Verify events in: PostHog dashboard > Live Events
-  -->
-  <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,
-    e._i=[],e.init=function(i,s,a){function g(t,e)
-    {var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),
-    t[e]=function(){t.push([e].concat(
-    Array.prototype.slice.call(arguments,0)))}}
-    (p=t.createElement("script")).type="text/javascript",
-    p.crossOrigin="anonymous",
-    p.async=!0,p.src=s.api_host+
-    "/static/array.js",(r=t.getElementsByTagName("script")[0])
-    .parentNode.insertBefore(p,r);var u=e;
-    for(void 0!==a?u=e[a]=[]:a="posthog",
-    u.people=u.people||[],u.toString=function(t)
-    {var e="posthog";return"posthog"!==a&&(e+="."+a),
-    t||(e+=" (stub)"),e},u.people.toString=function()
-    {return u.toString(1)+".people (stub)"},
-    o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)
-    g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}
-    (document,window.posthog||[]);
-    posthog.init('POSTHOG_API_KEY_HERE', {
-      api_host: 'https://app.posthog.com',
-      capture_pageview: true
-    });
-  </script>
+<!-- POSTHOG ANALYTICS — replace POSTHOG_API_KEY_HERE before deploy -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('POSTHOG_API_KEY_HERE', { api_host: 'https://app.posthog.com', capture_pageview: true, register: { page_version: 'v2' } });
+</script>
 </head>
-<body>
 
-  <nav class="nav" id="nav" aria-label="Primary">
-    <a class="nav__brand" href="#top">
-      <span>C-Levels</span>
-      <small>by rabbithole</small>
+<body class="bg-white text-black antialiased">
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
+  <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
+    <a href="#top" class="flex items-center gap-3">
+      <div class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">
+        C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span>
+      </div>
+      <span class="hidden sm:inline-block bg-orange text-white text-[9px] font-inter font-semibold tracking-[0.18em] uppercase px-2 py-1 rounded-sm">v0.1 · pilot</span>
     </a>
-    <div class="nav__links">
-      <a class="nav__link" href="#schools">Schools</a>
-      <a class="nav__link" href="#how">How it works</a>
-      <a class="nav__link" href="#parents">Parents</a>
-      <a class="nav__cta nav__cta--desktop" id="nav-cta" href="#enquire">Bring C-Levels to your school</a>
-    </div>
-    <a class="nav__cta nav__cta--mobile" id="nav-cta-mobile" href="#enquire">Enquire</a>
-  </nav>
+    <nav class="hidden md:flex items-center gap-6">
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#how">How it works</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#schools">For schools</a>
+      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="#faq">FAQ</a>
+      <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#enquire">Talk to us</a>
+    </nav>
+    <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#enquire">Talk</a>
+  </div>
+</header>
 
-  <div class="stack" aria-hidden="true">
-    <span>p</span><span>u</span><span>r</span><span>s</span><span>u</span><span>i</span><span>t</span>
+<!-- Vertical edge text -->
+<div class="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:block pointer-events-none">
+  <span class="vertical-text text-[10px] font-extrabold uppercase tracking-[0.5em] text-gray-med/50">Pilot cohort · Term 3 2026 · 2 schools wanted</span>
+</div>
+
+<main class="max-w-[1440px] mx-auto overflow-hidden" id="top">
+
+<!-- ============ 1. HERO ============ -->
+<section class="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-24 pb-32 bg-white">
+  <div class="relative z-10 max-w-5xl">
+    <!-- Pilot pill -->
+    <div class="inline-flex items-center gap-2.5 bg-black text-white px-4 py-2 rounded-full mb-10">
+      <span class="w-2 h-2 bg-orange rounded-full blink-dot"></span>
+      <span class="font-inter text-[10px] font-bold tracking-[0.18em] uppercase">Pilot cohort · Term 3 2026 · 2 schools wanted</span>
+    </div>
+
+    <h1 class="font-outfit text-mega leading-[0.9] tracking-tighter mb-12">
+      When AI is instant,<br/>
+      <span class="text-stroke">thinking is not.</span>
+    </h1>
+
+    <!-- Floating fragments -->
+    <div class="absolute top-0 right-0 w-1/3 hidden lg:block opacity-50 pointer-events-none">
+      <div class="border border-black p-3 text-[10px] font-bold uppercase tracking-widest absolute top-12 right-16 frag-rotate-1 bg-white">? what AI cannot do</div>
+      <div class="bg-blue text-white px-2.5 py-1 text-[9px] font-bold tracking-[0.2em] uppercase absolute top-44 right-2 frag-rotate-2">#PILOT_2026</div>
+      <div class="font-outfit text-3xl font-light italic text-orange absolute top-72 right-32 frag-rotate-3">A pursuit ↓</div>
+      <div class="border-2 border-black w-24 h-32 absolute top-4 right-44 frag-rotate-4 bg-yellow"></div>
+    </div>
+
+    <div class="flex items-start gap-5 max-w-2xl mb-8">
+      <div class="w-12 h-[2px] bg-black mt-3 shrink-0"></div>
+      <p class="font-display text-base md:text-lg leading-relaxed">
+        A <strong>1 or 2-day AI literacy programme</strong> for Singapore students aged 12 to 15. Built and run by <strong class="text-blue">ex-GovTech, Grab, MOE EdTech, and SIT</strong> practitioners.
+      </p>
+    </div>
+
+    <p class="font-outfit italic text-lg md:text-xl text-black/75 leading-snug max-w-2xl mb-10 pl-5 border-l-2 border-orange">
+      After a C-Level, a student should be able to explain what they know without hiding behind the screen. Two pilot schools this year should help us find out whether we have built something that does that.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="#enquire">Book a 20-minute call</a>
+      <a id="cta-hero-format" class="border-2 border-black text-black font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-black hover:text-white transition text-center" href="#schools">See the pilot offer</a>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-2 font-inter text-[10px] tracking-[0.22em] uppercase text-gray-500">
+      <span class="font-semibold text-black">Built with practice from</span>
+      <span>·</span>
+      <span>GovTech</span><span>·</span>
+      <span>Grab</span><span>·</span>
+      <span>MOE EdTech</span><span>·</span>
+      <span>Singapore Institute of Technology</span>
+    </div>
   </div>
 
-  <header class="hero graph" id="top">
-    <div class="hero__inner">
-      <div class="hero__left">
-        <p class="t-label reveal" data-reveal="0">C-LEVELS BY RABBITHOLE</p>
-        <h1 class="t-display hero__headline reveal" data-reveal="150">When AI is instant,<br>thinking is not.</h1>
-        <p class="t-h3 hero__statement reveal" data-reveal="300">C-Levels gives a student's curiosity the structure of school without flattening the reason they cared in the first place.</p>
-        <p class="t-body hero__body reveal" data-reveal="450">C-Levels is a 1–2 day inquiry programme for students aged 12 to 15. Each student takes one question they keep coming back to, investigates it with AI and primary sources, builds something from what holds up, and explains the work to someone who was not in the room.</p>
-        <p class="t-body hero__body hero__body--note reveal" data-reveal="550">Built for Singapore schools that want AI literacy to strengthen judgement, rather than only shorten the path to an answer.</p>
-        <div class="hero__ctas reveal" data-reveal="700">
-          <button class="btn-primary" id="cta-hero-primary" type="button">Bring C-Levels to your school</button>
-          <button class="link-secondary" id="cta-hero-secondary" type="button">See how it works →</button>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-black/50">
+    <span class="font-inter text-[10px] uppercase tracking-[0.3em] mb-1">Scroll · the honest version is below</span>
+    <span class="material-symbols-outlined pulse-down text-orange text-3xl">expand_more</span>
+  </div>
+</section>
+
+<!-- ============ 2. HONESTY BLOCK ============ -->
+<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light">
+  <div class="max-w-3xl">
+    <div class="inline-block bg-yellow text-black px-3 py-1 mb-6">
+      <span class="font-inter text-[10px] font-bold tracking-[0.2em] uppercase">Upfront</span>
+    </div>
+    <h2 class="font-outfit text-big mb-10">
+      No alumni yet.<br/>
+      No photos yet.<br/>
+      <span class="text-orange">This is our first run.</span>
+    </h2>
+    <p class="font-outfit italic text-xl md:text-2xl leading-snug mb-6">
+      We have not run a paid C-Level cohort. The version of this page that has student artefacts on it, parent quotes, school logos, and a count of how many students have come through, that page does not exist yet. We could write it as if it did. We would rather not.
+    </p>
+    <p class="font-display text-base md:text-lg leading-relaxed text-black/82 mb-5">
+      We are going into Term 3 2026 looking for two Singapore schools willing to run the first pilot cohorts with us, at no programme fee. In return, we co-document the result, photograph every C-Level Board, and write up what worked and what did not. Both schools keep the deliverables and the right to use them publicly.
+    </p>
+    <p class="font-display text-base md:text-lg leading-relaxed text-black/82">
+      This page is the hypothesis. The next version of this page should be the data.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 2.5 MANIFESTO ============ -->
+<section class="px-6 md:px-12 py-major bg-white">
+  <div class="max-w-3xl">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-6">What we are betting on</p>
+    <h2 class="font-outfit text-big leading-[1.04] tracking-tight mb-12">
+      Execution is now frictionless.<br/>
+      <span class="text-stroke">Judgement is what's scarce.</span>
+    </h2>
+
+    <div class="space-y-6 font-display text-base md:text-lg leading-relaxed text-black/82 max-w-2xl">
+      <p>A year ago, shipping a working web app might have taken a team several months. Today, a single person with Claude or Cursor can draft one in a weekend. The same collapse is happening across design, video, music, research, and writing. The trajectory is still accelerating.</p>
+
+      <p>So the old question holds. Not what can we build, but what should we build.</p>
+
+      <p>As execution becomes frictionless, the scarce skill is increasingly judgement. The capacity to notice what matters before building anything. The rigour to ask what something costs, and who bears that cost. Underneath both, the instinct that insists a particular thing needs to exist.</p>
+
+      <p>These are often called soft skills, though they may be the hardest ones to develop in a moment when the tools keep getting easier. They are also, we think, the skills a school curriculum now needs to centre.</p>
+    </div>
+
+    <blockquote class="my-12 pl-6 border-l-4 border-orange max-w-3xl">
+      <p class="font-outfit italic text-2xl md:text-3xl leading-snug font-semibold text-black">"Not what can we build. <span class="text-orange">What should we build.</span>"</p>
+    </blockquote>
+
+    <div class="space-y-6 font-display text-base md:text-lg leading-relaxed text-black/82 max-w-2xl">
+      <p>Your students are entering an AI-exposed economy carrying a script that worked for their parents. Do well on the tests. Take the reliable path. The system will hold you. That story is beginning to loosen, and the reliable paths are being reshaped faster than any curriculum can track.</p>
+
+      <p>The need to know what you are for will not change. To notice what only you, from where you stand, can see.</p>
+
+      <p class="font-outfit italic text-lg md:text-xl text-black font-medium">C-Levels is the small, deliberate version of that, for schools.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. THE BET ============ -->
+<section class="px-6 md:px-12 py-major bg-off-white border-t border-gray-light">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14">
+    <div>
+      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">The bet</p>
+      <h2 class="font-outfit text-huge leading-[0.95] tracking-tighter">Five things the pilot<br/>should <span class="text-stroke">prove, or quietly retire.</span></h2>
+    </div>
+    <p class="font-outfit text-sm uppercase font-bold tracking-[0.18em] text-gray-med max-w-xs md:text-right">If the pilot doesn't deliver on these, the format isn't ready for paying schools.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-orange">01</span>
+      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">Curiosity is teachable.</h3>
+      <p class="font-display text-sm leading-relaxed opacity-80">Every student, including the disengaged ones, leaves with a question they want to keep working on.</p>
+    </div>
+    <div class="border-2 border-black p-7 bg-blue text-white">
+      <span class="block font-outfit text-5xl font-extrabold mb-6 text-white/40">02</span>
+      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">AI use becomes legible.</h3>
+      <p class="font-display text-sm leading-relaxed opacity-90">A teacher walking past a student's screen can tell what is the student's thinking and what is the model's.</p>
+    </div>
+    <div class="border-2 border-black p-7 hover:bg-orange hover:text-white transition-colors duration-300 group">
+      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-white">03</span>
+      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">The artefact earns wall space.</h3>
+      <p class="font-display text-sm leading-relaxed opacity-80">The C-Level Board belongs on a wall, not in a folder.</p>
+    </div>
+    <div class="border-2 border-black p-7 hover:bg-black hover:text-white transition-colors duration-300 group">
+      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-yellow">04</span>
+      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">Two days is enough.</h3>
+      <p class="font-display text-sm leading-relaxed opacity-80">The format fits inside a real Singapore school timetable without breaking it.</p>
+    </div>
+    <div class="border-2 border-black p-7 hover:bg-pink hover:text-white transition-colors duration-300 group">
+      <span class="block font-outfit text-5xl font-extrabold mb-6 group-hover:text-white">05</span>
+      <h3 class="font-outfit text-xl font-bold mb-3 leading-tight">The teacher learns too.</h3>
+      <p class="font-display text-sm leading-relaxed opacity-80">The facilitator debrief is genuinely useful for classroom integration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. THE NAME ============ -->
+<section class="bg-black text-white px-6 md:px-12 py-major">
+  <div class="max-w-4xl mx-auto">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-6">The name</p>
+    <h3 class="font-outfit text-big mb-8">
+      C-Level <span class="text-gray-med font-light text-3xl md:text-5xl">/ˈsiːˌlɛvəl/</span> <span class="text-gray-med text-2xl font-light italic">noun</span>
+    </h3>
+    <p class="font-outfit text-2xl md:text-4xl font-bold leading-snug mb-10">
+      O-Levels and A-Levels are qualifications.<br/>
+      <span class="text-orange">C-Levels</span> is the qualification AI will not do for your students.
+    </p>
+    <div class="border-t border-white/15 pt-8">
+      <p class="font-outfit italic text-xl md:text-2xl text-yellow leading-snug">"The C is for curiosity. We made one for the qualification AI cannot earn for them."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. THE 4Cs ============ -->
+<section class="px-6 md:px-12 py-major bg-white" id="how">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+    <div>
+      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">How it works</p>
+      <h2 class="font-outfit text-huge leading-[0.85] tracking-tighter">The 4Cs.</h2>
+    </div>
+    <div class="text-left md:text-right max-w-xs pb-2">
+      <p class="font-inter text-[11px] uppercase font-bold tracking-[0.2em] text-gray-med">Curiosity becomes learning when it has a path. The whole loop runs in 1 to 2 days.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 01 Curiosity -->
+    <div class="group border-2 border-black p-7 hover:bg-black hover:text-white transition-all duration-500">
+      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-orange">01</span>
+      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Curiosity</h4>
+      <p class="font-outfit italic text-sm mb-5 group-hover:text-orange">What keeps pulling you back?</p>
+      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Find the real question inside the obsession. Not "what do you like" but "what do you not yet understand about the thing you cannot stop watching?"</p>
+      <div class="flex flex-wrap gap-1.5 mt-6">
+        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Football</span>
+        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">K-pop</span>
+        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Manga</span>
+        <span class="border border-current px-2.5 py-1 text-[10px] uppercase tracking-wide font-semibold">Gaming</span>
+      </div>
+    </div>
+
+    <!-- 02 Clarity -->
+    <div class="border-2 border-black p-7 bg-blue text-white">
+      <span class="block font-outfit text-6xl font-extrabold mb-10 text-white/40">02</span>
+      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Clarity</h4>
+      <p class="font-outfit italic text-sm mb-5 text-yellow">What are you really trying to understand?</p>
+      <p class="font-display text-sm leading-relaxed opacity-90 mb-6">Sharpen the question before chasing answers.</p>
+      <div class="space-y-2">
+        <div class="bg-white/10 p-3 border border-white/20">
+          <div class="opacity-50 line-through text-[10px] font-semibold uppercase tracking-wider">Football</div>
+          <div class="text-xs">— too broad to investigate</div>
+        </div>
+        <div class="flex justify-center py-1 text-white/60">
+          <span class="material-symbols-outlined text-base">south</span>
+        </div>
+        <div class="bg-white p-3 text-black">
+          <div class="text-[10px] font-semibold uppercase tracking-wider text-blue">Sharper</div>
+          <div class="text-xs font-medium leading-snug">Why do some goalkeepers dive before the penalty is kicked?</div>
         </div>
       </div>
+    </div>
 
-      <div class="hero__fragments" aria-hidden="true">
-        <div class="frag-1">What do you keep watching,<br>searching, collecting,<br>or arguing about?</div>
-        <div class="frag-2">A pursuit ↓</div>
-        <div class="frag-3">Singapore · 2026</div>
-        <div class="frag-4"></div>
-        <div class="frag-5">↓</div>
+    <!-- 03 Creation -->
+    <div class="group border-2 border-black p-7 hover:bg-orange hover:text-white transition-all duration-500">
+      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-white">03</span>
+      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Creation</h4>
+      <p class="font-outfit italic text-sm mb-5 group-hover:text-white">What can you build from what you found?</p>
+      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Students draw on AI, primary sources, articles, and worked examples to investigate, then turn what they find into something concrete. The format follows the pursuit.</p>
+      <ul class="space-y-1 font-outfit text-sm font-semibold">
+        <li>↓ A theory</li>
+        <li>↓ A map</li>
+        <li>↓ A comic</li>
+        <li>↓ A prototype</li>
+        <li>↓ A playlist with an argument</li>
+      </ul>
+    </div>
+
+    <!-- 04 Communication -->
+    <div class="group border-2 border-black p-7 hover:bg-black hover:text-white transition-all duration-500">
+      <span class="block font-outfit text-6xl font-extrabold mb-10 group-hover:text-pink">04</span>
+      <h4 class="font-outfit text-2xl font-bold mb-3 uppercase">Communication</h4>
+      <p class="font-outfit italic text-sm mb-5 group-hover:text-pink">Can someone else understand it?</p>
+      <p class="font-display text-sm leading-relaxed opacity-75 mb-6">Students explain their work to someone who knows little about the topic. Vague thinking gets exposed. So does the moment a student realises they actually understand what they made.</p>
+      <p class="font-outfit italic text-xs leading-relaxed border-l-2 border-current pl-3 mt-6">"This was my question. This is what I found. This is what changed my mind. This is what I made. This is what I still want to know."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. RESPONSIBLE AI ============ -->
+<section class="bg-black text-white px-6 md:px-12 py-major">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    <div>
+      <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-4">Responsible AI</p>
+      <h2 class="font-outfit text-big mb-6">AI is part of the pursuit.<br/><span class="text-stroke">It does not get to do the pursuing.</span></h2>
+      <p class="font-display text-base leading-relaxed text-white/70 max-w-md">Answers from a model are treated as material to inspect, not conclusions to repeat. AI use is not hidden in C-Levels. What we make visible is the thinking around it.</p>
+    </div>
+    <div class="space-y-1 font-display">
+      <div class="flex gap-4 border-b border-white/15 py-4">
+        <span class="text-orange font-extrabold text-lg">A.</span>
+        <p class="text-base md:text-lg leading-snug">Students ask stronger follow-up questions instead of accepting the first response.</p>
+      </div>
+      <div class="flex gap-4 border-b border-white/15 py-4">
+        <span class="text-orange font-extrabold text-lg">B.</span>
+        <p class="text-base md:text-lg leading-snug">Compare what the model says against primary sources, and write down where they disagree.</p>
+      </div>
+      <div class="flex gap-4 border-b border-white/15 py-4">
+        <span class="text-orange font-extrabold text-lg">C.</span>
+        <p class="text-base md:text-lg leading-snug">Spot the assumptions a model is making, and check what is missing from its answer.</p>
+      </div>
+      <div class="flex gap-4 border-b border-white/15 py-4">
+        <span class="text-orange font-extrabold text-lg">D.</span>
+        <p class="text-base md:text-lg leading-snug">Separate evidence from confidence. A confident answer is not a correct one.</p>
+      </div>
+      <div class="flex gap-4 py-4">
+        <span class="text-orange font-extrabold text-lg">E.</span>
+        <p class="text-base md:text-lg leading-snug">Explain the final work in the student's own words, without the screen open.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="hero__scroll" aria-hidden="true">↓</div>
-  </header>
-
-  <section class="section section--dark">
-    <p class="t-label">THE AI MANDATE IS HERE</p>
-    <h2 class="t-h2">Schools have access to AI.<br>The harder question is what students do with it.</h2>
-    <div class="prose prose--cream">
-      <p class="lead">AI literacy is now part of school life. Students are being introduced to tools, prompts, bias, chatbots, and responsible use, and that work matters.</p>
-      <p>What a tool cannot do is decide which questions are worth asking, notice when an answer is too easy, or check whether the student in front of it actually understands what just came back.</p>
-      <p>That part still belongs to the student.</p>
+<!-- ============ 7. THE C-LEVEL BOARD ============ -->
+<section class="px-6 md:px-12 py-major bg-white">
+  <div class="relative max-w-6xl mx-auto">
+    <div class="absolute -top-4 -left-2 md:-top-6 md:-left-6 z-20 bg-blue text-white px-6 py-3 font-outfit font-extrabold uppercase text-base md:text-xl shadow-lg">
+      The C-Level Board
     </div>
-    <blockquote class="pullquote">C-Levels treats curiosity as something a student can practise, rather than perform.</blockquote>
-  </section>
-
-  <section class="section graph">
-    <p class="t-label">WHAT CAN GET MISSED</p>
-    <h2 class="t-h2">Students can generate answers<br>they do not understand.</h2>
-    <div class="prose">
-      <p class="lead">A student types a question, AI responds, and the work that comes back already looks polished.</p>
-    </div>
-    <ul class="question-list">
-      <li>But did they frame the question well?</li>
-      <li>Did they check the source?</li>
-      <li>Did they notice what was missing?</li>
-      <li>Can they explain the answer without hiding behind the screen?</li>
-    </ul>
-    <div class="prose">
-      <p>C-Levels is built for that gap. It works on the habits AI cannot do for a student: framing a question with care, testing the answer it gives back, noticing what is missing, and being able to explain the work in their own words afterwards.</p>
-    </div>
-  </section>
-
-  <section class="section graph">
-    <p class="t-label">THE FORMAT</p>
-    <h2 class="t-h2">A C-Level is a<br>learning pursuit.</h2>
-    <div class="prose">
-      <p class="lead">A C-Level is a guided inquiry where a student follows one curiosity deeply and returns with something teachable.</p>
-    </div>
-    <div class="define">
-      <p class="define__not">It is not a worksheet, a prompt challenge, or a slide deck rushed in an afternoon.</p>
-      <p class="define__not"><strong style="color: var(--ink); opacity: 1;">It is a pursuit with a clear outcome.</strong></p>
-    </div>
-    <p class="define__obsessions">A student begins with something they keep coming back to — a game mechanic, a football tactic, a manga world, a song lyric they cannot place, a family language they half-understand, a question that has been living rent-free in their head.</p>
-    <div class="prose">
-      <p>From there, they learn how to follow it properly: sharpening the question, investigating with AI and primary sources, building something from what holds up, and teaching it back to a person who has not been in the room.</p>
-      <p style="font-family: var(--font-display); font-style: italic; font-size: clamp(20px, 2.5vw, 26px); color: var(--amber); opacity: 1;">By the end, the curiosity has become visible.</p>
-    </div>
-  </section>
-
-  <section class="section graph" id="how">
-    <p class="t-label">HOW IT WORKS</p>
-    <h2 class="t-h2">Curiosity becomes learning<br>when it has a path.</h2>
-
-    <div class="cs__steps">
-      <div class="cstep">
-        <p class="cstep__no">01 · Curiosity</p>
-        <h3 class="cstep__name">What keeps pulling you back?</h3>
-        <p class="cstep__body">Students start with something they already care about. The work is not to make that interest more academic, but to find the real question sitting inside it.</p>
-        <p class="cstep__sub">Example prompts</p>
-        <ul class="examples">
-          <li>What do you keep watching, searching, collecting, or arguing about?</li>
-          <li>What part of it do you still not understand?</li>
-          <li>Why does this keep bothering or fascinating you?</li>
-        </ul>
-      </div>
-
-      <div class="cstep">
-        <p class="cstep__no">02 · Clarity</p>
-        <h3 class="cstep__name">What are you really trying to understand?</h3>
-        <p class="cstep__body">Students sharpen the question before chasing answers. They learn that a broad topic is not yet an inquiry.</p>
-        <div class="transform">
-          <div class="transform__row">
-            <p class="transform__from">"Football" becomes</p>
-            <p class="transform__to">Why do some goalkeepers dive before the penalty is kicked?</p>
-          </div>
-          <div class="transform__row">
-            <p class="transform__from">"K-pop" becomes</p>
-            <p class="transform__to">How do fan communities make a comeback feel bigger than the song itself?</p>
-          </div>
-          <div class="transform__row">
-            <p class="transform__from">"Gaming" becomes</p>
-            <p class="transform__to">Why do some games make losing feel addictive?</p>
-          </div>
+    <div class="aspect-video w-full relative overflow-hidden border-2 border-black bg-gradient-to-br from-gray-900 to-black">
+      <!-- Honest empty state -->
+      <div class="absolute inset-0 opacity-[0.06]" style="background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 28px 28px;"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-8">
+        <div class="bg-white text-black p-8 md:p-10 max-w-lg text-center border-2 border-black">
+          <span class="material-symbols-outlined text-orange text-5xl mb-3">photo_library</span>
+          <span class="block font-inter text-[10px] uppercase font-bold tracking-[0.3em] mb-3 text-blue">Photo coming after pilot run</span>
+          <p class="font-outfit italic text-lg md:text-xl leading-snug mb-3">A large-format visual record of one student's pursuit.</p>
+          <p class="font-display text-sm text-black/60">Question. Sources. What AI helped with and where it fell short. What they found. What they built. What changed their mind. What they still want to know.</p>
         </div>
       </div>
-
-      <div class="cstep">
-        <p class="cstep__no">03 · Creation</p>
-        <h3 class="cstep__name">What can you build from what you found?</h3>
-        <p class="cstep__body">Students draw on AI, primary sources, articles, videos, and worked examples to investigate, then turn what they find into something concrete — a theory, a map, a comic, a guide, a prototype, a visual explanation, a playlist with an argument behind it.</p>
-        <p class="cstep__q" style="margin-top: 16px;">The format follows the pursuit.</p>
-      </div>
-
-      <div class="cstep">
-        <p class="cstep__no">04 · Communication</p>
-        <h3 class="cstep__name">Can someone else understand it?</h3>
-        <p class="cstep__body">Students explain their work to someone who knows little about the topic. Vague thinking gets exposed in that conversation, and so does the moment a student realises they actually understand what they made.</p>
-        <p class="cstep__sub">A good C-Level ends with a student who can say</p>
-        <ul class="says">
-          <li>This was my question.</li>
-          <li>This is what I found.</li>
-          <li>This is what changed my mind.</li>
-          <li>This is what I made.</li>
-          <li>This is what I still want to know.</li>
-        </ul>
-      </div>
     </div>
-  </section>
-
-  <section class="section section--dark">
-    <p class="t-label">AI USE, MADE VISIBLE</p>
-    <h2 class="t-h2">AI is part of the pursuit.<br>It does not get to do the pursuing.</h2>
-    <div class="prose prose--cream">
-      <p class="lead">Students use AI to explore, compare, challenge, and organise their thinking. Answers from a model are treated as material to inspect, rather than conclusions to repeat.</p>
-      <p>Across a C-Level, students practise:</p>
-    </div>
-    <ul class="ai__list">
-      <li>asking stronger follow-up questions</li>
-      <li>comparing AI answers with other sources</li>
-      <li>spotting assumptions</li>
-      <li>checking what might be missing</li>
-      <li>separating evidence from confidence</li>
-      <li>explaining the final work in their own words</li>
-    </ul>
-    <p class="ai__close">AI use is not hidden in C-Levels. What we make visible is the thinking around it — the questions asked, the sources checked, the parts the student worked out for themselves.</p>
-  </section>
-
-  <section class="section section--dark section--center">
-    <p class="t-label">THE C-LEVEL BOARD</p>
-    <h2 class="t-h2">Proof they followed the question.</h2>
-    <div class="prose prose--cream prose--center">
-      <p>Every student completes a C-Level Board: a large-format visual record of their learning pursuit.</p>
-      <p>It captures:</p>
-    </div>
-    <ul class="board__captures">
-      <li>the question they pursued</li>
-      <li>why it mattered to them</li>
-      <li>what sources they used</li>
-      <li>how AI helped and where it fell short</li>
-      <li>what they found</li>
-      <li>what they built</li>
-      <li>how their thinking changed</li>
-      <li>what they still want to investigate</li>
-    </ul>
-    <p class="t-h3 board__statement">A C-Level Board sits closer to evidence than to a certificate — a record of a student thinking in public.</p>
-
-    <div class="board__artifact" aria-label="C-Level Board placeholder">
-      <p class="board__artifact-title">C-Level Board — photo coming soon</p>
-      <p class="board__artifact-note">A visual record of each student's pursuit</p>
-    </div>
-
-    <div class="board__meta">
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 font-inter text-[11px] uppercase tracking-[0.18em] font-semibold text-black/70">
       <span>Filled in by hand</span>
-      <span class="sep">·</span>
+      <span class="text-orange">·</span>
       <span>Unique to every student</span>
-      <span class="sep">·</span>
+      <span class="text-orange">·</span>
       <span>Designed for display</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section graph" id="schools">
-    <p class="t-label">FOR SCHOOL LEADERS</p>
-    <h2 class="t-h2">A format that fits the school<br>and works on what AI<br>cannot teach on its own.</h2>
-
-    <div class="schools__intro">
-      <p>C-Levels is designed for schools that want AI learning to go past tool exposure. It runs inside the structures schools already use, and leaves a leader with something they can show parents, repeat with the next cohort, and explain to colleagues.</p>
-    </div>
-
-    <p class="schools__subheading" style="margin-top: 48px;">IT CAN RUN AS</p>
-    <ul class="schools__formats">
-      <li>Enrichment programme</li>
-      <li>CCA session</li>
-      <li>Post-exam activity</li>
-      <li>Learning festival</li>
-      <li>Applied learning module</li>
-      <li>Holiday intensive</li>
-    </ul>
-
-    <div class="schools__grid">
+<!-- ============ 8. FOR PILOT SCHOOLS ============ -->
+<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light" id="schools">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-14">
       <div>
-        <p class="schools__subheading">FORMAT</p>
-        <ul class="schools__list">
-          <li>1 or 2-day programme</li>
-          <li>Ages 12 to 15</li>
-          <li>12 to 15 students per cohort</li>
-          <li>No prior AI expertise required from students</li>
-          <li>Adaptable to school device and platform rules</li>
-          <li>Facilitated by practitioners from GovTech, Grab, MOE AdTech, and SIT</li>
-        </ul>
-      </div>
-      <div>
-        <p class="schools__subheading">WHAT YOUR SCHOOL GETS</p>
-        <ul class="schools__list">
-          <li>Completed C-Level Boards from every student</li>
-          <li>A documented programme flow</li>
-          <li>Student artefacts suitable for display or sharing</li>
-          <li>Facilitator debrief</li>
-          <li>Classroom integration notes</li>
-          <li>Optional follow-up session two weeks later</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="schools__proof">You will hear the difference in how students explain what they know.</p>
-
-    <div class="schools__cta">
-      <a class="btn-primary" id="cta-schools-whatsapp" href="https://wa.me/6512345678?text=Hi%2C%20I%27m%20interested%20in%20running%20C-Levels%20for%20students%20at%20my%20school.%20Could%20you%20share%20the%20available%20formats%3F" target="_blank" rel="noopener">Plan a school run →</a>
-      <p class="schools__email">Or email: hello@clevels.sg</p>
-    </div>
-  </section>
-
-  <section class="section section--dark">
-    <p class="t-label">THE BIGGER POINT</p>
-    <h2 class="t-h2">AI changes the answer.<br>School still shapes the asker.</h2>
-    <div class="prose prose--cream">
-      <p>Students are growing up in a world where answers arrive before they have finished forming the question. C-Levels gives schools a way to respond to that without slowing the technology down, and without leaving students passive around it.</p>
-      <p>A C-Level works on the habits that matter before, during, and after AI use: curiosity, judgement, evidence, creation, and explanation.</p>
-    </div>
-    <p class="why__close">That is the work an AI-exposed school still has to do.</p>
-  </section>
-
-  <section class="section graph">
-    <p class="t-label">BY RABBITHOLE</p>
-    <h2 class="t-h2 people__headline">Built by practitioners<br>in learning, design,<br>and technology.</h2>
-
-    <div class="people__intro">
-      <p>C-Levels is created and facilitated by rabbithole, a learning studio working on student curiosity and self-directed inquiry.</p>
-      <p style="margin-top: 16px;">Our facilitators come from GovTech, Grab, MOE AdTech, and Singapore Institute of Technology, with practice across design thinking, education futures, UX research, and youth learning.</p>
-    </div>
-
-    <div class="people__block">
-      <h3 class="people__name">Ziff</h3>
-      <p class="people__bio">Ziff has facilitated design thinking in Singapore schools, led MOE's Classroom of the Future initiative at GovTech, and teaches design innovation at Singapore Institute of Technology. His 2019 master's research explored AI-supported learning before ChatGPT entered everyday use.</p>
-      <p class="people__bio">He is also the founder of Tumbo, a platform helping parents find enrichment that fits a child's curiosity.</p>
-    </div>
-
-    <hr class="people__rule" />
-
-    <div class="people__block">
-      <h3 class="people__name">Jia Liang</h3>
-      <p class="people__bio">Jia Liang is a UX researcher and service designer at Grab, where he co-developed internal research and design training curriculum. He has taught design thinking in Singapore primary schools, volunteers weekly with children with special needs, and works closely with curiosity-driven learning in school contexts.</p>
-    </div>
-
-    <div class="people__logos">
-      <span>GRAB</span><span>·</span>
-      <span>GOVTECH</span><span>·</span>
-      <span>MOE ADTECH</span><span>·</span>
-      <span>SINGAPORE INSTITUTE OF TECHNOLOGY</span>
-    </div>
-  </section>
-
-  <section class="section graph" id="parents">
-    <div id="parents__form-root">
-      <p class="t-label">FOR PARENTS</p>
-      <h2 class="t-h2 parents__headline">Your child does not need<br>more focus. They need a way<br>to use what they are<br>already curious about.</h2>
-
-      <div class="parents__paras">
-        <p>You have probably seen the pattern. They jump between interests, ask strange questions, watch and search and save and scroll, then move on.</p>
-        <p>C-Levels gives that impulse a structure. Your child takes one thing they genuinely wonder about, investigates it with guidance, uses AI responsibly, and builds something from what they find.</p>
-        <p>They leave with more than an answer — they leave knowing how they got there.</p>
+        <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">For two pilot schools</p>
+        <h2 class="font-outfit text-big mb-4">Three ways to start.<br/><span class="text-orange">Two of them are free.</span></h2>
+        <p class="font-display text-base text-black/70 max-w-sm">We're hoping to find two Singapore schools to run the first cohorts with us in Term 3 2026. Either side can step back before the run if it doesn't feel right.</p>
       </div>
 
-      <div class="callout">
-        <p class="callout__title">June Holiday C-Levels</p>
-        <p class="callout__sub">Details released soon</p>
-      </div>
-
-      <div class="form" id="interest-form">
-        <div class="field">
-          <label class="field__label" for="f-name">PARENT NAME</label>
-          <input class="field__input" id="f-name" type="text" autocomplete="name" />
+      <div class="md:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Big offer: Free pilot cohort -->
+        <div class="lg:col-span-2 border-2 border-black bg-white p-8 relative">
+          <div class="absolute -top-3 left-6 bg-orange text-white px-3 py-1 font-inter text-[10px] font-bold uppercase tracking-[0.2em]">Pilot · 2 places</div>
+          <p class="font-outfit text-3xl font-extrabold text-orange mb-1">Free pilot cohort</p>
+          <h3 class="font-outfit text-2xl font-bold mb-5">Full 1 or 2-day C-Level · Term 3 2026</h3>
+          <ul class="space-y-2 font-display text-sm text-black/80 mb-6">
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>One Singapore school, one cohort of 12–15 students, ages 12–15</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Runs as enrichment, CCA, post-exam, or holiday intensive</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Facilitated by Ziff and Jia Liang in person</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Every student leaves with a completed C-Level Board</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>School receives full programme documentation, classroom integration notes, and the right to use student artefacts publicly</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>We co-write the case study</li>
+          </ul>
+          <a id="cta-pilot" href="#enquire" class="inline-block bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.2em] px-7 py-4 rounded-full hover:bg-blue-deep transition">Apply for the pilot →</a>
         </div>
-        <div class="field">
-          <label class="field__label" for="f-age">CHILD'S AGE</label>
-          <input class="field__input" id="f-age" type="number" min="12" max="15" inputmode="numeric" />
+
+        <!-- Smaller wedge 1 -->
+        <div class="border-2 border-black p-7 bg-white">
+          <p class="font-outfit text-xl font-extrabold text-blue mb-1">Free</p>
+          <h3 class="font-outfit text-lg font-bold mb-4 leading-tight">30-min principals' walkthrough</h3>
+          <ul class="space-y-1.5 font-display text-sm text-black/75 mb-5">
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>The shorter version of this page, with slides</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You ask the questions a brochure cannot answer</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>No follow-up sequence</li>
+          </ul>
+          <a id="cta-walkthrough" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20walkthrough%20call" class="inline-block border-2 border-black text-black font-inter font-bold uppercase text-[11px] tracking-[0.18em] px-5 py-3 rounded-full hover:bg-black hover:text-white transition">Email to book</a>
         </div>
-        <div class="field">
-          <label class="field__label" for="f-email">EMAIL</label>
-          <input class="field__input" id="f-email" type="email" autocomplete="email" />
+
+        <!-- Smaller wedge 2 -->
+        <div class="border-2 border-black p-7 bg-white">
+          <p class="font-outfit text-xl font-extrabold text-blue mb-1">Free</p>
+          <h3 class="font-outfit text-lg font-bold mb-4 leading-tight">60-min teacher PD demo</h3>
+          <ul class="space-y-1.5 font-display text-sm text-black/75 mb-5">
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>Run with one class of 8–15 students at your school</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You see the format work or fail in real conditions</li>
+            <li class="flex gap-2"><span class="text-orange shrink-0">↓</span>You decide what to do next</li>
+          </ul>
+          <a id="cta-demo" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20PD%20demo" class="inline-block border-2 border-black text-black font-inter font-bold uppercase text-[11px] tracking-[0.18em] px-5 py-3 rounded-full hover:bg-black hover:text-white transition">Email to book</a>
         </div>
-        <div class="field">
-          <label class="field__label" for="f-obsession">WHAT IS YOUR CHILD CURRENTLY OBSESSED WITH?</label>
-          <textarea class="field__textarea" id="f-obsession" rows="4"></textarea>
-        </div>
-        <button class="btn-submit" id="f-submit" type="button">REGISTER INTEREST →</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section section--dark" id="enquire">
-    <p class="t-label">BRING C-LEVELS TO YOUR SCHOOL</p>
-    <h2 class="t-h2">Give students a pursuit<br>worth coming back from.</h2>
-    <div class="finalcta__body">
-      <p>C-Levels gives a school a way to turn AI literacy into student judgement that can be seen, defended, and explained.</p>
-      <p>If you are planning enrichment, CCA programming, post-exam activities, or an AI literacy extension, we can shape a run around your school's needs.</p>
+<!-- ============ 9. WHY IT MATTERS ============ -->
+<section class="bg-blue text-white px-6 md:px-12 py-32 text-center overflow-hidden relative">
+  <div class="absolute inset-0 opacity-[0.07] pointer-events-none flex items-center justify-center">
+    <div class="text-[180px] md:text-[320px] font-outfit font-extrabold whitespace-nowrap tracking-tighter leading-none">CURIOSITY CURIOSITY</div>
+  </div>
+  <div class="relative z-10 max-w-5xl mx-auto">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-yellow mb-6">The bigger point</p>
+    <h2 class="font-outfit text-mega leading-[0.9] tracking-tighter">
+      AI changes the answer.<br/>
+      <span class="text-stroke">School still shapes the asker.</span>
+    </h2>
+  </div>
+</section>
+
+<!-- ============ 10. WHO WE ARE ============ -->
+<section class="px-6 md:px-12 py-major bg-white">
+  <div class="max-w-6xl mx-auto">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">Who we are</p>
+    <h2 class="font-outfit text-big mb-12">Two practitioners who have been working<br/>on this from <span class="text-stroke">inside the system.</span></h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
+      <!-- Ziff -->
+      <div class="border-2 border-black p-8 bg-white">
+        <div class="aspect-[4/3] bg-gradient-to-br from-blue to-black mb-6 flex items-center justify-center relative overflow-hidden">
+          <span class="font-outfit text-[120px] font-extrabold text-white/15 leading-none">Z</span>
+          <span class="absolute bottom-3 left-4 font-inter text-[9px] font-bold tracking-[0.18em] uppercase text-white/60">Photo coming · v0.1</span>
+        </div>
+        <h3 class="font-outfit text-3xl font-extrabold mb-1">Ziff Lau</h3>
+        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-blue font-bold mb-5">Strategy · Facilitation · Curriculum</p>
+        <p class="font-display text-sm leading-relaxed text-black/80">Service designer at GovTech on the Classroom of the Future initiative with MOE EdTech. Adjunct teaching design innovation at Singapore Institute of Technology. Master's at Hyper Island, with a 2019 thesis on AI-supported learning before ChatGPT existed. Founder of Tumbo, a directory helping Singapore parents find enrichment that fits a child's curiosity.</p>
+      </div>
+
+      <!-- Jia Liang -->
+      <div class="border-2 border-black p-8 bg-white">
+        <div class="aspect-[4/3] bg-gradient-to-br from-orange to-black mb-6 flex items-center justify-center relative overflow-hidden">
+          <span class="font-outfit text-[120px] font-extrabold text-white/15 leading-none">J</span>
+          <span class="absolute bottom-3 left-4 font-inter text-[9px] font-bold tracking-[0.18em] uppercase text-white/60">Photo coming · v0.1</span>
+        </div>
+        <h3 class="font-outfit text-3xl font-extrabold mb-1">Jia Liang</h3>
+        <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-blue font-bold mb-5">Experience · Research · Classroom design</p>
+        <p class="font-display text-sm leading-relaxed text-black/80">UX researcher and service designer at Grab, where he co-developed internal research and design training curriculum. Has taught design thinking in multiple Singapore primary schools, volunteers weekly with children with special needs, and works inside MOE settings on curiosity-driven learning.</p>
+      </div>
     </div>
-    <div class="finalcta__row">
-      <a class="btn-primary btn-primary--inverse" id="cta-final-whatsapp" href="https://wa.me/6512345678?text=Hi%2C%20I%27m%20interested%20in%20running%20C-Levels%20for%20students%20at%20my%20school.%20Could%20you%20share%20the%20available%20formats%3F" target="_blank" rel="noopener">Plan a school run →</a>
-      <a class="link-secondary link-secondary--cream" id="cta-final-email" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20school%20enquiry">Email us →</a>
+
+    <div class="border-t border-black pt-8 flex flex-wrap items-center gap-x-8 gap-y-3 font-inter text-[10px] tracking-[0.22em] uppercase font-bold text-black/45">
+      <span>Built with practice from</span>
+      <span class="text-orange">·</span>
+      <span>GovTech</span>
+      <span class="text-orange">·</span>
+      <span>Grab</span>
+      <span class="text-orange">·</span>
+      <span>MOE EdTech</span>
+      <span class="text-orange">·</span>
+      <span>Singapore Institute of Technology</span>
+      <span class="text-orange">·</span>
+      <span>Hyper Island</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div class="footer__left">
-      <p class="footer__brand">
-        C-Levels ↓
-        <small>by rabbithole</small>
-      </p>
-      <p class="footer__meta">Singapore · 2026</p>
+<!-- ============ 11. FAQ ============ -->
+<section class="px-6 md:px-12 py-major bg-off-white border-y border-gray-light" id="faq">
+  <div class="max-w-3xl mx-auto">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-blue mb-4">Questions</p>
+    <h2 class="font-outfit text-big mb-12">Worth asking before<br/>the meeting.</h2>
+
+    <div class="border-t-2 border-black">
+      <details class="border-b border-black/15 py-6 group" open>
+        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
+          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">You have not run this yet. Why should we be your first?</h3>
+          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
+        </summary>
+        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Because the pilot is free, fully documented, and the school keeps everything that comes out of it. The honest exchange is: you give us the chance to test the design with real students, we give you a finished programme and a case study you can use. If something does not work, you keep what we learned and we walk away with the lesson. Either side can pull out before the run.</p>
+      </details>
+
+      <details class="border-b border-black/15 py-6 group">
+        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
+          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">What does this cost after the pilot?</h3>
+          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
+        </summary>
+        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">The pricing for paid cohorts will be set after the pilot, based on what we learn. We will not commit a school to a number while we are still proving the format. The two pilot schools will see the proposed pricing first.</p>
+      </details>
+
+      <details class="border-b border-black/15 py-6 group">
+        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
+          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">Do students need any prior AI exposure?</h3>
+          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
+        </summary>
+        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">No. The programme is designed for students who have used ChatGPT casually and for students who have never opened it. The work is on the asking and the explaining, not the prompting.</p>
+      </details>
+
+      <details class="border-b border-black/15 py-6 group">
+        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
+          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">Which AI tools do you use?</h3>
+          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
+        </summary>
+        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Claude, NotebookLM, and search. Tools the school is comfortable with take precedence. We adapt to whatever device and platform rules are already in place.</p>
+      </details>
+
+      <details class="border-b-2 border-black py-6 group">
+        <summary class="cursor-pointer flex justify-between items-start gap-4 list-none">
+          <h3 class="font-outfit italic text-xl md:text-2xl leading-snug">How is this different from an AI workshop?</h3>
+          <span class="material-symbols-outlined text-orange shrink-0 mt-1 group-open:rotate-45 transition-transform">add</span>
+        </summary>
+        <p class="font-display text-base leading-relaxed text-black/80 pt-4 max-w-2xl">Most AI workshops are about the tool. C-Levels is about the inquiry behind the tool. The student leaves with a completed pursuit and a record of how they got there. The deliverable is not a prompt library. It is a thinking artefact.</p>
+      </details>
     </div>
-    <div class="footer__center">
-      <a class="footer__email" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+  </div>
+</section>
+
+<!-- ============ 12. FINAL CTA ============ -->
+<section class="bg-black text-white px-6 md:px-12 py-32 text-center" id="enquire">
+  <div class="max-w-5xl mx-auto">
+    <p class="font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-orange mb-6">Talk to us</p>
+    <h2 class="font-outfit text-huge leading-[0.9] tracking-tighter mb-10">
+      If your school is open<br/>
+      to running the first one,<br/>
+      <span class="text-stroke">we would like to meet.</span>
+    </h2>
+    <p class="font-display text-base md:text-lg leading-relaxed text-white/75 max-w-2xl mx-auto mb-12">
+      The pilot cohorts run in Term 3 2026. We're hoping to confirm both schools by the end of Term 1. A 20-minute call is usually enough to know whether it's worth a longer one.
+    </p>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+      <a id="cta-final-wa" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20pilot%20page%20and%20I%27d%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener" class="px-10 py-5 bg-white text-black font-outfit font-extrabold uppercase text-base md:text-lg tracking-[0.15em] rounded-full hover:bg-yellow transition transform hover:scale-105">WhatsApp</a>
+      <a id="cta-final-email" href="mailto:hello@clevels.sg?subject=C-Levels%20pilot%20%E2%80%94%20[School%20name]" class="px-10 py-5 border-2 border-white text-white font-outfit font-extrabold uppercase text-base md:text-lg tracking-[0.15em] rounded-full hover:bg-white hover:text-black transition">Email hello@clevels.sg</a>
     </div>
-    <div class="footer__right">
-      <p class="footer__tagline">For students who want to know what sits behind the first answer.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-black text-white border-t border-white/10 pt-20 pb-10">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 md:px-12 max-w-[1440px] mx-auto">
+    <div>
+      <span class="text-3xl font-extrabold text-orange uppercase tracking-tighter block mb-4">C-Levels ↓</span>
+      <p class="font-inter text-[10px] uppercase tracking-[0.2em] text-white/60 mb-6">by rabbithole · v0.1 pilot</p>
+      <p class="font-display text-sm leading-relaxed text-white/55 max-w-xs">For students who want to know what sits behind the first answer.</p>
     </div>
-  </footer>
+    <div class="flex flex-col gap-3">
+      <h5 class="text-orange uppercase text-[10px] font-bold tracking-[0.3em] mb-4">Quick links</h5>
+      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#how">How it works</a>
+      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#schools">For schools</a>
+      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#faq">FAQ</a>
+      <a class="text-white/60 hover:text-yellow transition-colors font-display text-sm" href="#enquire">Talk to us</a>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h5 class="text-orange uppercase text-[10px] font-bold tracking-[0.3em] mb-4">Contact</h5>
+      <a class="text-white/60 hover:text-white transition-colors font-display text-sm" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+      <a class="text-white/60 hover:text-white transition-colors font-display text-sm" href="https://wa.me/6593227317" target="_blank" rel="noopener">+65 9322 7317</a>
+      <p class="text-white/40 font-inter text-[10px] uppercase tracking-[0.2em] mt-4">rabbithole · Singapore</p>
+    </div>
+  </div>
+  <div class="px-6 md:px-12 max-w-[1440px] mx-auto mt-16 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/40 uppercase tracking-[0.18em] font-inter">
+    <div>© 2026 C-Levels by rabbithole · Pilot release</div>
+    <div class="flex gap-8">
+      <span>Term 3 2026 cohort · 2 schools</span>
+    </div>
+  </div>
+</footer>
 
-  <a class="vswitch" href="/yanxin.html">View YanXin design →</a>
+<script>
+  (function () {
+    'use strict';
 
-  <script>
-    (function () {
-      'use strict';
+    function track(event, props) {
+      if (window.posthog) posthog.capture(event, Object.assign({ page_version: 'v2' }, props || {}));
+    }
 
-      var nav = document.getElementById('nav');
-      function handleScroll() {
-        if (window.scrollY > 80) nav.classList.add('nav--scrolled');
-        else nav.classList.remove('nav--scrolled');
-      }
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
-
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        var delay = parseInt(el.getAttribute('data-reveal') || '0', 10);
-        setTimeout(function () { el.classList.add('is-in'); }, delay);
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href') || '';
+        if (href.length < 2) return;
+        var id = href.slice(1);
+        if (id === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+        var target = document.getElementById(id);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
       });
+    });
 
-      function scrollToId(id) {
-        var t = document.getElementById(id);
-        if (t) t.scrollIntoView({ behavior: 'smooth' });
-      }
-
-      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-        a.addEventListener('click', function (e) {
-          var href = a.getAttribute('href') || '';
-          if (href === '#' || href.length < 2) return;
-          var id = href.slice(1);
-          if (id === 'top') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-          var target = document.getElementById(id);
-          if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-        });
-      });
-
-      var heroPrimary = document.getElementById('cta-hero-primary');
-      if (heroPrimary) heroPrimary.addEventListener('click', function () {
-        if (window.posthog) posthog.capture('cta_clicked', { cta: 'hero_school_leaders' });
-        scrollToId('schools');
-      });
-      var heroSecondary = document.getElementById('cta-hero-secondary');
-      if (heroSecondary) heroSecondary.addEventListener('click', function () {
-        if (window.posthog) posthog.capture('cta_clicked', { cta: 'hero_how_it_works' });
-        scrollToId('how');
-      });
-
-      ['nav-cta', 'nav-cta-mobile'].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener('click', function () {
-          if (window.posthog) posthog.capture('cta_clicked', { cta: 'nav_enquire' });
-        });
-      });
-
-      var w1 = document.getElementById('cta-schools-whatsapp');
-      if (w1) w1.addEventListener('click', function () {
-        if (window.posthog) posthog.capture('whatsapp_clicked', { source: 'schools_section' });
-      });
-      var w2 = document.getElementById('cta-final-whatsapp');
-      if (w2) w2.addEventListener('click', function () {
-        if (window.posthog) posthog.capture('whatsapp_clicked', { source: 'final_cta' });
-      });
-
-      var em = document.getElementById('cta-final-email');
-      if (em) em.addEventListener('click', function () {
-        if (window.posthog) posthog.capture('email_clicked', { source: 'final_cta' });
-      });
-
-      var submitBtn = document.getElementById('f-submit');
-      var fieldIds = ['f-name', 'f-age', 'f-email', 'f-obsession'];
-
-      function handleFormSubmit() {
-        if (window.posthog) posthog.capture('form_attempted', { cohort: 'june_2026' });
-        var allFilled = true;
-        fieldIds.forEach(function (id) {
-          var el = document.getElementById(id);
-          if (!el) return;
-          var val = (el.value || '').trim();
-          if (!val) { el.classList.add('is-error'); allFilled = false; }
-          else { el.classList.remove('is-error'); }
-        });
-        if (!allFilled) {
-          submitBtn.classList.remove('is-shake');
-          void submitBtn.offsetWidth;
-          submitBtn.classList.add('is-shake');
-          return;
-        }
-        if (window.posthog) posthog.capture('form_completed', { cohort: 'june_2026' });
-
-        var root = document.getElementById('parents__form-root');
-        if (!root) return;
-        root.innerHTML =
-          '<div style="padding: 48px 0; max-width: 520px;">' +
-            '<p style="font-family: var(--font-display); font-style: italic; font-size: clamp(28px,4vw,40px); color: var(--ink); line-height: 1.3; margin: 0;">' +
-              'You’re in.<br>We’ll be in touch before the cohort opens.' +
-            '</p>' +
-            '<p style="font-family: var(--font-body); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); opacity: 0.5; margin-top: 20px;">' +
-              'C-Levels ↓ by rabbithole' +
-            '</p>' +
-          '</div>';
-      }
-
-      if (submitBtn) submitBtn.addEventListener('click', handleFormSubmit);
-
-      fieldIds.forEach(function (id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.addEventListener('input', function () {
-          if ((el.value || '').trim()) el.classList.remove('is-error');
-        });
-      });
-    })();
-  </script>
+    // CTA tracking
+    var ctas = {
+      'nav-cta':           { event: 'cta_clicked', props: { cta: 'nav_talk_to_us' } },
+      'nav-cta-mobile':    { event: 'cta_clicked', props: { cta: 'nav_talk_to_us_mobile' } },
+      'cta-hero':          { event: 'cta_clicked', props: { cta: 'hero_book_call' } },
+      'cta-hero-format':   { event: 'cta_clicked', props: { cta: 'hero_see_offer' } },
+      'cta-pilot':         { event: 'cta_clicked', props: { cta: 'apply_pilot' } },
+      'cta-walkthrough':   { event: 'cta_clicked', props: { cta: 'walkthrough_call' } },
+      'cta-demo':          { event: 'cta_clicked', props: { cta: 'pd_demo' } },
+      'cta-final-wa':      { event: 'whatsapp_clicked', props: { source: 'final_cta' } },
+      'cta-final-email':   { event: 'email_clicked',    props: { source: 'final_cta' } }
+    };
+    Object.keys(ctas).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('click', function () { track(ctas[id].event, ctas[id].props); });
+    });
+  })();
+</script>
 </body>
 </html>
