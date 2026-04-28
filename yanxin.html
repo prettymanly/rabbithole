@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>C-Levels by rabbithole — curiosity, given the structure of school</title>
+  <meta name="description" content="C-Levels is a 1–2 day inquiry programme for Singapore students aged 12–15. Each student follows one question they care about, investigates it with AI and primary sources, builds something from evidence, and explains what they now understand." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS — YanXin Zhang inspired
+       ============================================================ */
+    :root {
+      /* Primary */
+      --blue: #0000EE;
+      --blue-deep: #0B1DFF;
+      --blue-active: #0000CC;
+
+      /* Accent */
+      --orange: #FF6200;
+      --green-neon: #8BC200;
+      --yellow: #FFE815;
+      --magenta: #FF75F6;
+      --pink: #FF30B3;
+
+      /* Interactive */
+      --error: #FE3C01;
+      --error-deep: #E3091D;
+
+      /* Neutrals */
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray-text: #ABABAB;
+      --gray-border: #E0E0E0;
+      --off-white: #FAFAFA;
+
+      /* Type */
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      /* Layout */
+      --nav-h: 64px;
+      --container: 1440px;
+      --pad-x: 50px;
+
+      /* Shadows */
+      --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-2: 0 4px 12px rgba(0, 0, 238, 0.3);
+      --shadow-3: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-4: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+    a { color: inherit; }
+
+    /* ============================================================
+       TYPOGRAPHY
+       Display 166/600, H2 48/600, H3 36/400, Body-Large 30/800,
+       Body 20/400, Body-Small 16/400, Nav/Caption 12/400
+       ============================================================ */
+    .t-display {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(56px, 13vw, 166px);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .t-h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.2;
+      margin: 0;
+    }
+    .t-h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.22;
+      margin: 0;
+    }
+    .t-body-lg {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: 1.4;
+    }
+    .t-body {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 32px;
+    }
+    .t-body-sm {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .t-label {
+      font-family: var(--font-system);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin: 0 0 24px;
+    }
+    .t-caption {
+      font-family: var(--font-system);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    /* Accent glyph treatment — keeps the ↓ rabbithole / C-Levels mark */
+    .arrow { color: var(--orange); }
+
+    /* ============================================================
+       NAV — minimal, typographic
+       ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(255,255,255,0);
+      border-bottom: 1px solid transparent;
+      transition: background 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease;
+      z-index: 100;
+      gap: 16px;
+    }
+    .nav--scrolled {
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .nav__brand {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: -0.01em;
+    }
+    .nav__brand small {
+      font-family: var(--font-system);
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--gray-text);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+    .nav__links {
+      display: none;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav__link {
+      font-family: var(--font-system);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 200ms ease, border-color 200ms ease;
+    }
+    .nav__link:hover { color: var(--blue-deep); border-bottom-color: var(--blue); }
+
+    .nav__cta {
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+      line-height: 1.2;
+      transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    }
+    .nav__cta:hover { background: var(--blue-deep); transform: scale(1.02); }
+    .nav__cta:active { background: var(--blue-active); box-shadow: var(--shadow-2); }
+    .nav__cta--mobile { display: inline-block; padding: 10px 16px; font-size: 12px; }
+    .nav__cta--desktop { display: none; }
+
+    /* ============================================================
+       VERTICAL LETTER STACK — desktop only, restrained
+       ============================================================ */
+    .stack { display: none; }
+
+    /* ============================================================
+       SECTION SCAFFOLD
+       ============================================================ */
+    .section {
+      position: relative;
+      padding: 60px 24px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .section--featured {
+      background: var(--black);
+      color: var(--white);
+      max-width: none;
+      margin: 0;
+      padding: 60px 24px;
+    }
+    .section--featured .t-label { color: var(--orange); }
+    .section--featured .t-display,
+    .section--featured .t-h2,
+    .section--featured .t-h3 { color: var(--white); }
+    .section--center { text-align: center; }
+    .section__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      padding: calc(var(--nav-h) + 40px) 24px 80px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--white);
+    }
+    .hero__inner {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .hero__left {
+      position: relative;
+      width: 100%;
+      max-width: 980px;
+      z-index: 2;
+    }
+    .hero__headline {
+      margin: 16px 0 32px;
+      color: var(--black);
+    }
+    .hero__statement {
+      color: var(--black);
+      margin: 0 0 32px;
+      max-width: 720px;
+    }
+    .hero__body {
+      color: var(--black);
+      max-width: 640px;
+      margin: 0 0 16px;
+    }
+    .hero__body--note {
+      color: var(--gray-text);
+    }
+    .hero__ctas {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      line-height: 24px;
+      min-height: 56px;
+      transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    }
+    .btn-primary:hover { background: var(--blue-deep); transform: scale(1.02); }
+    .btn-primary:active { background: var(--blue-active); box-shadow: var(--shadow-2); }
+    .btn-primary--inverse {
+      background: var(--white);
+      color: var(--black);
+    }
+    .btn-primary--inverse:hover { background: var(--off-white); transform: scale(1.02); }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 8px;
+      border: 2px solid var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      line-height: 24px;
+    }
+    .btn-secondary:hover { background: var(--off-white); }
+    .btn-secondary:active { background: var(--gray-border); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+    .link-blue {
+      background: none;
+      border: 0;
+      color: var(--blue);
+      font-family: var(--font-system);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      line-height: 1.4;
+      display: inline-block;
+    }
+    .link-blue:hover { color: var(--blue-deep); border-bottom-color: var(--blue); }
+    .link-blue--cream { color: var(--yellow); }
+    .link-blue--cream:hover { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+    .link-large {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 60px;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 300ms ease;
+    }
+    .link-large:hover { color: var(--yellow); }
+
+    /* ============================================================
+       HERO SCROLL CUE + STAGGER REVEAL
+       ============================================================ */
+    .hero__scroll {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--orange);
+      animation: pulse 3s ease-in-out infinite;
+      line-height: 1;
+      user-select: none;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero__fragments { display: none; }
+
+    /* ============================================================
+       PROSE
+       ============================================================ */
+    .prose {
+      max-width: 720px;
+      margin-top: 32px;
+    }
+    .prose p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      margin: 0 0 20px;
+    }
+    .prose p.lead {
+      font-weight: 800;
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: 1.4;
+    }
+    .section--featured .prose p { color: var(--white); }
+    .prose--center { margin-left: auto; margin-right: auto; text-align: center; }
+
+    /* ============================================================
+       PULL QUOTE — section 2
+       ============================================================ */
+    .pullquote {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.3;
+      color: var(--orange);
+      max-width: 880px;
+      margin: 60px 0 0;
+      padding: 28px 32px;
+      background: var(--black);
+      border: 2px solid var(--orange);
+      border-radius: 16px;
+    }
+    .section--featured .pullquote {
+      background: rgba(255,98,0,0.08);
+      border-color: var(--orange);
+    }
+
+    /* ============================================================
+       QUESTION LIST — section 3
+       ============================================================ */
+    .question-list {
+      max-width: 720px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .question-list li {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.3;
+      color: var(--black);
+      padding: 20px 0;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .question-list li:first-child { border-top: 1px solid var(--gray-border); }
+
+    /* ============================================================
+       DEFINE — section 4
+       ============================================================ */
+    .define { margin-top: 40px; max-width: 880px; }
+    .define__not {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--gray-text);
+      line-height: 32px;
+      margin: 0 0 16px;
+    }
+    .define__not strong {
+      color: var(--black);
+      font-weight: 800;
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: 1.4;
+    }
+    .define__obsessions {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(22px, 2.8vw, 32px);
+      line-height: 1.4;
+      color: var(--black);
+      margin: 40px 0 0;
+      max-width: 880px;
+      padding: 32px;
+      background: var(--yellow);
+      border-radius: 20px;
+    }
+
+    /* ============================================================
+       FOUR Cs — Project Card pattern
+       ============================================================ */
+    .cs__steps {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 60px;
+      max-width: 1080px;
+    }
+    .cstep {
+      position: relative;
+      padding: 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-1);
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .cstep:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-3);
+      border-color: var(--black);
+    }
+    .cstep__no {
+      font-family: var(--font-system);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin: 0 0 12px;
+    }
+    .cstep__name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.2;
+      color: var(--black);
+      margin: 0 0 16px;
+      letter-spacing: -0.01em;
+    }
+    .cstep__q {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: 1.35;
+      color: var(--blue);
+      margin: 0 0 20px;
+      max-width: 720px;
+    }
+    .cstep__body {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      max-width: 720px;
+      margin: 0 0 20px;
+    }
+    .cstep__sub {
+      font-family: var(--font-system);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin: 24px 0 12px;
+    }
+    .examples {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-width: 720px;
+    }
+    .examples li {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--black);
+      padding: 12px 0 12px 32px;
+      position: relative;
+    }
+    .examples li::before {
+      content: "↓";
+      position: absolute;
+      left: 0;
+      top: 12px;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .transform {
+      display: grid;
+      gap: 16px;
+      margin: 0;
+      max-width: 880px;
+    }
+    .transform__row {
+      padding: 20px 24px;
+      background: var(--off-white);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+    }
+    .transform__from {
+      font-family: var(--font-system);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--gray-text);
+      margin: 0 0 8px;
+    }
+    .transform__to {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.4;
+      color: var(--black);
+      margin: 0;
+    }
+    .says {
+      list-style: none;
+      padding: 24px 0 0 32px;
+      margin: 16px 0 0;
+      border-left: 4px solid var(--orange);
+      max-width: 720px;
+    }
+    .says li {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(20px, 2.4vw, 26px);
+      line-height: 1.45;
+      color: var(--black);
+      padding: 8px 0;
+    }
+
+    /* ============================================================
+       RESPONSIBLE AI — featured (black)
+       ============================================================ */
+    .ai__list {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 0;
+      max-width: 720px;
+    }
+    .ai__list li {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 36px;
+      color: var(--white);
+      padding-left: 32px;
+      position: relative;
+    }
+    .ai__list li::before {
+      content: "↓";
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      font-weight: 700;
+    }
+    .ai__close {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(22px, 2.8vw, 30px);
+      line-height: 1.4;
+      color: var(--yellow);
+      margin: 40px 0 0;
+      max-width: 880px;
+    }
+
+    /* ============================================================
+       C-LEVEL BOARD — featured + centred
+       ============================================================ */
+    .board__captures {
+      list-style: none;
+      padding: 0;
+      margin: 28px auto 0;
+      max-width: 640px;
+      text-align: left;
+    }
+    .board__captures li {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 36px;
+      color: var(--white);
+      padding-left: 32px;
+      position: relative;
+    }
+    .board__captures li::before {
+      content: "↓";
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .board__statement {
+      color: var(--white);
+      margin: 40px auto;
+      max-width: 720px;
+      font-weight: 800;
+    }
+    .board__artifact {
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 16/10;
+      margin: 48px auto;
+      border: 2px solid var(--white);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      padding: 32px;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+    }
+    .board__artifact-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 24px;
+      color: var(--white);
+      margin: 0;
+    }
+    .board__artifact-note {
+      font-family: var(--font-system);
+      font-size: 12px;
+      color: var(--gray-text);
+      margin: 0;
+    }
+    .board__meta {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-family: var(--font-system);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+    .board__meta .sep { color: var(--orange); }
+
+    /* ============================================================
+       FOR SCHOOLS
+       ============================================================ */
+    .schools__intro { max-width: 880px; margin-top: 32px; }
+    .schools__intro p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      margin: 0;
+    }
+    .schools__formats {
+      margin-top: 40px;
+      max-width: 720px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      list-style: none;
+      padding: 0;
+    }
+    .schools__formats li {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      padding: 12px 16px;
+      background: var(--off-white);
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+    }
+    .schools__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .schools__col {
+      padding: 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-1);
+    }
+    .schools__subheading {
+      font-family: var(--font-system);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--blue);
+      margin: 0 0 20px;
+      font-weight: 600;
+    }
+    .schools__list { list-style: none; margin: 0; padding: 0; }
+    .schools__list li {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 24px;
+      padding: 8px 0 8px 32px;
+      position: relative;
+    }
+    .schools__list li::before {
+      content: "↓";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .schools__proof {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(22px, 2.8vw, 30px);
+      line-height: 1.4;
+      color: var(--blue);
+      margin: 60px 0 24px;
+      max-width: 880px;
+    }
+    .schools__cta {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+    .schools__email {
+      font-family: var(--font-system);
+      font-size: 14px;
+      color: var(--gray-text);
+      margin: 0;
+      text-align: center;
+    }
+
+    /* ============================================================
+       WHY IT MATTERS
+       ============================================================ */
+    .why__close {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.35;
+      color: var(--yellow);
+      max-width: 880px;
+      margin-top: 40px;
+    }
+
+    /* ============================================================
+       PEOPLE
+       ============================================================ */
+    .people__intro { max-width: 880px; margin-top: 32px; }
+    .people__intro p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      margin: 0;
+    }
+    .people__block {
+      max-width: 880px;
+      margin-top: 60px;
+      padding: 32px;
+      background: var(--white);
+      border: 1px solid var(--gray-border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-1);
+    }
+    .people__name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 36px;
+      color: var(--black);
+      margin: 0 0 16px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .people__bio {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 24px;
+      margin: 0 0 16px;
+    }
+    .people__logos {
+      display: flex;
+      gap: clamp(20px, 3vw, 40px);
+      flex-wrap: wrap;
+      font-family: var(--font-system);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gray-text);
+      margin-top: 60px;
+      align-items: center;
+    }
+    .people__logos .sep { color: var(--orange); }
+
+    /* ============================================================
+       PARENTS / FORM
+       ============================================================ */
+    .parents__paras {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 720px;
+      margin-top: 32px;
+    }
+    .parents__paras p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--black);
+      margin: 0;
+    }
+    .callout {
+      max-width: 480px;
+      border: 2px solid var(--black);
+      padding: 28px 32px;
+      background: var(--yellow);
+      margin-top: 40px;
+      border-radius: 16px;
+    }
+    .callout__title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--black);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .callout__sub {
+      font-family: var(--font-system);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--black);
+      margin: 8px 0 0;
+    }
+    .form { margin-top: 60px; max-width: 560px; }
+    .field { margin-bottom: 24px; }
+    .field__label {
+      display: block;
+      font-family: var(--font-system);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+    .field__input,
+    .field__textarea {
+      width: 100%;
+      border: 2px solid var(--gray-border);
+      background: var(--white);
+      padding: 12px 16px;
+      font-family: var(--font-system);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      outline: none;
+      border-radius: 8px;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field__textarea { resize: vertical; min-height: 120px; line-height: 20px; }
+    .field__input:focus,
+    .field__textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 0, 238, 0.1);
+    }
+    .field__input.is-error,
+    .field__textarea.is-error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .field__input::placeholder,
+    .field__textarea::placeholder { color: var(--gray-text); }
+    .btn-submit {
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      padding: 16px 32px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 16px;
+      line-height: 24px;
+      min-height: 56px;
+      transition: background 200ms ease, transform 200ms ease;
+    }
+    .btn-submit:hover { background: var(--blue-deep); transform: scale(1.02); }
+    .btn-submit:active { background: var(--blue-active); box-shadow: var(--shadow-2); }
+    .btn-submit.is-shake { animation: shake 0.4s ease; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    /* ============================================================
+       FINAL CTA
+       ============================================================ */
+    .finalcta__body { max-width: 880px; margin-top: 28px; }
+    .finalcta__body p {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      color: var(--white);
+      margin: 0 0 16px;
+    }
+    .finalcta__row {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      background: var(--black);
+      padding: 60px 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: start;
+      text-align: center;
+    }
+    .footer__brand {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--orange);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .footer__brand small {
+      font-family: var(--font-system);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      display: block;
+      color: var(--white);
+      margin-top: 8px;
+      font-weight: 400;
+    }
+    .footer__meta {
+      font-family: var(--font-system);
+      font-size: 12px;
+      color: var(--gray-text);
+      margin: 12px 0 0;
+    }
+    .footer__email {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--yellow);
+      text-decoration: none;
+      transition: color 300ms ease;
+    }
+    .footer__email:hover { color: var(--white); }
+    .footer__tagline {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--white);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       BREAKPOINTS
+       ============================================================ */
+    @media (min-width: 768px) {
+      .nav { padding: 0 32px; }
+      .nav__links { display: flex; }
+      .nav__cta--mobile { display: none; }
+      .nav__cta--desktop { display: inline-block; }
+
+      .section { padding: 60px 32px; }
+      .section--featured { padding: 60px 32px; }
+
+      .stack {
+        display: block;
+        position: fixed;
+        right: 32px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        pointer-events: none;
+      }
+      .stack span {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--gray-text);
+        line-height: 1.2;
+        opacity: 0.5;
+      }
+
+      .hero { padding: calc(var(--nav-h) + 60px) 32px 80px; }
+      .hero__inner { flex-direction: row; align-items: center; }
+      .hero__left { width: 60%; }
+
+      .hero__fragments {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .hero__fragments > * { position: absolute; }
+      .frag-1 {
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--black);
+        background: var(--yellow);
+        padding: 12px 16px;
+        border-radius: 8px;
+        transform: rotate(-4deg);
+        top: 18%;
+        left: 6%;
+        max-width: 220px;
+        line-height: 1.4;
+      }
+      .frag-2 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 36px;
+        color: var(--orange);
+        transform: rotate(3deg);
+        top: 42%;
+        left: 32%;
+        line-height: 1;
+      }
+      .frag-3 {
+        font-family: var(--font-system);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+        color: var(--white);
+        background: var(--blue);
+        padding: 8px 12px;
+        border-radius: 6px;
+        transform: rotate(-2deg);
+        bottom: 26%;
+        left: 4%;
+      }
+      .frag-4 {
+        width: 120px;
+        height: 160px;
+        border: 2px solid var(--black);
+        background: var(--green-neon);
+        transform: rotate(5deg);
+        top: 12%;
+        right: 12%;
+        border-radius: 12px;
+      }
+      .frag-5 {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(160px, 22vw, 280px);
+        color: var(--blue);
+        opacity: 0.06;
+        bottom: -2%;
+        right: 4%;
+        line-height: 1;
+      }
+
+      .hero__ctas { flex-direction: row; align-items: center; gap: 16px; }
+      .hero__ctas .btn-primary,
+      .hero__ctas .btn-secondary { width: auto; }
+
+      .schools__cta { flex-direction: row; align-items: center; gap: 16px; }
+      .schools__cta .btn-primary { width: auto; display: inline-block; }
+      .schools__email { text-align: left; margin-left: 12px; }
+
+      .schools__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+      .finalcta__row { flex-direction: row; align-items: center; }
+
+      .footer {
+        grid-template-columns: 1fr 1fr 1fr;
+        text-align: left;
+        gap: 40px;
+      }
+      .footer__center { text-align: center; }
+      .footer__right { text-align: right; }
+    }
+
+    @media (min-width: 1024px) {
+      .nav { padding: 0 40px; }
+      .section { padding: 60px 40px; }
+      .section--featured { padding: 60px 40px; }
+      .hero { padding: calc(var(--nav-h) + 80px) 40px 100px; }
+      .footer { padding: 60px 40px; }
+    }
+
+    @media (min-width: 1440px) {
+      .nav { padding: 0 50px; }
+      .section { padding: 60px 50px; }
+      .section--featured { padding: 60px 50px; }
+      .hero { padding: calc(var(--nav-h) + 100px) 50px 120px; }
+      .footer { padding: 60px 50px; }
+    }
+
+    /* ============================================================
+       UTILITY
+       ============================================================ */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+
+  <!--
+    POSTHOG ANALYTICS
+    Replace POSTHOG_API_KEY_HERE with your key from:
+    posthog.com > Project Settings > Project API Key
+    Verify events in: PostHog dashboard > Live Events
+  -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,
+    e._i=[],e.init=function(i,s,a){function g(t,e)
+    {var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),
+    t[e]=function(){t.push([e].concat(
+    Array.prototype.slice.call(arguments,0)))}}
+    (p=t.createElement("script")).type="text/javascript",
+    p.crossOrigin="anonymous",
+    p.async=!0,p.src=s.api_host+
+    "/static/array.js",(r=t.getElementsByTagName("script")[0])
+    .parentNode.insertBefore(p,r);var u=e;
+    for(void 0!==a?u=e[a]=[]:a="posthog",
+    u.people=u.people||[],u.toString=function(t)
+    {var e="posthog";return"posthog"!==a&&(e+="."+a),
+    t||(e+=" (stub)"),e},u.people.toString=function()
+    {return u.toString(1)+".people (stub)"},
+    o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)
+    g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}
+    (document,window.posthog||[]);
+    posthog.init('POSTHOG_API_KEY_HERE', {
+      api_host: 'https://app.posthog.com',
+      capture_pageview: true
+    });
+  </script>
+</head>
+<body>
+
+  <!-- === NAV === -->
+  <nav class="nav" id="nav" aria-label="Primary">
+    <a class="nav__brand" href="#top">
+      <span>C-Levels</span>
+      <small>by rabbithole</small>
+    </a>
+    <div class="nav__links">
+      <a class="nav__link" href="#schools">Schools</a>
+      <a class="nav__link" href="#how">How it works</a>
+      <a class="nav__link" href="#parents">Parents</a>
+      <a class="nav__cta nav__cta--desktop" id="nav-cta" href="#enquire">Bring C-Levels to your school</a>
+    </div>
+    <a class="nav__cta nav__cta--mobile" id="nav-cta-mobile" href="#enquire">Enquire</a>
+  </nav>
+
+  <!-- === VERTICAL LETTER STACK (desktop) === -->
+  <div class="stack" aria-hidden="true">
+    <span>p</span><span>u</span><span>r</span><span>s</span><span>u</span><span>i</span><span>t</span>
+  </div>
+
+  <!-- === HERO === -->
+  <header class="hero" id="top">
+    <div class="hero__inner">
+      <div class="hero__left">
+        <p class="t-label reveal" data-reveal="0">C-LEVELS BY RABBITHOLE</p>
+        <h1 class="t-display hero__headline reveal" data-reveal="150">When AI is instant,<br>thinking is not.</h1>
+        <p class="t-body-lg hero__statement reveal" data-reveal="300">C-Levels gives a student's curiosity the structure of school without flattening the reason they cared in the first place.</p>
+        <p class="t-body hero__body reveal" data-reveal="450">C-Levels is a 1–2 day inquiry programme for students aged 12 to 15. Each student takes one question they keep coming back to, investigates it with AI and primary sources, builds something from what holds up, and explains the work to someone who was not in the room.</p>
+        <p class="t-body hero__body hero__body--note reveal" data-reveal="550">Built for Singapore schools that want AI literacy to strengthen judgement, rather than only shorten the path to an answer.</p>
+        <div class="hero__ctas reveal" data-reveal="700">
+          <button class="btn-primary" id="cta-hero-primary" type="button">Bring C-Levels to your school</button>
+          <button class="btn-secondary" id="cta-hero-secondary" type="button">See how it works</button>
+        </div>
+      </div>
+
+      <div class="hero__fragments" aria-hidden="true">
+        <div class="frag-1">What do you keep watching, searching, collecting, or arguing about?</div>
+        <div class="frag-2">A pursuit <span class="arrow">↓</span></div>
+        <div class="frag-3">Singapore · 2026</div>
+        <div class="frag-4"></div>
+        <div class="frag-5">↓</div>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">↓</div>
+  </header>
+
+  <!-- === SECTION 2 — THE PRESSURE === -->
+  <section class="section section--featured">
+    <div class="section__inner">
+      <p class="t-label">THE AI MANDATE IS HERE</p>
+      <h2 class="t-h2">Schools have access to AI.<br>The harder question is what students do with it.</h2>
+      <div class="prose">
+        <p class="lead">AI literacy is now part of school life. Students are being introduced to tools, prompts, bias, chatbots, and responsible use, and that work matters.</p>
+        <p>What a tool cannot do is decide which questions are worth asking, notice when an answer is too easy, or check whether the student in front of it actually understands what just came back.</p>
+        <p>That part still belongs to the student.</p>
+      </div>
+      <blockquote class="pullquote">C-Levels treats curiosity as something a student can practise, rather than perform.</blockquote>
+    </div>
+  </section>
+
+  <!-- === SECTION 3 — THE GAP === -->
+  <section class="section">
+    <p class="t-label">WHAT CAN GET MISSED</p>
+    <h2 class="t-h2">Students can generate answers<br>they do not understand.</h2>
+    <div class="prose">
+      <p class="lead">A student types a question, AI responds, and the work that comes back already looks polished.</p>
+    </div>
+    <ul class="question-list">
+      <li>But did they frame the question well?</li>
+      <li>Did they check the source?</li>
+      <li>Did they notice what was missing?</li>
+      <li>Can they explain the answer without hiding behind the screen?</li>
+    </ul>
+    <div class="prose">
+      <p>C-Levels is built for that gap. It works on the habits AI cannot do for a student: framing a question with care, testing the answer it gives back, noticing what is missing, and being able to explain the work in their own words afterwards.</p>
+    </div>
+  </section>
+
+  <!-- === SECTION 4 — WHAT IS A C-LEVEL === -->
+  <section class="section">
+    <p class="t-label">THE FORMAT</p>
+    <h2 class="t-h2">A C-Level is a<br>learning pursuit.</h2>
+    <div class="prose">
+      <p class="lead">A C-Level is a guided inquiry where a student follows one curiosity deeply and returns with something teachable.</p>
+    </div>
+    <div class="define">
+      <p class="define__not">It is not a worksheet, a prompt challenge, or a slide deck rushed in an afternoon.</p>
+      <p class="define__not"><strong>It is a pursuit with a clear outcome.</strong></p>
+    </div>
+    <p class="define__obsessions">A student begins with something they keep coming back to — a game mechanic, a football tactic, a manga world, a song lyric they cannot place, a family language they half-understand, a question that has been living rent-free in their head.</p>
+    <div class="prose">
+      <p>From there, they learn how to follow it properly: sharpening the question, investigating with AI and primary sources, building something from what holds up, and teaching it back to a person who has not been in the room.</p>
+      <p style="font-weight: 800; color: var(--orange); font-size: clamp(22px, 2.8vw, 30px); line-height: 1.4;">By the end, the curiosity has become visible.</p>
+    </div>
+  </section>
+
+  <!-- === SECTION 5 — THE 4Cs === -->
+  <section class="section" id="how">
+    <p class="t-label">HOW IT WORKS</p>
+    <h2 class="t-h2">Curiosity becomes learning<br>when it has a path.</h2>
+
+    <div class="cs__steps">
+      <div class="cstep">
+        <p class="cstep__no">01 · Curiosity</p>
+        <h3 class="cstep__name">What keeps pulling you back?</h3>
+        <p class="cstep__body">Students start with something they already care about. The work is not to make that interest more academic, but to find the real question sitting inside it.</p>
+        <p class="cstep__sub">Example prompts</p>
+        <ul class="examples">
+          <li>What do you keep watching, searching, collecting, or arguing about?</li>
+          <li>What part of it do you still not understand?</li>
+          <li>Why does this keep bothering or fascinating you?</li>
+        </ul>
+      </div>
+
+      <div class="cstep">
+        <p class="cstep__no">02 · Clarity</p>
+        <h3 class="cstep__name">What are you really trying to understand?</h3>
+        <p class="cstep__body">Students sharpen the question before chasing answers. They learn that a broad topic is not yet an inquiry.</p>
+        <div class="transform">
+          <div class="transform__row">
+            <p class="transform__from">"Football" becomes</p>
+            <p class="transform__to">Why do some goalkeepers dive before the penalty is kicked?</p>
+          </div>
+          <div class="transform__row">
+            <p class="transform__from">"K-pop" becomes</p>
+            <p class="transform__to">How do fan communities make a comeback feel bigger than the song itself?</p>
+          </div>
+          <div class="transform__row">
+            <p class="transform__from">"Gaming" becomes</p>
+            <p class="transform__to">Why do some games make losing feel addictive?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cstep">
+        <p class="cstep__no">03 · Creation</p>
+        <h3 class="cstep__name">What can you build from what you found?</h3>
+        <p class="cstep__body">Students draw on AI, primary sources, articles, videos, and worked examples to investigate, then turn what they find into something concrete — a theory, a map, a comic, a guide, a prototype, a visual explanation, a playlist with an argument behind it.</p>
+        <p class="cstep__q" style="margin-top: 16px;">The format follows the pursuit.</p>
+      </div>
+
+      <div class="cstep">
+        <p class="cstep__no">04 · Communication</p>
+        <h3 class="cstep__name">Can someone else understand it?</h3>
+        <p class="cstep__body">Students explain their work to someone who knows little about the topic. Vague thinking gets exposed in that conversation, and so does the moment a student realises they actually understand what they made.</p>
+        <p class="cstep__sub">A good C-Level ends with a student who can say</p>
+        <ul class="says">
+          <li>This was my question.</li>
+          <li>This is what I found.</li>
+          <li>This is what changed my mind.</li>
+          <li>This is what I made.</li>
+          <li>This is what I still want to know.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SECTION 6 — RESPONSIBLE AI === -->
+  <section class="section section--featured">
+    <div class="section__inner">
+      <p class="t-label">AI USE, MADE VISIBLE</p>
+      <h2 class="t-h2">AI is part of the pursuit.<br>It does not get to do the pursuing.</h2>
+      <div class="prose">
+        <p class="lead">Students use AI to explore, compare, challenge, and organise their thinking. Answers from a model are treated as material to inspect, rather than conclusions to repeat.</p>
+        <p>Across a C-Level, students practise:</p>
+      </div>
+      <ul class="ai__list">
+        <li>asking stronger follow-up questions</li>
+        <li>comparing AI answers with other sources</li>
+        <li>spotting assumptions</li>
+        <li>checking what might be missing</li>
+        <li>separating evidence from confidence</li>
+        <li>explaining the final work in their own words</li>
+      </ul>
+      <p class="ai__close">AI use is not hidden in C-Levels. What we make visible is the thinking around it — the questions asked, the sources checked, the parts the student worked out for themselves.</p>
+    </div>
+  </section>
+
+  <!-- === SECTION 7 — C-LEVEL BOARD === -->
+  <section class="section section--featured section--center">
+    <div class="section__inner">
+      <p class="t-label">THE C-LEVEL BOARD</p>
+      <h2 class="t-h2">Proof they followed the question.</h2>
+      <div class="prose prose--center">
+        <p>Every student completes a C-Level Board: a large-format visual record of their learning pursuit.</p>
+        <p>It captures:</p>
+      </div>
+      <ul class="board__captures">
+        <li>the question they pursued</li>
+        <li>why it mattered to them</li>
+        <li>what sources they used</li>
+        <li>how AI helped and where it fell short</li>
+        <li>what they found</li>
+        <li>what they built</li>
+        <li>how their thinking changed</li>
+        <li>what they still want to investigate</li>
+      </ul>
+      <p class="t-h3 board__statement">A C-Level Board sits closer to evidence than to a certificate — a record of a student thinking in public.</p>
+
+      <div class="board__artifact" aria-label="C-Level Board placeholder">
+        <p class="board__artifact-title">C-Level Board — photo coming soon</p>
+        <p class="board__artifact-note">A visual record of each student's pursuit</p>
+      </div>
+
+      <div class="board__meta">
+        <span>Filled in by hand</span>
+        <span class="sep">·</span>
+        <span>Unique to every student</span>
+        <span class="sep">·</span>
+        <span>Designed for display</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SECTION 8 — FOR SCHOOLS === -->
+  <section class="section" id="schools">
+    <p class="t-label">FOR SCHOOL LEADERS</p>
+    <h2 class="t-h2">A format that fits the school<br>and works on what AI<br>cannot teach on its own.</h2>
+
+    <div class="schools__intro">
+      <p>C-Levels is designed for schools that want AI learning to go past tool exposure. It runs inside the structures schools already use, and leaves a leader with something they can show parents, repeat with the next cohort, and explain to colleagues.</p>
+    </div>
+
+    <p class="t-label" style="margin-top: 60px;">IT CAN RUN AS</p>
+    <ul class="schools__formats">
+      <li>Enrichment programme</li>
+      <li>CCA session</li>
+      <li>Post-exam activity</li>
+      <li>Learning festival</li>
+      <li>Applied learning module</li>
+      <li>Holiday intensive</li>
+    </ul>
+
+    <div class="schools__grid">
+      <div class="schools__col">
+        <p class="schools__subheading">FORMAT</p>
+        <ul class="schools__list">
+          <li>1 or 2-day programme</li>
+          <li>Ages 12 to 15</li>
+          <li>12 to 15 students per cohort</li>
+          <li>No prior AI expertise required from students</li>
+          <li>Adaptable to school device and platform rules</li>
+          <li>Facilitated by practitioners from GovTech, Grab, MOE AdTech, and SIT</li>
+        </ul>
+      </div>
+      <div class="schools__col">
+        <p class="schools__subheading">WHAT YOUR SCHOOL GETS</p>
+        <ul class="schools__list">
+          <li>Completed C-Level Boards from every student</li>
+          <li>A documented programme flow</li>
+          <li>Student artefacts suitable for display or sharing</li>
+          <li>Facilitator debrief</li>
+          <li>Classroom integration notes</li>
+          <li>Optional follow-up session two weeks later</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="schools__proof">You will hear the difference in how students explain what they know.</p>
+
+    <div class="schools__cta">
+      <a class="btn-primary" id="cta-schools-whatsapp" href="https://wa.me/6512345678?text=Hi%2C%20I%27m%20interested%20in%20running%20C-Levels%20for%20students%20at%20my%20school.%20Could%20you%20share%20the%20available%20formats%3F" target="_blank" rel="noopener">Plan a school run</a>
+      <p class="schools__email">Or email: <a class="link-blue" href="mailto:hello@clevels.sg">hello@clevels.sg</a></p>
+    </div>
+  </section>
+
+  <!-- === SECTION 9 — WHY IT MATTERS === -->
+  <section class="section section--featured">
+    <div class="section__inner">
+      <p class="t-label">THE BIGGER POINT</p>
+      <h2 class="t-h2">AI changes the answer.<br>School still shapes the asker.</h2>
+      <div class="prose">
+        <p>Students are growing up in a world where answers arrive before they have finished forming the question. C-Levels gives schools a way to respond to that without slowing the technology down, and without leaving students passive around it.</p>
+        <p>A C-Level works on the habits that matter before, during, and after AI use: curiosity, judgement, evidence, creation, and explanation.</p>
+      </div>
+      <p class="why__close">That is the work an AI-exposed school still has to do.</p>
+    </div>
+  </section>
+
+  <!-- === SECTION 10 — WHO RUNS IT === -->
+  <section class="section">
+    <p class="t-label">BY RABBITHOLE</p>
+    <h2 class="t-h2">Built by practitioners<br>in learning, design,<br>and technology.</h2>
+
+    <div class="people__intro">
+      <p>C-Levels is created and facilitated by rabbithole, a learning studio working on student curiosity and self-directed inquiry.</p>
+      <p style="margin-top: 16px;">Our facilitators come from GovTech, Grab, MOE AdTech, and Singapore Institute of Technology, with practice across design thinking, education futures, UX research, and youth learning.</p>
+    </div>
+
+    <div class="people__block">
+      <h3 class="people__name">Ziff</h3>
+      <p class="people__bio">Ziff has facilitated design thinking in Singapore schools, led MOE's Classroom of the Future initiative at GovTech, and teaches design innovation at Singapore Institute of Technology. His 2019 master's research explored AI-supported learning before ChatGPT entered everyday use.</p>
+      <p class="people__bio">He is also the founder of Tumbo, a platform helping parents find enrichment that fits a child's curiosity.</p>
+    </div>
+
+    <div class="people__block">
+      <h3 class="people__name">Jia Liang</h3>
+      <p class="people__bio">Jia Liang is a UX researcher and service designer at Grab, where he co-developed internal research and design training curriculum. He has taught design thinking in Singapore primary schools, volunteers weekly with children with special needs, and works closely with curiosity-driven learning in school contexts.</p>
+    </div>
+
+    <div class="people__logos">
+      <span>GRAB</span><span class="sep">·</span>
+      <span>GOVTECH</span><span class="sep">·</span>
+      <span>MOE ADTECH</span><span class="sep">·</span>
+      <span>SINGAPORE INSTITUTE OF TECHNOLOGY</span>
+    </div>
+  </section>
+
+  <!-- === SECTION 11 — FOR PARENTS === -->
+  <section class="section" id="parents">
+    <div id="parents__form-root">
+      <p class="t-label">FOR PARENTS</p>
+      <h2 class="t-h2">Your child does not need<br>more focus. They need a way<br>to use what they are<br>already curious about.</h2>
+
+      <div class="parents__paras">
+        <p>You have probably seen the pattern. They jump between interests, ask strange questions, watch and search and save and scroll, then move on.</p>
+        <p>C-Levels gives that impulse a structure. Your child takes one thing they genuinely wonder about, investigates it with guidance, uses AI responsibly, and builds something from what they find.</p>
+        <p>They leave with more than an answer — they leave knowing how they got there.</p>
+      </div>
+
+      <div class="callout">
+        <p class="callout__title">June Holiday C-Levels</p>
+        <p class="callout__sub">Details released soon</p>
+      </div>
+
+      <div class="form" id="interest-form">
+        <div class="field">
+          <label class="field__label" for="f-name">Parent name</label>
+          <input class="field__input" id="f-name" type="text" autocomplete="name" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="f-age">Child's age</label>
+          <input class="field__input" id="f-age" type="number" min="12" max="15" inputmode="numeric" placeholder="12–15" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="f-email">Email</label>
+          <input class="field__input" id="f-email" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="f-obsession">What is your child currently obsessed with?</label>
+          <textarea class="field__textarea" id="f-obsession" rows="4" placeholder="A game, a topic, a question they keep coming back to…"></textarea>
+        </div>
+        <button class="btn-submit" id="f-submit" type="button">Register interest</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- === SECTION 12 — FINAL CTA === -->
+  <section class="section section--featured" id="enquire">
+    <div class="section__inner">
+      <p class="t-label">BRING C-LEVELS TO YOUR SCHOOL</p>
+      <h2 class="t-h2">Give students a pursuit<br>worth coming back from.</h2>
+      <div class="finalcta__body">
+        <p>C-Levels gives a school a way to turn AI literacy into student judgement that can be seen, defended, and explained.</p>
+        <p>If you are planning enrichment, CCA programming, post-exam activities, or an AI literacy extension, we can shape a run around your school's needs.</p>
+      </div>
+      <div class="finalcta__row">
+        <a class="btn-primary btn-primary--inverse" id="cta-final-whatsapp" href="https://wa.me/6512345678?text=Hi%2C%20I%27m%20interested%20in%20running%20C-Levels%20for%20students%20at%20my%20school.%20Could%20you%20share%20the%20available%20formats%3F" target="_blank" rel="noopener">Plan a school run</a>
+        <a class="link-blue link-blue--cream" id="cta-final-email" href="mailto:hello@clevels.sg?subject=C-Levels%20%E2%80%94%20school%20enquiry">Email us →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <div class="footer__left">
+      <p class="footer__brand">
+        C-Levels <span class="arrow">↓</span>
+        <small>by rabbithole</small>
+      </p>
+      <p class="footer__meta">Singapore · 2026</p>
+    </div>
+    <div class="footer__center">
+      <a class="footer__email" href="mailto:hello@clevels.sg">hello@clevels.sg</a>
+    </div>
+    <div class="footer__right">
+      <p class="footer__tagline">For students who want to know what sits behind the first answer.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // === NAV SCROLL STATE ===
+      var nav = document.getElementById('nav');
+      function handleScroll() {
+        if (window.scrollY > 80) nav.classList.add('nav--scrolled');
+        else nav.classList.remove('nav--scrolled');
+      }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      // === HERO STAGGER REVEAL ===
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        var delay = parseInt(el.getAttribute('data-reveal') || '0', 10);
+        setTimeout(function () { el.classList.add('is-in'); }, delay);
+      });
+
+      // === SMOOTH SCROLL ===
+      function scrollToId(id) {
+        var t = document.getElementById(id);
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var href = a.getAttribute('href') || '';
+          if (href === '#' || href.length < 2) return;
+          var id = href.slice(1);
+          if (id === 'top') {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+          var target = document.getElementById(id);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // === HERO CTAs ===
+      var heroPrimary = document.getElementById('cta-hero-primary');
+      if (heroPrimary) {
+        heroPrimary.addEventListener('click', function () {
+          if (window.posthog) posthog.capture('cta_clicked', { cta: 'hero_school_leaders' });
+          scrollToId('schools');
+        });
+      }
+      var heroSecondary = document.getElementById('cta-hero-secondary');
+      if (heroSecondary) {
+        heroSecondary.addEventListener('click', function () {
+          if (window.posthog) posthog.capture('cta_clicked', { cta: 'hero_how_it_works' });
+          scrollToId('how');
+        });
+      }
+
+      // === NAV CTA ===
+      ['nav-cta', 'nav-cta-mobile'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('click', function () {
+          if (window.posthog) posthog.capture('cta_clicked', { cta: 'nav_enquire' });
+        });
+      });
+
+      // === WHATSAPP TRACKING ===
+      var w1 = document.getElementById('cta-schools-whatsapp');
+      if (w1) w1.addEventListener('click', function () {
+        if (window.posthog) posthog.capture('whatsapp_clicked', { source: 'schools_section' });
+      });
+      var w2 = document.getElementById('cta-final-whatsapp');
+      if (w2) w2.addEventListener('click', function () {
+        if (window.posthog) posthog.capture('whatsapp_clicked', { source: 'final_cta' });
+      });
+
+      // === EMAIL TRACKING ===
+      var em = document.getElementById('cta-final-email');
+      if (em) em.addEventListener('click', function () {
+        if (window.posthog) posthog.capture('email_clicked', { source: 'final_cta' });
+      });
+
+      // === FORM HANDLING ===
+      var submitBtn = document.getElementById('f-submit');
+      var fieldIds = ['f-name', 'f-age', 'f-email', 'f-obsession'];
+
+      function handleFormSubmit() {
+        if (window.posthog) posthog.capture('form_attempted', { cohort: 'june_2026' });
+
+        var allFilled = true;
+        fieldIds.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          var val = (el.value || '').trim();
+          if (!val) { el.classList.add('is-error'); allFilled = false; }
+          else { el.classList.remove('is-error'); }
+        });
+
+        if (!allFilled) {
+          submitBtn.classList.remove('is-shake');
+          void submitBtn.offsetWidth;
+          submitBtn.classList.add('is-shake');
+          return;
+        }
+
+        if (window.posthog) posthog.capture('form_completed', { cohort: 'june_2026' });
+
+        var root = document.getElementById('parents__form-root');
+        if (!root) return;
+        root.innerHTML =
+          '<div style="padding: 60px 0; max-width: 720px;">' +
+            '<p style="font-family: var(--font-display); font-weight: 800; font-size: clamp(28px,4vw,48px); color: var(--black); line-height: 1.2; margin: 0;">' +
+              'You’re in.<br>We’ll be in touch before the cohort opens.' +
+            '</p>' +
+            '<p style="font-family: var(--font-system); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-top: 24px; font-weight: 600;">' +
+              'C-Levels ↓ by rabbithole' +
+            '</p>' +
+          '</div>';
+      }
+
+      if (submitBtn) submitBtn.addEventListener('click', handleFormSubmit);
+
+      fieldIds.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', function () {
+          if ((el.value || '').trim()) el.classList.remove('is-error');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

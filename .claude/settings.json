@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Read any file in project",
+      "Edit index.html",
+      "Edit files in .claude/",
+      "Run: python3 -m http.server 8080",
+      "mcp__Claude_Preview__preview_screenshot",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__read_page"
+    ],
+    "ask": [
+      "Delete any file",
+      "Create new files outside root",
+      "Install any package",
+      "Any git commit or push"
+    ],
+    "deny": [
+      "Touch any .env file",
+      "Read or write to /archive",
+      "Run rm -rf anything",
+      "Add tracking scripts not explicitly approved"
+    ]
+  }
+}

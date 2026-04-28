@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel
+.vercel/
+
+# Node (defensive, not used here)
+node_modules/
+
+# Env / secrets — never commit
+.env
+.env.*
+
+# Logs
+*.log
+
+# Claude local overrides (project-level config IS committed; local-only is not)
+.claude/settings.local.json
+
+# Archive (per CLAUDE.md — never touched)
+/archive/

@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "beforeBashExecute": [
+      {
+        "name": "Block destructive commands",
+        "pattern": "rm -rf|DROP TABLE|truncate",
+        "action": "block",
+        "message": "Destructive command blocked. Confirm manually."
+      }
+    ],
+    "beforeTaskComplete": [
+      {
+        "name": "Mobile check reminder",
+        "command": "echo 'Test at 375px mobile width before marking done'",
+        "always": true
+      }
+    ]
+  }
+}
