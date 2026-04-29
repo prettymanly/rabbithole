@@ -4,12 +4,38 @@
 <meta charset="utf-8" />
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>C-Levels by rabbithole</title>
-<meta name="description" content="Two pilot programmes for Singapore students aged 12–15. C-Levels train the thinking AI can't do for them. Two pilot schools. This year. No programme fee." />
+<meta name="description" content="Two pilot programmes for Singapore students aged 12–15. C-Levels train the thinking AI can’t do for them. Two pilot schools. This year. No programme fee." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@200;300;400;600;800&family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=Outfit:ital,wght@0,200;0,300;0,400;0,600;0,800;1,300;1,400;1,600&family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/styles.css" />
+<style>
+  /* v2 typography craft — page-scoped overrides only */
+  body {
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+  .nav a[href="/curiosity"], .nav a[href="/design"], .nav a[href="/why"] {
+    letter-spacing: 0.1em;
+  }
+  /* Lead paragraph type — promoted hierarchy */
+  .v2-lead {
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-weight: 600;
+    line-height: 1.32;
+    letter-spacing: -0.005em;
+  }
+  /* Pill comparison badge */
+  .v2-badge {
+    position: fixed; bottom: 16px; right: 16px; z-index: 200;
+    background: #FF6200; color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 9px 14px; border-radius: 999px; text-decoration: none;
+  }
+  .v2-badge:hover { background: #0000EE; }
+</style>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -62,9 +88,9 @@
       </span>
     </a>
     <nav class="hidden md:flex items-center gap-6">
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
-      <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/why">Why</a>
+      <a class="font-inter font-semibold tracking-[0.1em] uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
+      <a class="font-inter font-semibold tracking-[0.1em] uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
+      <a class="font-inter font-semibold tracking-[0.1em] uppercase text-[11px] text-black hover:text-blue transition-colors" href="/why">Why</a>
       <a id="nav-cta" class="bg-blue text-white font-inter font-bold uppercase text-[11px] tracking-widest px-5 py-2.5 rounded-full hover:bg-blue-deep transition" href="#talk">Talk to us</a>
     </nav>
     <a id="nav-cta-mobile" class="md:hidden bg-blue text-white font-inter font-bold uppercase text-[10px] tracking-widest px-4 py-2 rounded-full" href="#talk">Talk</a>
@@ -84,12 +110,12 @@
     <h1 class="font-outfit text-huge leading-[0.95] tracking-tighter mb-12">
       <span class="font-light">O-Levels test recall.</span><br/>
       <span class="font-light">A-Levels test reasoning.</span><br/>
-      <span class="text-orange">C-Levels</span> train what <span class="whitespace-nowrap">AI can't.</span>
+      <span class="text-orange">C-Levels</span> train what <span class="whitespace-nowrap">AI can’t.</span>
     </h1>
 
-    <p class="font-display text-lg md:text-xl text-black/75 max-w-2xl mb-10">
+    <p class="font-display v2-lead text-black/80 max-w-2xl mb-10">
       Two programmes for Singapore students aged 12–15.<br/>
-      Two pilot schools. This year.
+      Two pilot schools. <em class="text-orange font-semibold italic">This year.</em>
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 mb-10">
@@ -115,8 +141,8 @@
   <div class="max-w-6xl mx-auto">
     <span class="section-label">TWO C-LEVELS · PICK YOUR FIT</span>
     <h2 class="font-outfit text-big mb-14 leading-[0.98] tracking-tight">
-      One starts with an <span class="text-orange">obsession</span>.<br/>
-      One starts with a <span class="text-blue">problem</span>.<br/>
+      One starts with an <em class="text-orange italic font-extrabold">obsession</em>.<br/>
+      One starts with a <em class="text-blue italic font-extrabold">problem</em>.<br/>
       Both end with work students can explain, defend, and own.
     </h2>
 
@@ -126,7 +152,7 @@
         <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-black/60 group-hover:text-white/60 mb-2">C-Level:</p>
         <h3 class="font-outfit text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight text-orange group-hover:text-white">Curiosity</h3>
         <p class="font-display text-lg font-semibold mb-6 leading-snug">Turn one <strong class="font-extrabold">obsession</strong> into a learning pursuit they own.</p>
-        <p class="font-display text-sm leading-relaxed opacity-80 mb-6">For the student who keeps returning to one thing. A game, a song, a question. Nobody's taught them how to follow it properly.</p>
+        <p class="font-display text-sm leading-relaxed opacity-80 mb-6">For the student who keeps returning to one thing. A game, a song, a question. Nobody’s taught them how to follow it properly.</p>
         <ul class="space-y-1.5 font-display text-sm mb-6">
           <li class="flex items-start"><span class="text-orange font-bold mr-2 group-hover:text-blue">↓</span>Pick the obsession</li>
           <li class="flex items-start"><span class="text-orange font-bold mr-2 group-hover:text-blue">↓</span>Investigate with AI + sources</li>
@@ -173,9 +199,9 @@
 <section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light">
   <div class="max-w-3xl">
     <span class="section-label">THE PILOT</span>
-    <p class="font-outfit text-2xl md:text-3xl font-extrabold mb-6 leading-snug">Two Singapore schools, this year. No programme fee.</p>
+    <p class="font-outfit text-2xl md:text-3xl font-extrabold mb-6 leading-[1.05] tracking-tight">Two Singapore schools, this year. No programme fee.</p>
     <p class="font-display text-lg leading-relaxed text-black/82 mb-6">
-      We haven't run a paid cohort yet. The two pilot schools keep the artefacts and the right to use them publicly. We co-document the run and write up what worked. Each school picks a programme — <a href="/curiosity" class="font-semibold text-orange underline underline-offset-4 decoration-2 hover:decoration-orange/60">Curiosity</a> or <a href="/design" class="font-semibold text-blue underline underline-offset-4 decoration-2 hover:decoration-blue/60">Design</a>.
+      We haven’t run a paid cohort yet. The two pilot schools keep the artefacts and the right to use them publicly. We co-document the run and write up what worked. Each school picks a programme — <a href="/curiosity" class="font-semibold text-orange underline underline-offset-4 decoration-2 hover:decoration-orange/60">Curiosity</a> or <a href="/design" class="font-semibold text-blue underline underline-offset-4 decoration-2 hover:decoration-blue/60">Design</a>.
     </p>
   </div>
 </section>
@@ -183,10 +209,10 @@
 <!-- ============ §5 WHY-TEASE ============ -->
 <section class="px-6 md:px-12 py-20 bg-white">
   <div class="max-w-3xl">
-    <span class="section-label">WHY WE'RE BUILDING THIS</span>
-    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-5 max-w-2xl">The argument about kids and AI is often framed as a tradeoff. Equip them and risk hollowing them out. Shield them and risk leaving them behind. The fears are valid. <em class="not-italic font-semibold text-orange">What if the worry isn't really about kids?</em></p>
+    <span class="section-label">WHY WE’RE BUILDING THIS</span>
+    <p class="font-display v2-lead text-black/85 mb-6 max-w-2xl">The argument about kids and AI is often framed as a tradeoff. Equip them and risk hollowing them out. Shield them and risk leaving them behind. The fears are valid. <em class="font-semibold text-orange italic">What if the worry isn’t really about kids?</em></p>
     <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-5 max-w-2xl">Most of us — adults included — happily outsource our thinking. We are all forming habits with AI right now, mostly without noticing. The same tool, asked differently, can challenge, sharpen, stretch thinking instead of replacing it. Used that way, it feels, accurately, like work. It is also the use <em>most worth practising</em> before the easier version becomes default.</p>
-    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-8 max-w-2xl">Kids in Singapore now meet AI at ten, inside the school's guardrails. By twelve to fifteen, the guardrails fall away. We're building the container that turns that window into habits worth keeping. The way in, we believe, is <span class="font-semibold text-orange">intrigue</span>.</p>
+    <p class="font-display text-lg md:text-xl leading-relaxed text-black/85 mb-8 max-w-2xl">Kids in Singapore now meet AI at ten, inside the school’s guardrails. By twelve to fifteen, the guardrails fall away. We’re building the container that turns that window into habits worth keeping. The way in, we believe, is <em class="italic font-semibold text-orange">intrigue</em>.</p>
     <a href="/why" class="font-inter text-sm font-bold uppercase tracking-[0.18em] text-blue hover:underline">Enter The Rabbithole →</a>
   </div>
 </section>
@@ -196,7 +222,7 @@
   <div class="max-w-4xl mx-auto">
     <span class="section-label section-label--orange">TALK TO US</span>
     <p class="font-outfit italic text-2xl md:text-3xl font-light text-white/90 mb-12 max-w-2xl leading-snug">
-      Twenty minutes is usually enough to know if there's a fit.
+      Twenty minutes is usually enough to know if there’s a fit.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 mb-6">
       <a id="cta-final" class="bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a call →</a>
@@ -309,6 +335,6 @@
   <span class="cc-text">Enter</span>
   <span class="cc-arrow">→</span>
 </div>
-<a href="/v2" style="position:fixed;bottom:16px;right:16px;z-index:200;background:#000;color:#fff;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:9px 14px;border-radius:999px;text-decoration:none;" title="Try the typography v2">View v2 →</a>
+<a class="v2-badge" href="/" title="Compare with v1">v2 · typography craft</a>
 </body>
 </html>
