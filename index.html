@@ -114,7 +114,7 @@
 <section class="px-6 md:px-12 py-20 bg-off-white border-y border-gray-light" id="programmes">
   <div class="max-w-6xl mx-auto">
     <span class="section-label">TWO C-LEVELS · PICK YOUR FIT</span>
-    <h2 class="font-outfit text-big mb-14 leading-tight">
+    <h2 class="font-outfit text-big mb-14 leading-[0.98] tracking-tight">
       One starts with an <span class="text-orange">obsession</span>.<br/>
       One starts with a <span class="text-blue">problem</span>.<br/>
       Both end with work students can explain, defend, and own.
@@ -122,7 +122,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Curiosity card -->
-      <a href="/curiosity" class="group block border-2 border-black bg-white p-8 hover:bg-orange hover:text-white transition-all duration-300">
+      <a href="/curiosity" data-cursor-colour="blue" class="programme-card group block border-2 border-black bg-white p-8 hover:bg-orange hover:border-orange hover:text-white transition-all duration-300">
         <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-black/60 group-hover:text-white/60 mb-2">C-Level:</p>
         <h3 class="font-outfit text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight text-orange group-hover:text-white">Curiosity</h3>
         <p class="font-display text-lg font-semibold mb-6 leading-snug">Turn one <strong class="font-extrabold">obsession</strong> into a learning pursuit they own.</p>
@@ -138,7 +138,7 @@
       </a>
 
       <!-- Design card -->
-      <a href="/design" class="group block border-2 border-black bg-white p-8 hover:bg-blue hover:text-white transition-all duration-300">
+      <a href="/design" data-cursor-colour="orange" class="programme-card group block border-2 border-black bg-white p-8 hover:bg-blue hover:border-blue hover:text-white transition-all duration-300">
         <p class="font-inter text-[11px] uppercase tracking-[0.18em] text-black/60 group-hover:text-white/60 mb-2">C-Level:</p>
         <h3 class="font-outfit text-3xl md:text-4xl font-extrabold mb-5 leading-tight tracking-tight text-blue group-hover:text-white">Design</h3>
         <p class="font-display text-lg font-semibold mb-6 leading-snug">Turn one <strong class="font-extrabold">problem</strong> they keep noticing into a working prototype.</p>
@@ -269,7 +269,45 @@
       if (!el) return;
       el.addEventListener('click', function () { track(ctas[id].event, ctas[id].props); });
     });
+
+    // Custom cursor: morphs from circle to "Enter →" pill on programme-card hover
+    var cursor = document.getElementById('custom-cursor');
+    var cards  = document.querySelectorAll('.programme-card');
+    if (cursor && cards.length && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var mx = 0, my = 0, raf = false;
+      document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        if (!raf) {
+          raf = true;
+          requestAnimationFrame(function () {
+            cursor.style.left = mx + 'px';
+            cursor.style.top  = my + 'px';
+            raf = false;
+          });
+        }
+      }, { passive: true });
+
+      cards.forEach(function (card) {
+        var colour = card.getAttribute('data-cursor-colour') || 'orange';
+        var pillTimer = null;
+        card.addEventListener('mouseenter', function () {
+          cursor.classList.remove('custom-cursor--orange', 'custom-cursor--blue');
+          cursor.classList.add('custom-cursor--' + colour, 'is-visible');
+          clearTimeout(pillTimer);
+          pillTimer = setTimeout(function () { cursor.classList.add('is-pill'); }, 80);
+        });
+        card.addEventListener('mouseleave', function () {
+          clearTimeout(pillTimer);
+          cursor.classList.remove('is-pill');
+          pillTimer = setTimeout(function () { cursor.classList.remove('is-visible'); }, 280);
+        });
+      });
+    }
   })();
 </script>
+<div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+  <span class="cc-text">Enter</span>
+  <span class="cc-arrow">→</span>
+</div>
 </body>
 </html>
