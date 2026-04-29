@@ -35,7 +35,22 @@
 
 <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
   <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
-    <a href="/" class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span></a>
+    <a href="/" class="flex items-center gap-3" aria-label="C-Levels by rabbithole — home">
+      <svg class="logo-svg" viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><clipPath id="aboveHole"><rect x="170" y="-5" width="80" height="42"/></clipPath></defs>
+        <text x="0" y="44" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" font-size="44" letter-spacing="-2" fill="currentColor">C-LEVELS</text>
+        <ellipse cx="208" cy="46" rx="26" ry="6" fill="currentColor"/>
+        <g class="logo-bunny" clip-path="url(#aboveHole)">
+          <ellipse cx="201" cy="14" rx="3.4" ry="11.5" fill="white" stroke="currentColor" stroke-width="2.6"/>
+          <g transform="rotate(12 215 16)"><ellipse cx="215" cy="16" rx="3.4" ry="11.5" fill="white" stroke="currentColor" stroke-width="2.6"/></g>
+          <ellipse cx="208" cy="36" rx="13" ry="12" fill="white" stroke="currentColor" stroke-width="2.6"/>
+          <circle cx="203" cy="35" r="1.8" fill="currentColor"/>
+          <circle cx="213" cy="35" r="1.8" fill="currentColor"/>
+          <ellipse cx="208" cy="38.5" rx="1.1" ry="0.7" fill="currentColor"/>
+        </g>
+      </svg>
+      <span class="hidden sm:inline font-display text-xs italic text-gray-500 leading-none">by rabbithole</span>
+    </a>
     <nav class="hidden md:flex items-center gap-6">
       <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
       <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/design">Design</a>
@@ -102,7 +117,7 @@
 <section class="bg-off-white border-y border-gray-light px-6 md:px-12 py-16" id="talk">
   <div class="max-w-3xl">
     <p class="font-display text-lg md:text-xl leading-relaxed text-black/82 mb-8">If your school is open to running one of the first two pilots, twenty minutes on a call is usually enough to know if there's a fit.</p>
-    <a id="cta-final" class="inline-block bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-4 rounded-full hover:bg-blue-deep transition" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+    <a id="cta-final" class="inline-block bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-4 rounded-full hover:bg-blue-deep transition" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a call →</a>
     <p class="font-display italic text-base text-black/65 mt-6">Or email <a class="text-blue hover:underline" href="mailto:hello@clevels.sg">hello@clevels.sg</a>.</p>
   </div>
 </section>
@@ -135,6 +150,9 @@
 <script>
   (function () {
     function track(event, props) { if (window.posthog) posthog.capture(event, Object.assign({ page: 'why' }, props || {})); }
+    function handleScroll() { if (window.scrollY > 80) document.body.classList.add('scrolled'); else document.body.classList.remove('scrolled'); }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var href = a.getAttribute('href') || ''; if (href.length < 2) return;

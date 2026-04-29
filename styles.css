@@ -83,3 +83,34 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
 /* Smooth scroll anchor offset */
 html { scroll-padding-top: 80px; }
+
+/* === Logo === */
+/* C-LEVELS wordmark + hole + bunny that hides into the hole on scroll. */
+
+.logo-svg {
+  height: 36px;
+  width: auto;
+  display: block;
+  color: #000;
+}
+
+.logo-bunny {
+  transform-origin: 200px 30px;
+  transition:
+    transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity   320ms ease 60ms;
+}
+
+/* When body.scrolled is set (≥80px scroll), bunny dives into the hole */
+body.scrolled .logo-bunny {
+  transform: translateY(22px) scale(0.85);
+  opacity: 0;
+  transition:
+    transform 360ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   200ms ease 100ms;
+}
+
+/* Reduced-motion: respect user pref */
+@media (prefers-reduced-motion: reduce) {
+  .logo-bunny { transition: none; }
+}

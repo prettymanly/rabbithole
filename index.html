@@ -55,10 +55,27 @@
 <!-- ============ NAV ============ -->
 <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
   <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
-    <a href="/" class="flex items-center">
-      <div class="text-xl md:text-2xl font-extrabold tracking-tighter uppercase">
-        C-Levels <span class="lowercase font-normal text-gray-500 italic">by rabbithole</span>
-      </div>
+    <a href="/" class="flex items-center gap-3" aria-label="C-Levels by rabbithole — home">
+      <svg class="logo-svg" viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <clipPath id="aboveHole">
+            <rect x="170" y="-5" width="80" height="42"/>
+          </clipPath>
+        </defs>
+        <text x="0" y="44" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" font-size="44" letter-spacing="-2" fill="currentColor">C-LEVELS</text>
+        <ellipse cx="208" cy="46" rx="26" ry="6" fill="currentColor"/>
+        <g class="logo-bunny" clip-path="url(#aboveHole)">
+          <ellipse cx="201" cy="14" rx="3.4" ry="11.5" fill="white" stroke="currentColor" stroke-width="2.6"/>
+          <g transform="rotate(12 215 16)">
+            <ellipse cx="215" cy="16" rx="3.4" ry="11.5" fill="white" stroke="currentColor" stroke-width="2.6"/>
+          </g>
+          <ellipse cx="208" cy="36" rx="13" ry="12" fill="white" stroke="currentColor" stroke-width="2.6"/>
+          <circle cx="203" cy="35" r="1.8" fill="currentColor"/>
+          <circle cx="213" cy="35" r="1.8" fill="currentColor"/>
+          <ellipse cx="208" cy="38.5" rx="1.1" ry="0.7" fill="currentColor"/>
+        </g>
+      </svg>
+      <span class="hidden sm:inline font-display text-xs italic text-gray-500 leading-none">by rabbithole</span>
     </a>
     <nav class="hidden md:flex items-center gap-6">
       <a class="font-inter font-semibold tracking-tight uppercase text-[11px] text-black hover:text-blue transition-colors" href="/curiosity">Curiosity</a>
@@ -92,7 +109,7 @@
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 mb-10">
-      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-hero" class="bg-blue text-white font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a call →</a>
       <a id="cta-hero-wa" class="border-2 border-black text-black font-inter font-bold uppercase text-xs tracking-[0.18em] px-7 py-4 rounded-full hover:bg-black hover:text-white transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20site%20and%20would%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener">WhatsApp</a>
     </div>
 
@@ -198,7 +215,7 @@
       Twenty minutes is usually enough to know if there's a fit.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 mb-6">
-      <a id="cta-final" class="bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a 20-minute call →</a>
+      <a id="cta-final" class="bg-blue text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-blue-deep transition text-center" href="https://calendly.com/CALENDLY_URL_HERE" target="_blank" rel="noopener">Book a call →</a>
       <a id="cta-final-wa" class="border-2 border-white text-white font-inter font-bold uppercase text-sm tracking-[0.18em] px-8 py-5 rounded-full hover:bg-white hover:text-black transition text-center" href="https://wa.me/6593227317?text=Hi%2C%20I%20saw%20the%20C-Levels%20site%20and%20would%20like%20to%20talk%20about%20running%20it%20at%20our%20school." target="_blank" rel="noopener">WhatsApp</a>
     </div>
     <p class="font-inter text-sm text-white/55 italic">Or email <a class="text-white/80 hover:text-white underline" href="mailto:hello@clevels.sg">hello@clevels.sg</a></p>
@@ -239,6 +256,13 @@
     function track(event, props) {
       if (window.posthog) posthog.capture(event, Object.assign({ page: 'hub' }, props || {}));
     }
+    // Scroll state: toggle body.scrolled past 80px (drives nav frost + logo bunny dive)
+    function handleScroll() {
+      if (window.scrollY > 80) document.body.classList.add('scrolled');
+      else document.body.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
         var href = a.getAttribute('href') || '';
