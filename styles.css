@@ -150,6 +150,7 @@ html { scroll-padding-top: 80px; }
   position: absolute;
   inset: 0 0 9% 0;          /* clip line just above hole's top edge */
   overflow: hidden;
+  transform: translate(-3%, 3%);  /* nudge bunny left and down for hole alignment */
 }
 
 .hero-bunny {
