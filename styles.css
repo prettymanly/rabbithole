@@ -108,12 +108,12 @@ html { scroll-padding-top: 80px; }
 
 .logo-bunny-wrapper {
   position: absolute;
-  /* Position calibrated to Logo_Bottom canvas (1018×233):
-     bunny is 140×190px, sitting over the hole at the right side */
-  left: 82.5%;
-  top: 4.3%;
-  width: 13.7%;
-  height: 81.5%;
+  /* Measured directly from Logo_Position Reference.png (1018×233 canvas):
+     bunny region x=[808,963] y=[12,222], i.e. 155×210px sitting over the hole */
+  left: 79.37%;
+  top: 5.15%;
+  width: 15.23%;
+  height: 90.13%;
   overflow: hidden;
   pointer-events: none;
 }
