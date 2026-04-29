@@ -88,7 +88,8 @@ Nav across all pages: brand mark left ("C-Levels by rabbithole"), three text lin
   > O-Levels test knowledge.
   > A-Levels test analysis.
   > **C-Levels** train the thinking AI can't do for them.
-- "C-Levels" gets the orange `text-stroke` treatment — eye lands on the brand mark in the line.
+- Set at `text-huge` (clamp 40–100px), NOT `text-mega`. Per the type-scale principle: one display moment per page, earned by one word, not four lines. Mega broke the page rhythm.
+- "C-Levels" gets a **solid orange** treatment (`text-orange`) — the brand mark within the parallel structure. This IS the page's display moment; the eye lands on it. (Earlier draft used `text-stroke` outline, which rendered invisible on white-on-white at large sizes.)
 - **Subhead:** "Two programmes for Singapore students aged 12–15. Two pilot schools. This year."
 - **CTAs:** Calendly button primary + WhatsApp secondary. A quiet "Or read about both programmes ↓" anchor link below.
 - **Trust strip (small caps):** "BUILT BY PRACTITIONERS FROM GOVTECH · GRAB · MOE EDTECH · SINGAPORE INSTITUTE OF TECHNOLOGY"
