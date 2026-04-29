@@ -185,6 +185,42 @@ body.scrolled .hero-bunny {
   .hero-bunny { transition: none; }
 }
 
+/* === Bunny eye-blink ===
+   Two skin-colour overlays positioned on top of the bunny's open eyes.
+   When .is-blinking is on, they cover the black eye dot with white and
+   show a thin horizontal line (the closed eyelid). Triggered by JS. */
+
+.eye-blinker {
+  position: absolute;
+  top: 68%;
+  width: 4.5%;
+  aspect-ratio: 1.5 / 1;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 60ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.eye-blinker--left  { left: 38%; }
+.eye-blinker--right { left: 61%; }
+.eye-blinker::before {
+  content: '';
+  width: 78%;
+  height: 14%;
+  background: #000;
+  border-radius: 999px;
+}
+.eye-blinker.is-blinking { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .eye-blinker { display: none; }
+}
+
 /* === CUSTOM CURSOR (programme cards on hover-capable devices) === */
 /* Default: small circle with arrow. On card hover: morphs into a pill
    that says "Enter →". Cross-coloured against the card's hover bg. */

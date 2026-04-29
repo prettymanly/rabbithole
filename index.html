@@ -93,7 +93,7 @@
       <h1 class="font-outfit leading-[0.92] mb-10 text-black">
         <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">O-Levels test recall</span>
         <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">A-Levels test reasoning</span>
-        <span class="block font-tungsten text-orange text-[clamp(96px,15vw,200px)] font-[900] leading-[0.86] tracking-[0.02em] my-2">C<span class="font-[500]">-</span>LEVELS</span>
+        <span class="block font-tungsten text-orange text-[clamp(96px,15vw,200px)] font-[900] leading-[0.84] tracking-[0.02em] -mb-1">C<span class="font-[500]">-</span>LEVELS</span>
         <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">train what AI can’t</span>
       </h1>
 
@@ -116,6 +116,8 @@
       <div class="hero-hole"></div>
       <div class="hero-bunny-frame">
         <img class="hero-bunny" src="/assets/Logo_Top.png" alt="" draggable="false">
+        <span class="eye-blinker eye-blinker--left"  aria-hidden="true"></span>
+        <span class="eye-blinker eye-blinker--right" aria-hidden="true"></span>
       </div>
     </div>
 
@@ -318,6 +320,25 @@
           pillTimer = setTimeout(function () { cursor.classList.remove('is-visible'); }, 280);
         });
       });
+    }
+
+    // ===== Bunny eye-blink ===== //
+    var eyes = document.querySelectorAll('.eye-blinker');
+    function _blink() {
+      eyes.forEach(function (e) { e.classList.add('is-blinking'); });
+      setTimeout(function () {
+        eyes.forEach(function (e) { e.classList.remove('is-blinking'); });
+      }, 120);
+    }
+    function _blinkTwice() {
+      _blink();
+      setTimeout(_blink, 280);
+    }
+    if (eyes.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTimeout(function () {
+        _blinkTwice();
+        setInterval(_blinkTwice, 30000);
+      }, 6000);
     }
   })();
 </script>
