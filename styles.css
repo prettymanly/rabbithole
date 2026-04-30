@@ -202,7 +202,7 @@ body.scrolled .hero-bunny {
   /* Slight extra leading per-line so descenders (g, y, p) aren't clipped
      by the parent h1's tight 0.92 leading. */
   line-height: 1.0 !important;
-  padding-bottom: 0.04em;
+  padding-bottom: 0.12em;
 }
 
 @media (prefers-reduced-motion: reduce) {
