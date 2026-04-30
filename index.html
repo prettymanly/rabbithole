@@ -371,7 +371,8 @@
     // Scroll-driven hero behaviour: fill three text lines, then dive bunny
     var fillLines = document.querySelectorAll('.scroll-fill');
     var STEP = 80;                              // px of scroll per line fill
-    var FILL_END = fillLines.length * STEP;      // bunny dives after this
+    var FILL_END = fillLines.length * STEP;      // text fills done after this
+    var heroStage = document.querySelector('.hero-stage');
     function handleScroll() {
       var y = window.scrollY;
       fillLines.forEach(function (el, i) {
@@ -380,8 +381,20 @@
         if (pct < 0) pct = 0; else if (pct > 100) pct = 100;
         el.style.setProperty('--fill', pct + '%');
       });
-      if (y > FILL_END) document.body.classList.add('scrolled');
-      else              document.body.classList.remove('scrolled');
+      // Dive condition: text fills done AND user has actually seen the bunny.
+      // On desktop the bunny is in the side column and visible from page-load,
+      // so the stage's center-Y is already in-viewport — fills alone gate the dive.
+      // On stacked mobile the bunny sits below the headline; we wait for its
+      // center to cross the upper 60% of the viewport before diving, so the
+      // user actually sees the face before it disappears.
+      var stageVisible = true;
+      if (heroStage) {
+        var r = heroStage.getBoundingClientRect();
+        var stageMid = r.top + r.height / 2;
+        stageVisible = stageMid < window.innerHeight * 0.45;
+      }
+      if (y > FILL_END && stageVisible) document.body.classList.add('scrolled');
+      else                              document.body.classList.remove('scrolled');
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
