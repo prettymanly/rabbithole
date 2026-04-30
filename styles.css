@@ -192,13 +192,17 @@ body.scrolled .hero-bunny {
 .scroll-fill {
   background-image: linear-gradient(
     to right,
-    #000 var(--fill, 0%),
-    #b8b8b8 calc(var(--fill, 0%) + 2%)
+    #000 calc(var(--fill, 0%) - 0.5%),
+    #b8b8b8 var(--fill, 0%)
   ) !important;
   -webkit-background-clip: text !important;
           background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
           color: transparent !important;
+  /* Slight extra leading per-line so descenders (g, y, p) aren't clipped
+     by the parent h1's tight 0.92 leading. */
+  line-height: 1.0 !important;
+  padding-bottom: 0.04em;
 }
 
 @media (prefers-reduced-motion: reduce) {

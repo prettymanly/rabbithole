@@ -64,7 +64,7 @@
 <body class="bg-white text-black antialiased">
 
 <!-- ============ NAV ============ -->
-<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav border-b border-black/5">
+<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white/85 glass-nav">
   <div class="max-w-[1440px] mx-auto h-full flex items-center justify-between px-6 md:px-12">
     <a href="/" class="logotype" aria-label="C-Levels — home">C-Levels</a>
     <nav class="hidden md:flex items-center gap-6">
@@ -91,10 +91,10 @@
     <!-- LEFT: headline + subhead + CTAs + credit strip -->
     <div>
       <h1 class="font-outfit leading-[0.92] mb-10 text-black">
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">O-Levels test recall</span>
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">A-Levels test reasoning</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-light tracking-tight scroll-fill">O-Levels test recall</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-light tracking-tight scroll-fill">A-Levels test reasoning</span>
         <span class="block font-tungsten text-orange text-[clamp(96px,15vw,200px)] font-[900] leading-[0.84] tracking-[0.02em] -mb-1">C<span class="font-[500]">-</span>LEVELS</span>
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">train what AI can’t</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-light tracking-tight scroll-fill">train what AI can’t</span>
       </h1>
 
       <p class="font-display text-lg md:text-xl text-black/75 max-w-2xl mb-10 leading-snug">
@@ -262,7 +262,7 @@
     }
     // Scroll-driven hero behaviour: fill three text lines, then dive bunny
     var fillLines = document.querySelectorAll('.scroll-fill');
-    var STEP = 120;                              // px of scroll per line fill
+    var STEP = 80;                              // px of scroll per line fill
     var FILL_END = fillLines.length * STEP;      // bunny dives after this
     function handleScroll() {
       var y = window.scrollY;
