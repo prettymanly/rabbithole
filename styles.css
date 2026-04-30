@@ -185,6 +185,30 @@ body.scrolled .hero-bunny {
   .hero-bunny { transition: none; }
 }
 
+/* === Scroll-driven text fill ===
+   Lines start grey; as user scrolls, each fills from black (left) over
+   grey (right). Driven by --fill (0–100%) set per-line via JS. */
+
+.scroll-fill {
+  background-image: linear-gradient(
+    to right,
+    #000 var(--fill, 0%),
+    #b8b8b8 calc(var(--fill, 0%) + 2%)
+  );
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fill {
+    background-image: none;
+    -webkit-text-fill-color: #000;
+            color: #000;
+  }
+}
+
 /* === Bunny eye-blink ===
    Two skin-colour overlays positioned on top of the bunny's open eyes.
    When .is-blinking is on, they cover the black eye dot with white and

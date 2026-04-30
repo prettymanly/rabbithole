@@ -91,10 +91,10 @@
     <!-- LEFT: headline + subhead + CTAs + credit strip -->
     <div>
       <h1 class="font-outfit leading-[0.92] mb-10 text-black">
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">O-Levels test recall</span>
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">A-Levels test reasoning</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">O-Levels test recall</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">A-Levels test reasoning</span>
         <span class="block font-tungsten text-orange text-[clamp(96px,15vw,200px)] font-[900] leading-[0.84] tracking-[0.02em] -mb-1">C<span class="font-[500]">-</span>LEVELS</span>
-        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight">train what AI can’t</span>
+        <span class="block text-[clamp(40px,5.4vw,72px)] font-normal tracking-tight scroll-fill">train what AI can’t</span>
       </h1>
 
       <p class="font-display text-lg md:text-xl text-black/75 max-w-2xl mb-10 leading-snug">
@@ -258,10 +258,20 @@
     function track(event, props) {
       if (window.posthog) posthog.capture(event, Object.assign({ page: 'hub' }, props || {}));
     }
-    // Scroll state: toggle body.scrolled past 80px (drives nav frost + logo bunny dive)
+    // Scroll-driven hero behaviour: fill three text lines, then dive bunny
+    var fillLines = document.querySelectorAll('.scroll-fill');
+    var STEP = 160;                              // px of scroll per line fill
+    var FILL_END = fillLines.length * STEP;      // bunny dives after this
     function handleScroll() {
-      if (window.scrollY > 80) document.body.classList.add('scrolled');
-      else document.body.classList.remove('scrolled');
+      var y = window.scrollY;
+      fillLines.forEach(function (el, i) {
+        var start = i * STEP, end = start + STEP;
+        var pct = ((y - start) / (end - start)) * 100;
+        if (pct < 0) pct = 0; else if (pct > 100) pct = 100;
+        el.style.setProperty('--fill', pct + '%');
+      });
+      if (y > FILL_END) document.body.classList.add('scrolled');
+      else              document.body.classList.remove('scrolled');
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
