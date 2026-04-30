@@ -74,7 +74,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #0000EE;
+  color: #6b6b6b;             /* neutral grey — blue is reserved for Design programme + 'problem' accent */
   margin-bottom: 16px;
   display: block;
 }
@@ -299,4 +299,96 @@ body.scrolled .hero-bunny {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-bunny--blink { animation: none; }
+}
+
+
+/* === Rabbithole button (morphing) ===
+   Inspired by yanxinzhang.com case-study buttons. Default state on
+   hover-capable devices: small black circle with diagonal arrow.
+   On hover: width expands, background flips to orange, label slides in.
+   On touch devices (no hover): always rendered as the full pill so users
+   can read what it does. */
+
+.rabbithole-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  width: 280px;
+  padding: 0 24px;
+  background: #FF6200;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    width 460ms cubic-bezier(0.4, 0, 0.2, 1),
+    padding 460ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 320ms ease;
+}
+
+.rabbithole-btn-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  transition:
+    opacity 240ms ease 80ms,
+    transform 380ms cubic-bezier(0.4, 0, 0.2, 1) 80ms;
+}
+
+.rabbithole-btn-arrow {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    right 460ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 460ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover-capable: collapse to a black circle by default, expand on hover */
+@media (hover: hover) and (pointer: fine) {
+  .rabbithole-btn {
+    width: 56px;
+    padding: 0;
+    background: #000;
+  }
+  .rabbithole-btn .rabbithole-btn-label {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-12px);
+  }
+  .rabbithole-btn .rabbithole-btn-arrow {
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+  .rabbithole-btn:hover {
+    width: 280px;
+    padding: 0 24px;
+    background: #FF6200;
+  }
+  .rabbithole-btn:hover .rabbithole-btn-label {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  .rabbithole-btn:hover .rabbithole-btn-arrow {
+    right: 22px;
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rabbithole-btn,
+  .rabbithole-btn-label,
+  .rabbithole-btn-arrow { transition: none; }
 }
