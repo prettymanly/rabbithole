@@ -194,11 +194,11 @@ body.scrolled .hero-bunny {
     to right,
     #000 var(--fill, 0%),
     #b8b8b8 calc(var(--fill, 0%) + 2%)
-  );
-  -webkit-background-clip: text;
-          background-clip: text;
-  -webkit-text-fill-color: transparent;
-          color: transparent;
+  ) !important;
+  -webkit-background-clip: text !important;
+          background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+          color: transparent !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -207,42 +207,6 @@ body.scrolled .hero-bunny {
     -webkit-text-fill-color: #000;
             color: #000;
   }
-}
-
-/* === Bunny eye-blink ===
-   Two skin-colour overlays positioned on top of the bunny's open eyes.
-   When .is-blinking is on, they cover the black eye dot with white and
-   show a thin horizontal line (the closed eyelid). Triggered by JS. */
-
-.eye-blinker {
-  position: absolute;
-  top: 68%;
-  width: 4.5%;
-  aspect-ratio: 1.5 / 1;
-  background: #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 60ms ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-.eye-blinker--left  { left: 38%; }
-.eye-blinker--right { left: 61%; }
-.eye-blinker::before {
-  content: '';
-  width: 78%;
-  height: 14%;
-  background: #000;
-  border-radius: 999px;
-}
-.eye-blinker.is-blinking { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .eye-blinker { display: none; }
 }
 
 /* === CUSTOM CURSOR (programme cards on hover-capable devices) === */
@@ -313,4 +277,26 @@ body.scrolled .hero-bunny {
 @media (prefers-reduced-motion: reduce) {
   .custom-cursor { transition: none; }
   .cc-text { transition: opacity 200ms ease; transform: none; }
+}
+
+
+/* === Bunny blink crossfade ===
+   Two stacked images: rest (default) and blink (eyes closed).
+   Cycle is 12s — 4s rest → blink → 200ms gap → blink → ~7.5s rest. */
+
+.hero-bunny--blink {
+  animation: bunnyBlinkLoop 12s infinite;
+  opacity: 0;
+}
+
+@keyframes bunnyBlinkLoop {
+  0%,    33.3% { opacity: 0; }   /* 4s rest */
+  33.4%, 34.5% { opacity: 1; }   /* first blink (~130ms) */
+  34.6%, 36.4% { opacity: 0; }   /* gap (~220ms) */
+  36.5%, 37.6% { opacity: 1; }   /* second blink (~130ms) */
+  37.7%, 100%  { opacity: 0; }   /* ~7.5s rest */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bunny--blink { animation: none; }
 }
